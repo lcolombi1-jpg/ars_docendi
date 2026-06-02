@@ -166,23 +166,3 @@ scegli il tuo destino
 
 </div>
 """, unsafe_allow_html=True)
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.page_link(
-        "pages/01_discipulus.py",
-        label="ENTRA IN DISCIPVLVS"
-    )
-
-with col2:
-    st.page_link(
-        "pages/02_gladiator.py",
-        label="ENTRA IN GLADIATOR"
-    )
-
-with col3:
-    st.page_link(
-        "pages/03_imperator.py",
-        label="ENTRA IN IMPERATOR"
-    )
