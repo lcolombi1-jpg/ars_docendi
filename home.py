@@ -153,15 +153,28 @@ scegli il tuo destino
 <div class="gate-sub">BEGINNER</div>
 </a>
 
+st.page_link(
+    "pages/01_discipulus.py",
+    label="ENTRA"
+)
+
 <a class="gate violet" href="./Gladiator">
 <div class="gate-title">GLADIATOR</div>
 <div class="gate-sub">INTERMEDIATE</div>
 </a>
+st.page_link(
+    "pages/02_gladiator.py",
+    label="ENTRA"
+)
 
 <a class="gate pink" href="./Imperator">
 <div class="gate-title">IMPERATOR</div>
 <div class="gate-sub">PRO</div>
 </a>
+st.page_link(
+    "pages/03_imperator.py",
+    label="ENTRA"
+)
 
 </div>
 """, unsafe_allow_html=True)
