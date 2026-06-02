@@ -202,23 +202,10 @@ else:
     html_content = '<div class="gates">'
     
     # Arco 1: DISCIPVLVS (Sempre aperto)
-elif st.session_state.page == "discipulus":
-
-    st.markdown(
-        "<div class='hero-title'>DISCIPVLVS</div>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        "<div class='hero-sub'>initium sapientiae</div>",
-        unsafe_allow_html=True
-    )
-
-    st.info("Qui inserirai il quiz Beginner.")
-
-    if st.button("← Torna alle arcate"):
-        st.session_state.page = "lobby"
-        st.rerun()
+html_content += '<a class="gate cyan" href="./01_discipulus" target="_self">'
+    html_content += '<div class="gate-title">DISCIPVLVS</div>'
+    html_content += '<div class="gate-sub">BEGINNER</div>'
+    html_content += '</a>'
 
     # Arco 2: GLADIATOR (Si apre se sbloccato)
     if st.session_state.gladiator_sbloccato:
