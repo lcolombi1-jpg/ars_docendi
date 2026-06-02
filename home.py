@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 2. INIZIALIZZAZIONE MEMORIA (Session State) ---
+# --- 2. SESSION STATE ---
 if 'pagina_corrente' not in st.session_state:
     st.session_state.pagina_corrente = 'lobby'
 if 'gladiator_sbloccato' not in st.session_state:
@@ -15,67 +15,67 @@ if 'gladiator_sbloccato' not in st.session_state:
 if 'imperator_sbloccato' not in st.session_state:
     st.session_state.imperator_sbloccato = False
 
-def vai_ai_livelli():
-    st.session_state.pagina_corrente = 'archi'
-
-def torna_home():
-    st.session_state.pagina_corrente = 'lobby'
-
-# --- 3. CSS COMPLETO E OTTIMIZZATO ---
+# --- 3. CSS "STRICT" PER CENTRATURA E DIMENSIONI ---
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap');
 
-/* Nasconde menu e footer */
+/* Rimuove spazi bianchi di Streamlit e blocca lo scroll */
 header, footer, #MainMenu { visibility:hidden; }
-
 .stApp {
     background: radial-gradient(circle at center, #19002f 0%, #0a0015 50%, #020004 100%);
+    overflow: hidden;
+}
+.block-container { 
+    max-width: 100%; 
+    padding: 0 !important; 
+    display: flex;
+    justify-content: center;
 }
 
-.block-container { max-width:100%; padding-top:2rem; }
-
-/* CONTENITORE LOBBY CENTRATA */
-.main-lobby {
+/* CONTENITORE UNIVERSALE CENTRATO */
+.viewport-center {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    margin-top: 10vh;
+    height: 90vh; /* Usa quasi tutta l'altezza ma non tutta per sicurezza */
+    width: 100vw;
 }
 
-.title h1 {
+/* TITOLO E SOTTOTITOLO */
+.title-box { text-align: center; margin-bottom: 20px; }
+.title-box h1 {
     font-family: 'Cinzel', serif;
-    font-size: clamp(4rem, 12vw, 8rem);
+    font-size: clamp(3rem, 10vw, 6rem);
     color: white;
     letter-spacing: 15px;
-    text-shadow: 0 0 10px #ff00ff, 0 0 40px #ff00ff;
-    margin-bottom: 0px;
+    text-shadow: 0 0 20px #ff00ff;
+    margin: 0;
 }
-
-.subtitle {
+.subtitle-box {
     color: #00f0ff;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 8px;
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    margin-bottom: 50px;
+    font-size: 1rem;
     text-transform: uppercase;
+    margin-top: 10px;
 }
 
-/* ARCHI (PAGINA LIVELLI) */
-.gates { 
+/* LE ARCATE - RIDOTTE PER STARE NELLO SCHERMO */
+.gates-container { 
     display: flex; 
     justify-content: center; 
-    gap: 40px; 
-    flex-wrap: wrap;
-    padding: 20px;
+    align-items: center;
+    gap: 30px; 
+    flex-wrap: nowrap; /* Impedisce di andare a capo */
+    margin-top: 30px;
 }
 
 .gate {
-    width: 260px;
-    height: 480px;
-    border-radius: 130px 130px 10px 10px;
+    width: 220px; /* Più strette */
+    height: 380px; /* Più basse per non uscire dallo schermo */
+    border-radius: 110px 110px 10px 10px;
     text-decoration: none !important;
     display: flex;
     flex-direction: column;
@@ -84,125 +84,77 @@ header, footer, #MainMenu { visibility:hidden; }
     transition: all 0.4s ease;
 }
 
-.gate-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    text-align: center;
-}
+.gate-title { font-family: 'Cinzel', serif; font-size: 1.2rem; color: inherit; }
+.gate-sub { font-size: 0.7rem; letter-spacing: 3px; opacity: 0.6; color: white; margin-top: 10px; }
 
-.gate-sub {
-    margin-top: 16px;
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    color: rgba(255,255,255,0.4);
-}
+.cyan { border: 3px solid #00f0ff; box-shadow: 0 0 15px #00f0ff; color: #00f0ff !important; }
+.violet { border: 3px solid #d64dff; box-shadow: 0 0 15px #d64dff; color: #d64dff !important; }
+.pink { border: 3px solid #ff0077; box-shadow: 0 0 15px #ff0077; color: #ff0077 !important; }
 
-.cyan { border: 4px solid #00f0ff; box-shadow: 0 0 20px #00f0ff; color: #00f0ff !important; }
-.violet { border: 4px solid #d64dff; box-shadow: 0 0 20px #d64dff; color: #d64dff !important; }
-.pink { border: 4px solid #ff0077; box-shadow: 0 0 20px #ff0077; color: #ff0077 !important; }
+.locked { border: 3px solid #333 !important; background: rgba(0,0,0,0.4); opacity: 0.5; cursor: not-allowed; }
+.locked .gate-title { color: #555 !important; }
 
-.gate:hover:not(.locked) { transform: scale(1.05); filter: brightness(1.2); }
-
-.locked {
-    border: 4px solid #333 !important;
-    background: rgba(0,0,0,0.4);
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-.locked .gate-title, .locked .gate-sub { color: #666 !important; }
-
-/* FIX CENTRATURA BOTTONE STREAMLIT */
+/* IL BOTTONE - CENTRATURA FORZATA */
 [data-testid="stElementContainer"] {
-    display: flex;
-    justify-content: center;
-    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
 }
 
 div.stButton > button {
     font-family: 'Cinzel', serif;
-    background-color: transparent;
+    background: transparent;
     color: #00f0ff !important;
     border: 1px solid #00f0ff !important;
-    padding: 12px 35px !important;
-    font-size: 1.2rem !important;
+    padding: 10px 40px !important;
     letter-spacing: 4px !important;
-    box-shadow: 0 0 10px #00f0ff;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-    width: auto !important;
-    margin-top: 20px;
+    margin-top: 40px !important;
 }
-
 div.stButton > button:hover {
-    background-color: #00f0ff !important;
-    color: #0a0015 !important;
-    box-shadow: 0 0 25px #00f0ff;
-    transform: translateY(-2px);
+    background: rgba(0, 240, 255, 0.1) !important;
+    box-shadow: 0 0 20px #00f0ff;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# --- 4. LOGICA DI NAVIGAZIONE ---
+# --- 4. LOGICA PAGINE ---
 
-# --- PAGINA: LOBBY ---
 if st.session_state.pagina_corrente == 'lobby':
+    # Tutto dentro un unico div centrato
     st.markdown("""
-    <div class="main-lobby">
-        <div class="title"><h1>LVDVS</h1></div>
-        <div class="subtitle">Scegli il tuo destino</div>
+    <div class="viewport-center">
+        <div class="title-box">
+            <h1>LVDVS</h1>
+            <div class="subtitle-box">Scegli il tuo destino</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.button("AD MAIORA", on_click=vai_ai_livelli)
+
+elif st.session_state.pagina_corrente == 'archi':
+    # Costruzione HTML per gli archi
+    arc_1 = '<a class="gate cyan" href="./01_discipulus" target="_self"><div class="gate-title">DISCIPVLVS</div><div class="gate-sub">BEGINNER</div></a>'
+    
+    if st.session_state.gladiator_sbloccato:
+        arc_2 = '<a class="gate violet" href="./02_gladiator" target="_self"><div class="gate-title">GLADIATOR</div><div class="gate-sub">INTERMEDIATE</div></a>'
+    else:
+        arc_2 = '<div class="gate locked"><div class="gate-title">GLADIATOR 🔒</div><div class="gate-sub">BLOCCATO</div></div>'
+        
+    if st.session_state.imperator_sbloccato:
+        arc_3 = '<a class="gate pink" href="./03_imperator" target="_self"><div class="gate-title">IMPERATOR</div><div class="gate-sub">PRO</div></a>'
+    else:
+        arc_3 = '<div class="gate locked"><div class="gate-title">IMPERATOR 🔒</div><div class="gate-sub">BLOCCATO</div></div>'
+
+    st.markdown(f"""
+    <div class="viewport-center">
+        <div class="title-box">
+            <h1>LVDVS</h1>
+        </div>
+        <div class="gates-container">
+            {arc_1}
+            {arc_2}
+            {arc_3}
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Il bottone apparirà centrato e piccolo grazie al CSS sopra
-    st.button("AD MAIORA", on_click=vai_ai_livelli)
-
-# --- PAGINA: ARCHI (SCELTA LIVELLO) ---
-elif st.session_state.pagina_corrente == 'archi':
-    st.markdown('<div class="title" style="margin-bottom:40px;"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
-    
-    # Costruzione dinamica degli archi
-    html_archi = '<div class="gates">'
-    
-    # 1. DISCIPVLVS (Sempre Sbloccato)
-    html_archi += """
-    <a class="gate cyan" href="./01_discipulus" target="_self">
-        <div class="gate-title">DISCIPVLVS</div>
-        <div class="gate-sub">BEGINNER</div>
-    </a>"""
-    
-    # 2. GLADIATOR
-    if st.session_state.gladiator_sbloccato:
-        html_archi += """
-        <a class="gate violet" href="./02_gladiator" target="_self">
-            <div class="gate-title">GLADIATOR</div>
-            <div class="gate-sub">INTERMEDIATE</div>
-        </a>"""
-    else:
-        html_archi += """
-        <div class="gate locked">
-            <div class="gate-title">GLADIATOR 🔒</div>
-            <div class="gate-sub">BLOCCATO</div>
-        </div>"""
-        
-    # 3. IMPERATOR
-    if st.session_state.imperator_sbloccato:
-        html_archi += """
-        <a class="gate pink" href="./03_imperator" target="_self">
-            <div class="gate-title">IMPERATOR</div>
-            <div class="gate-sub">PRO</div>
-        </a>"""
-    else:
-        html_archi += """
-        <div class="gate locked">
-            <div class="gate-title">IMPERATOR 🔒</div>
-            <div class="gate-sub">BLOCCATO</div>
-        </div>"""
-        
-    html_archi += '</div>'
-    
-    st.markdown(html_archi, unsafe_allow_html=True)
-    
-    # Pulsante per tornare indietro (opzionale)
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    st.button("TORNA ALLA LOBBY", on_click=torna_home)
+    st.button("TORNA ALLA LOBBY", on_click=lambda: st.session_state.update(pagina_corrente='lobby'))
