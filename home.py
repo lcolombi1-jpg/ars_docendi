@@ -120,8 +120,8 @@ div.stButton > button:hover {
 div.stButton {
     display: flex;
     justify-content: center;
-    width: 100%;
-    margin-top: -30px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
+    width: 50%;
+    margin-top: -60px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
 }
 
 div.stButton > button {
@@ -145,7 +145,7 @@ div.stButton > button:hover {
 [data-testid="stElementContainer"] {
     display: flex;
     justify-content: center;
-    width: 100% !important;
+    width: 50% !important;
 }
 
 /* Centra il pulsante vero e proprio e definisce lo stile */
