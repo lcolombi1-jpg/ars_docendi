@@ -141,14 +141,45 @@ div.stButton > button:hover {
     color: #0a0015;
     box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
 }
+/* Centra il contenitore esterno del bottone */
+[data-testid="stElementContainer"] {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+}
+
+/* Centra il pulsante vero e proprio e definisce lo stile */
+div.stButton > button {
+    font-family: 'Cinzel', serif;
+    background-color: transparent;
+    color: #00f0ff !important;
+    border: 2px solid #00f0ff !important;
+    padding: 15px 50px !important;
+    font-size: 1.8rem !important;
+    letter-spacing: 5px !important;
+    box-shadow: 0 0 15px #00f0ff;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto !important; /* Forza il centro */
+}
+
+div.stButton > button:hover {
+    background-color: #00f0ff !important;
+    color: #0a0015 !important;
+    box-shadow: 0 0 30px #00f0ff;
+}
+
+/* Container per il titolo e sottotitolo */
+.lobby-container {
+    text-align: center;
+    padding-top: 10vh; /* Sposta un po' giù tutto il blocco dal soffitto */
+}
 </style>
 """, unsafe_allow_html=True)
 
 # --- 3. LOGICA DELLE PAGINE ---
 
 if st.session_state.pagina_corrente == 'lobby':
-    
-    # Il div lobby-container centra tutto il testo in verticale e orizzontale
     st.markdown("""
     <div class="lobby-container">
         <div class="title">
@@ -159,6 +190,8 @@ if st.session_state.pagina_corrente == 'lobby':
         </div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Questo bottone ora sarà centrato grazie al CSS che abbiamo messo sopra!
     st.button("AD MAIORA", on_click=vai_ai_livelli)
 
 else:
