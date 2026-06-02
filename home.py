@@ -28,6 +28,10 @@ header, footer, #MainMenu {
     padding-top:0rem;
 }
 
+html{
+    font-size:clamp(14px,1vw,18px);
+}
+
 .title{
     text-align:center;
     margin-top:20px;
@@ -35,7 +39,7 @@ header, footer, #MainMenu {
 
 .title h1{
     font-family:'Cinzel', serif;
-    font-size:6rem;
+    font-size:clamp(3rem,8vw,6rem);
     color:white;
     letter-spacing:10px;
 
@@ -58,8 +62,8 @@ header, footer, #MainMenu {
 }
 
 .gate{
-    width:260px;
-    height:520px;
+    width:min(260px,28vw);
+    height:min(520px,60vh);
 
     border-radius:
         130px
@@ -79,14 +83,14 @@ header, footer, #MainMenu {
 
 .gate-title{
     font-family:'Cinzel', serif;
-    font-size:1.8rem;
+    font-size:clamp(1rem,2vw,1.8rem);
     letter-spacing:1px;
     text-align:center;
 }
 
 .gate-sub{
     margin-top:16px;
-    font-size:0.85rem;
+    font-size:clamp(.7rem,1vw,.9rem);
     letter-spacing:4px;
     color:rgba(255,255,255,.4);
 }
@@ -144,17 +148,17 @@ scegli il tuo destino
 
 <div class="gates">
 
-<a class="gate cyan" href="/Discipulus">
+<a class="gate cyan" href="./Discipulus">
 <div class="gate-title">DISCIPVLVS</div>
 <div class="gate-sub">BEGINNER</div>
 </a>
 
-<a class="gate violet" href="/Gladiator">
+<a class="gate violet" href="./Gladiator">
 <div class="gate-title">GLADIATOR</div>
 <div class="gate-sub">INTERMEDIATE</div>
 </a>
 
-<a class="gate pink" href="/Imperator">
+<a class="gate pink" href="./Imperator">
 <div class="gate-title">IMPERATOR</div>
 <div class="gate-sub">PRO</div>
 </a>
