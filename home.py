@@ -31,13 +31,40 @@ header, footer, #MainMenu { visibility:hidden; }
     background: radial-gradient(circle at center, #19002f 0%, #0a0015 50%, #020004 100%);
 }
 
-.block-container{ max-width:100%; padding-top:0rem; }
+/* Stile per i bottoni-arco */
+div.stButton > button {
+    font-family: 'Cinzel', serif;
+    background-color: transparent;
+    color: #00f0ff;
+    border: 4px solid #00f0ff !important;
+    border-radius: 130px 130px 10px 10px !important; /* Forma ad arco */
+    height: 400px !important;
+    width: 220px !important;
+    font-size: 1.5rem !important;
+    letter-spacing: 2px !important;
+    box-shadow: 0 0 20px #00f0ff;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    white-space: normal;
+}
 
-.title{ text-align:center; margin-top:20px; }
+div.stButton > button:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 240, 255, 0.1) !important;
+    box-shadow: 0 0 40px #00f0ff;
+    color: white !important;
+}
+
+/* Colori diversi per i bottoni */
+[data-testid="stBaseButton-secondary"] { /* Questo è il default se non cambi */ }
+
 .title h1{
     font-family:'Cinzel', serif;
     font-size:clamp(3rem,8vw,6rem);
     color:white;
+    text-align:center;
     letter-spacing:10px;
     text-shadow: 0 0 10px #ff00ff, 0 0 40px #ff00ff;
 }
@@ -51,193 +78,76 @@ header, footer, #MainMenu { visibility:hidden; }
     text-transform: uppercase;
 }
 
-.gates{ 
-    display:flex; 
-    justify-content:center; 
-    gap:40px; 
-    flex-wrap: wrap;
-    padding: 20px;
-}
-
-.gate{
-    width: 260px;
-    height: 480px;
-    border-radius: 130px 130px 10px 10px;
-    text-decoration:none !important;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    transition: all 0.4s ease;
-}
-
-.gate-title{
-    font-family:'Cinzel', serif;
-    font-size: 1.5rem;
-    letter-spacing:1px;
-    text-align:center;
-}
-
-.gate-sub{
-    margin-top:16px;
-    font-size: 0.8rem;
-    letter-spacing:4px;
-    color:rgba(255,255,255,.4);
-}
-
-.cyan { border:4px solid #00f0ff; box-shadow: 0 0 20px #00f0ff; color:#00f0ff !important; }
-.violet { border:4px solid #d64dff; box-shadow: 0 0 20px #d64dff; color:#d64dff !important; }
-.pink { border:4px solid #ff0077; box-shadow: 0 0 20px #ff0077; color:#ff0077 !important; }
-
-.gate:hover:not(.locked) { transform: scale(1.05); filter: brightness(1.2); }
-
-.locked {
-    border: 4px solid #333 !important;
-    background: rgba(0,0,0,0.4);
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-.locked .gate-title, .locked .gate-sub { color: #666 !important; }
-
-div.stButton > button {
-    font-family: 'Cinzel', serif;
-    background-color: transparent;
-    color: #00f0ff;
-    border: 2px solid #00f0ff;
-    padding: 15px 40px;
-    font-size: 1.8rem;
-    letter-spacing: 5px;
-    box-shadow: 0 0 15px #00f0ff;
-    display: block;
-    margin: 0 auto;
-}
-div.stButton > button:hover {
-    background-color: #00f0ff;
-    color: #0a0015;
-    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
-}
-/* Questo centra perfettamente il contenitore del bottone in Streamlit */
-div.stButton {
+.centered-container {
     display: flex;
     justify-content: center;
-    width: 100%;
-    margin-top: -30px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
-}
-
-div.stButton > button {
-    font-family: 'Cinzel', serif;
-    background-color: transparent;
-    color: #00f0ff;
-    border: 2px solid #00f0ff;
-    padding: 15px 40px;
-    font-size: 1.8rem;
-    letter-spacing: 5px;
-    box-shadow: 0 0 15px #00f0ff;
-    transition: all 0.3s ease;
-}
-
-div.stButton > button:hover {
-    background-color: #00f0ff;
-    color: #0a0015;
-    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
-}
-/* Centra il contenitore esterno del bottone */
-[data-testid="stElementContainer"] {
-    display: flex;
-    justify-content: center;
-    width: 100% !important;
-}
-
-/* Centra il pulsante vero e proprio e definisce lo stile */
-div.stButton > button {
-    font-family: 'Cinzel', serif;
-    background-color: transparent;
-    color: #00f0ff !important;
-    border: 2px solid #00f0ff !important;
-    padding: 15px 50px !important;
-    font-size: 1.8rem !important;
-    letter-spacing: 5px !important;
-    box-shadow: 0 0 15px #00f0ff;
-    transition: all 0.3s ease;
-    display: block;
-    margin: 0 auto !important; /* Forza il centro */
-}
-
-div.stButton > button:hover {
-    background-color: #00f0ff !important;
-    color: #0a0015 !important;
-    box-shadow: 0 0 30px #00f0ff;
-}
-
-/* Container per il titolo e sottotitolo */
-.lobby-container {
-    text-align: center;
-    padding-top: 10vh; /* Sposta un po' giù tutto il blocco dal soffitto */
+    gap: 20px;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # --- 3. LOGICA DELLE PAGINE ---
 
+# SCHERMATA: LOBBY
 if st.session_state.pagina_corrente == 'lobby':
-    st.markdown("""
-    <div class="lobby-container">
-        <div class="title">
-            <h1>LVDVS</h1>
-        </div>
-        <div class="subtitle">
-            SCEGLI IL TUO DESTINO
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Questo bottone ora sarà centrato grazie al CSS che abbiamo messo sopra!
-    st.button("AD MAIORA", on_click=vai_ai_livelli)
-
-else:
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Scegli il tuo destino</div>', unsafe_allow_html=True)
-
-    # --- COSTRUZIONE HTML SICURA (senza indentazioni problematiche) ---
-    html_content = '<div class="gates">'
+    st.markdown('<div class="subtitle">SCEGLI IL TUO DESTINO</div>', unsafe_allow_html=True)
     
-    # Arco 1: DISCIPVLVS (Sempre aperto)
-    html_content += '<a class="gate cyan" href="./01_discipulus" target="_self">'
-    html_content += '<div class="gate-title">DISCIPVLVS</div>'
-    html_content += '<div class="gate-sub">BEGINNER</div>'
-    html_content += '</a>'
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button("AD MAIORA", use_container_width=True):
+            vai_ai_livelli()
+            st.rerun()
 
-    # Arco 2: GLADIATOR (Si apre se sbloccato)
-    if st.session_state.gladiator_sbloccato:
-        html_content += '<a class="gate violet" href="./02_gladiator" target="_self">'
-        html_content += '<div class="gate-title">GLADIATOR</div>'
-        html_content += '<div class="gate-sub">INTERMEDIATE</div>'
-        html_content += '</a>'
-    else:
-        html_content += '<div class="gate locked">'
-        html_content += '<div class="gate-title">GLADIATOR 🔒</div>'
-        html_content += '<div class="gate-sub">BLOCCATO</div>'
-        html_content += '</div>'
+# SCHERMATA: ARCHI (LIVELLI)
+elif st.session_state.pagina_corrente == 'archi':
+    st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Scegli il tuo livello</div>', unsafe_allow_html=True)
 
-    # Arco 3: IMPERATOR (Si apre se sbloccato)
-    if st.session_state.imperator_sbloccato:
-        html_content += '<a class="gate pink" href="./03_imperator" target="_self">'
-        html_content += '<div class="gate-title">IMPERATOR</div>'
-        html_content += '<div class="gate-sub">PRO</div>'
-        html_content += '</a>'
-    else:
-        html_content += '<div class="gate locked">'
-        html_content += '<div class="gate-title">IMPERATOR 🔒</div>'
-        html_content += '<div class="gate-sub">BLOCCATO</div>'
-        html_content += '</div>'
+    col1, col2, col3 = st.columns(3)
 
-    html_content += '</div>'
+    with col1:
+        # ARCO DISCIPVLVS
+        if st.button("DISCIPVLVS\n\nBEGINNER", key="btn_discipulus"):
+            st.session_state.pagina_corrente = 'test_discipulus'
+            st.rerun()
 
-    # Stampiamo tutto a schermo in una volta sola
-    st.markdown(html_content, unsafe_allow_html=True)
+    with col2:
+        if st.session_state.gladiator_sbloccato:
+            if st.button("GLADIATOR\n\nINTERMEDIATE", key="btn_gladiator"):
+                st.session_state.pagina_corrente = 'test_gladiator'
+                st.rerun()
+        else:
+            st.button("GLADIATOR\n\n🔒 BLOCCATO", disabled=True, key="lock1")
 
-    # Pulsante per tornare indietro
+    with col3:
+        if st.session_state.imperator_sbloccato:
+            if st.button("IMPERATOR\n\nPRO", key="btn_imperator"):
+                st.session_state.pagina_corrente = 'test_imperator'
+                st.rerun()
+        else:
+            st.button("IMPERATOR\n\n🔒 BLOCCATO", disabled=True, key="lock2")
+
     st.write("")
-    if st.button("Torna alla Lobby"):
-        st.session_state.pagina_corrente = 'lobby'
+    if st.button("Torna alla Lobby", key="back"):
+        vai_alla_lobby()
+        st.rerun()
+
+# SCHERMATA: TEST DISCIPULUS
+elif st.session_state.pagina_corrente == 'test_discipulus':
+    st.markdown('<div class="title"><h1>DISCIPVLVS</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">IL TEST HA INIZIO</div>', unsafe_allow_html=True)
+    
+    st.info("Benvenuto, giovane allievo. Rispondi correttamente alle domande per sbloccare il livello Gladiator.")
+    
+    # Esempio di logica per sbloccare il prossimo livello
+    if st.button("Completa Test (Simulazione)"):
+        st.session_state.gladiator_sbloccato = True
+        st.success("Complimenti! Hai sbloccato il grado di GLADIATOR!")
+        if st.button("Torna ai livelli"):
+            st.session_state.pagina_corrente = 'archi'
+            st.rerun()
+    
+    if st.button("Abbandona"):
+        st.session_state.pagina_corrente = 'archi'
         st.rerun()
