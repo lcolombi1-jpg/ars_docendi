@@ -75,7 +75,7 @@ html{
     text-transform: uppercase;
 }
 
-/* --- STILE ARCATE PRINCIPALI (Fedele al tuo codice) --- */
+/* --- STILE ARCATE PRINCIPALI --- */
 .st-key-btn_discipulus button, 
 .st-key-btn_gladiator button, 
 .st-key-btn_imperator button {
@@ -92,7 +92,7 @@ html{
     font-size: clamp(1rem,2vw,1.8rem) !important;
     letter-spacing: 1px !important;
     transition: all 0.4s ease;
-    white-space: pre-wrap !important; /* Permette il testo a capo */
+    white-space: pre-wrap !important;
 }
 
 /* 1. DISCIPVLVS (CYAN) */
@@ -106,7 +106,7 @@ html{
     background-color: rgba(0, 240, 255, 0.1) !important;
 }
 
-/* 2. GLADIATOR (VIOLET) - Quando Sbloccato */
+/* 2. GLADIATOR (VIOLET) - SEMPRE NEON */
 .st-key-btn_gladiator button {
     border: 4px solid #d64dff !important;
     color: #d64dff !important;
@@ -117,7 +117,7 @@ html{
     background-color: rgba(214, 77, 255, 0.1) !important;
 }
 
-/* 3. IMPERATOR (PINK) - Quando Sbloccato */
+/* 3. IMPERATOR (PINK) - SEMPRE NEON */
 .st-key-btn_imperator button {
     border: 4px solid #ff0077 !important;
     color: #ff0077 !important;
@@ -128,17 +128,22 @@ html{
     background-color: rgba(255, 0, 119, 0.1) !important;
 }
 
-/* ARCATE BLOCCATE (Disabled) - Mantengono la forma ma senza neon */
+/* ARCATE BLOCCATE - Cursore disabilitato e leggermente opache ma mantengono il neon! */
 div.stButton > button:disabled {
-    border: 4px solid #333 !important;
-    color: rgba(255,255,255,0.2) !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
     cursor: not-allowed !important;
     transform: none !important;
+    opacity: 0.65 !important;
 }
 
-/* --- BOTTONI RETTANGOLARI PICCOLI (Ad Maiora, Back, Quiz) --- */
+/* --- CENTRATURA ASSOLUTA BOTTONI RETTANGOLARI --- */
+.st-key-ad_maiora_btn, 
+.st-key-back_btn,
+.st-key-back_map {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
 .st-key-ad_maiora_btn button, 
 .st-key-back_btn button,
 .st-key-submit_quiz button, 
@@ -188,12 +193,10 @@ if st.session_state.pagina_corrente == 'lobby':
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">SCEGLI IL TUO DESTINO</div>', unsafe_allow_html=True)
     
-    # Colonna centrale per il bottone piccolo
-    _, col_center, _ = st.columns([1, 1, 1])
-    with col_center:
-        if st.button("AD MAIORA", key="ad_maiora_btn"):
-            st.session_state.pagina_corrente = 'archi'
-            st.rerun()
+    # Ad Maiora è ora inserito senza colonne, e il CSS lo centra perfettamente!
+    if st.button("AD MAIORA", key="ad_maiora_btn"):
+        st.session_state.pagina_corrente = 'archi'
+        st.rerun()
 
 
 # ================================
@@ -216,8 +219,8 @@ elif st.session_state.pagina_corrente == 'archi':
                 st.session_state.pagina_corrente = 'test_gladiator'
                 st.rerun()
         else:
-            # Bottone bloccato
-            st.button("GLADIATOR\n\nINTERMEDIATE", disabled=True, key="btn_gladiator")
+            # Bottone bloccato ma che ora ha il neon Viola
+            st.button("GLADIATOR 🔒\n\nINTERMEDIATE", disabled=True, key="btn_gladiator")
 
     with col3:
         if st.session_state.imperator_sbloccato:
@@ -225,17 +228,15 @@ elif st.session_state.pagina_corrente == 'archi':
                 st.session_state.pagina_corrente = 'test_imperator'
                 st.rerun()
         else:
-            # Bottone bloccato
-            st.button("IMPERATOR\n\nPRO", disabled=True, key="btn_imperator")
+            # Bottone bloccato ma che ora ha il neon Rosa
+            st.button("IMPERATOR 🔒\n\nPRO", disabled=True, key="btn_imperator")
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
     
-    # Bottone rettangolare piccolo per tornare indietro
-    _, col_back, _ = st.columns([1, 1, 1])
-    with col_back:
-        if st.button("Torna alla Lobby", key="back_btn"):
-            st.session_state.pagina_corrente = 'lobby'
-            st.rerun()
+    # Torna alla Lobby inserito senza colonne, centrato perfettamente dal CSS
+    if st.button("Torna alla Lobby", key="back_btn"):
+        st.session_state.pagina_corrente = 'lobby'
+        st.rerun()
 
 
 # ================================
@@ -264,14 +265,15 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
     st.write("---")
 
     if not st.session_state.quiz_inviato:
-        _, col_quiz, _ = st.columns([1, 1, 1])
-        with col_quiz:
-            if st.button("CONSEGNA IL TEST", key="submit_quiz"):
-                if len(st.session_state.risposte_utente) < 10:
-                    st.warning("⚠️ Per favore, rispondi a tutte e 10 le domande prima di consegnare!")
-                else:
-                    st.session_state.quiz_inviato = True
-                    st.rerun()
+        # Centriamo il bottone di consegna test usando lo stesso principio
+        st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
+        if st.button("CONSEGNA IL TEST", key="submit_quiz"):
+            if len(st.session_state.risposte_utente) < 10:
+                st.warning("⚠️ Per favore, rispondi a tutte e 10 le domande prima di consegnare!")
+            else:
+                st.session_state.quiz_inviato = True
+                st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
     else:
         punteggio = 0
         for q in DOMANDE_DISCIPULUS:
@@ -302,8 +304,6 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
 
     if not st.session_state.quiz_inviato:
         st.markdown("<br>", unsafe_allow_html=True)
-        _, col_abb, _ = st.columns([1, 1, 1])
-        with col_abb:
-            if st.button("Torna indietro", key="back_map"):
-                st.session_state.pagina_corrente = 'archi'
-                st.rerun()
+        if st.button("Torna indietro", key="back_map"):
+            st.session_state.pagina_corrente = 'archi'
+            st.rerun()
