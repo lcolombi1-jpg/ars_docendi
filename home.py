@@ -51,7 +51,7 @@ DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero 
 # --- 2. STILI CSS ---
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
 header, footer, #MainMenu { visibility:hidden; }
 
@@ -151,35 +151,25 @@ blockquote {
     justify-content: center !important;
     align-items: center !important;
     margin: 0 auto !important;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Cinzel', serif !important;
     letter-spacing: 1px !important;
     transition: all 0.4s ease;
     white-space: pre-wrap !important;
 }
 
-/* Formattazione Testo Arcate: Sottotitolo Piccolo */
+/* Formattazione Testo Arcate: Nome grande, Traduzione piccola */
 .st-key-btn_discipulus button p,
 .st-key-btn_gladiator button p,
 .st-key-btn_imperator button p {
-    font-size: 0.85rem !important; 
-    font-weight: 500 !important;
-    letter-spacing: 2px !important;
-    text-align: center !important;
-    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 1rem !important; /* Traduzione in piccolo */
+    letter-spacing: 3px;
+    text-align: center;
 }
-
-/* EFFETTO SCOLPITO NEL MARMO PER I NOMI LATINI */
 .st-key-btn_discipulus button p::first-line,
 .st-key-btn_gladiator button p::first-line,
 .st-key-btn_imperator button p::first-line {
-    font-family: 'Cinzel', serif !important;
-    font-weight: 900 !important; /* Spessore massimo lapidario */
-    font-size: 2.3rem !important; /* Dimensione maestosa */
-    letter-spacing: 4px !important;
-    line-height: 2.0;
-    text-transform: uppercase;
-    /* Ombreggiatura scavata / scolpita */
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9), 0 0 20px currentColor !important;
+    font-size: 2.2rem !important; /* Nome latino GRANDE */
+    line-height: 1.8;
 }
 
 /* 1. DISCIPVLVS (CYAN) */
@@ -229,7 +219,7 @@ div.stButton > button:disabled {
     background-color: rgba(0, 240, 255, 0.2) !important; box-shadow: 0 0 20px #00f0ff !important;
 }
 
-/* --- STILI TEST / QUIZ PERFETTAMENTE CENTRATI --- */
+/* --- STILI TEST / QUIZ CENTRATI --- */
 .quiz-question {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
@@ -237,35 +227,31 @@ div.stButton > button:disabled {
     margin-top: 40px;
     margin-bottom: 15px;
     font-weight: 600;
-    text-align: center; 
+    text-align: center; /* Centratura domanda */
     text-shadow: 0 0 8px rgba(255,255,255,0.4); 
 }
 
-/* Box risposte centrato e compatto sullo schermo */
+/* Riquadro e opzioni centrati */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
-    padding: 20px 30px;
+    padding: 20px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center; /* Centratura orizzontale contenuto */
     justify-content: center;
-    max-width: 600px; /* Impedisce che si allarghi a vuoto */
-    margin: 0 auto 30px auto !important; /* Centra perfettamente il box nella pagina */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* Allineamento testo delle opzioni all'interno del box */
+/* Allineamento testo delle opzioni al centro */
 label[data-baseweb="radio"] {
     justify-content: center !important;
     width: 100%;
-    margin: 6px 0 !important;
 }
 
 div[role="radiogroup"] p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem !important;
+    font-size: 1.25rem !important;
     color: #ffffff !important; 
     font-weight: 500;
     margin-bottom: 0px;
@@ -407,7 +393,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
             f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"g_q_{q['id']}", 
             label_visibility="collapsed", disabled=st.session_state.quiz_inviato_glad
         )
-        if choix != "Seleziona una risposta...":
+        if scelta != "Seleziona una risposta...":
             st.session_state.risposte_glad[q["id"]] = scelta
 
     st.write("---")
