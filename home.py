@@ -120,8 +120,8 @@ div.stButton > button:hover {
 div.stButton {
     display: flex;
     justify-content: center;
-    width: 50%;
-    margin-top: -60px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
+    width: 100%;
+    margin-top: 30px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
 }
 
 div.stButton > button {
@@ -129,7 +129,7 @@ div.stButton > button {
     background-color: transparent;
     color: #00f0ff;
     border: 2px solid #00f0ff;
-    padding: 15px 40px;
+    padding: 60px 40px;
     font-size: 1.8rem;
     letter-spacing: 5px;
     box-shadow: 0 0 15px #00f0ff;
@@ -145,7 +145,7 @@ div.stButton > button:hover {
 [data-testid="stElementContainer"] {
     display: flex;
     justify-content: center;
-    width: 50% !important;
+    width: 100% !important;
 }
 
 /* Centra il pulsante vero e proprio e definisce lo stile */
@@ -154,7 +154,7 @@ div.stButton > button {
     background-color: transparent;
     color: #00f0ff !important;
     border: 2px solid #00f0ff !important;
-    padding: 15px 50px !important;
+    padding: 60px 50px !important;
     font-size: 1.8rem !important;
     letter-spacing: 5px !important;
     box-shadow: 0 0 15px #00f0ff;
