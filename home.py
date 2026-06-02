@@ -202,14 +202,14 @@ else:
     html_content = '<div class="gates">'
     
     # Arco 1: DISCIPVLVS (Sempre aperto)
-    html_content += '<a class="gate cyan" href="./01_discipulus" target="_self">'
+    html_content += '<a class="gate cyan" href="01_discipulus" target="_self">'
     html_content += '<div class="gate-title">DISCIPVLVS</div>'
     html_content += '<div class="gate-sub">BEGINNER</div>'
     html_content += '</a>'
 
     # Arco 2: GLADIATOR (Si apre se sbloccato)
     if st.session_state.gladiator_sbloccato:
-        html_content += '<a class="gate violet" href="./02_gladiator" target="_self">'
+        html_content += '<a class="gate violet" href="02_gladiator" target="_self">'
         html_content += '<div class="gate-title">GLADIATOR</div>'
         html_content += '<div class="gate-sub">INTERMEDIATE</div>'
         html_content += '</a>'
@@ -221,7 +221,7 @@ else:
 
     # Arco 3: IMPERATOR (Si apre se sbloccato)
     if st.session_state.imperator_sbloccato:
-        html_content += '<a class="gate pink" href="./03_imperator" target="_self">'
+        html_content += '<a class="gate pink" href="03_imperator" target="_self">'
         html_content += '<div class="gate-title">IMPERATOR</div>'
         html_content += '<div class="gate-sub">PRO</div>'
         html_content += '</a>'
