@@ -9,16 +9,29 @@ st.set_page_config(
 # --- 1. MEMORIA DEL GIOCO (SESSION STATE) ---
 if 'pagina_corrente' not in st.session_state:
     st.session_state.pagina_corrente = 'lobby'
+
 if 'gladiator_sbloccato' not in st.session_state:
     st.session_state.gladiator_sbloccato = False
 if 'imperator_sbloccato' not in st.session_state:
     st.session_state.imperator_sbloccato = False
-if 'risposte_utente' not in st.session_state:
-    st.session_state.risposte_utente = {}
-if 'quiz_inviato' not in st.session_state:
-    st.session_state.quiz_inviato = False
 
-# --- DOMANDE DEL TEST DISCIPVLVS ---
+# Stati separati per ogni quiz per non accavallare i salvataggi
+if 'quiz_inviato_disc' not in st.session_state:
+    st.session_state.quiz_inviato_disc = False
+if 'risposte_disc' not in st.session_state:
+    st.session_state.risposte_disc = {}
+
+if 'quiz_inviato_glad' not in st.session_state:
+    st.session_state.quiz_inviato_glad = False
+if 'risposte_glad' not in st.session_state:
+    st.session_state.risposte_glad = {}
+
+if 'quiz_inviato_imp' not in st.session_state:
+    st.session_state.quiz_inviato_imp = False
+if 'risposte_imp' not in st.session_state:
+    st.session_state.risposte_imp = {}
+
+# --- DOMANDE DEI TEST ---
 DOMANDE_DISCIPULUS = [
     {"id": 1, "domanda": "Chi fu il primo imperatore romano?", "opzioni": ["Giulio Cesare", "Augusto", "Nerone", "Romolo"], "corretta": "Augusto"},
     {"id": 2, "domanda": "In quale anno fu fondata Roma secondo la tradizione?", "opzioni": ["753 a.C.", "509 a.C.", "476 d.C.", "27 a.C."], "corretta": "753 a.C."},
@@ -32,10 +45,14 @@ DOMANDE_DISCIPULUS = [
     {"id": 10, "domanda": "In quanti colli principali sorgeva l'antica Roma?", "opzioni": ["3", "5", "7", "9"], "corretta": "7"}
 ]
 
+# Quiz fittizi generati per Gladiator (20 domande) e Imperator (30 domande)
+DOMANDE_GLADIATOR = [{"id": i, "domanda": f"Domanda tattica Gladiator numero {i}?", "opzioni": ["Risposta A", "Risposta B", "Risposta C", "Risposta D"], "corretta": "Risposta A"} for i in range(1, 21)]
+DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
+
 # --- 2. STILI CSS ---
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
 header, footer, #MainMenu { visibility:hidden; }
 
@@ -52,7 +69,7 @@ html{
     font-size:clamp(14px,1vw,18px);
 }
 
-/* --- STILI SPECIFICI PER LA LOBBY --- */
+/* --- LOBBY --- */
 .lobby-wrapper {
     margin-top: 15vh; 
     display: flex;
@@ -60,7 +77,6 @@ html{
     align-items: center;
     justify-content: center;
 }
-
 .lobby-title h1 {
     font-family:'Cinzel', serif;
     font-size:clamp(5rem, 15vw, 10rem); 
@@ -71,7 +87,6 @@ html{
     text-align: center;
     line-height: 1;
 }
-
 .lobby-subtitle {
     color:#00f0ff;
     text-align:center;
@@ -83,12 +98,8 @@ html{
     text-transform: uppercase;
 }
 
-/* --- STILI PER LE ALTRE PAGINE --- */
-.title{
-    text-align:center;
-    margin-top:20px;
-}
-
+/* --- TITOLI PAGINE TEST --- */
+.title{ text-align:center; margin-top:20px; }
 .title h1{
     font-family:'Cinzel', serif;
     font-size:clamp(3rem,8vw,6rem);
@@ -97,7 +108,6 @@ html{
     text-shadow: 0 0 10px #ff00ff, 0 0 40px #ff00ff;
     margin-bottom: 0;
 }
-
 .subtitle{
     color:#00f0ff;
     text-align:center;
@@ -107,13 +117,12 @@ html{
     text-transform: uppercase;
 }
 
-/* --- STILE ARCATE PRINCIPALI (RESPONSIVE) --- */
+/* --- STILE ARCATE (DIMENSIONI ORIGINALI MANTENUTE) --- */
 .st-key-btn_discipulus button, 
 .st-key-btn_gladiator button, 
 .st-key-btn_imperator button {
-    width: 100% !important; /* Fluido per mobile */
-    max-width: 280px !important; /* Limite su desktop */
-    height: clamp(350px, 50vh, 520px) !important; /* Altezza adattabile */
+    width: min(260px,28vw) !important;
+    height: min(520px,60vh) !important;
     border-radius: 130px 130px 10px 10px !important;
     background: transparent !important;
     display: flex !important;
@@ -122,7 +131,7 @@ html{
     align-items: center !important;
     margin: 0 auto !important;
     font-family: 'Cinzel', serif !important;
-    font-size: clamp(1rem, 2vw, 1.8rem) !important;
+    font-size: clamp(1rem,2vw,1.8rem) !important;
     letter-spacing: 1px !important;
     transition: all 0.4s ease;
     white-space: pre-wrap !important;
@@ -134,10 +143,7 @@ html{
     color: #00f0ff !important;
     box-shadow: 0 0 15px #00f0ff, 0 0 50px #00f0ff, 0 0 100px rgba(0,240,255,.5) !important;
 }
-.st-key-btn_discipulus button:hover {
-    transform: scale(1.05);
-    background-color: rgba(0, 240, 255, 0.1) !important;
-}
+.st-key-btn_discipulus button:hover { transform: scale(1.05); background-color: rgba(0, 240, 255, 0.1) !important; }
 
 /* 2. GLADIATOR (VIOLET) */
 .st-key-btn_gladiator button {
@@ -145,10 +151,7 @@ html{
     color: #d64dff !important;
     box-shadow: 0 0 15px #d64dff, 0 0 50px #d64dff, 0 0 100px rgba(214,77,255,.5) !important;
 }
-.st-key-btn_gladiator button:hover:not(:disabled) {
-    transform: scale(1.05);
-    background-color: rgba(214, 77, 255, 0.1) !important;
-}
+.st-key-btn_gladiator button:hover:not(:disabled) { transform: scale(1.05); background-color: rgba(214, 77, 255, 0.1) !important; }
 
 /* 3. IMPERATOR (PINK) */
 .st-key-btn_imperator button {
@@ -156,10 +159,7 @@ html{
     color: #ff0077 !important;
     box-shadow: 0 0 15px #ff0077, 0 0 50px #ff0077, 0 0 100px rgba(255,0,119,.5) !important;
 }
-.st-key-btn_imperator button:hover:not(:disabled) {
-    transform: scale(1.05);
-    background-color: rgba(255, 0, 119, 0.1) !important;
-}
+.st-key-btn_imperator button:hover:not(:disabled) { transform: scale(1.05); background-color: rgba(255, 0, 119, 0.1) !important; }
 
 /* ARCATE BLOCCATE */
 div.stButton > button:disabled {
@@ -168,71 +168,53 @@ div.stButton > button:disabled {
     opacity: 0.65 !important;
 }
 
-/* --- BOTTONI RETTANGOLARI --- */
-.st-key-ad_maiora_btn, 
-.st-key-back_btn,
-.st-key-back_map {
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
+/* --- BOTTONI RETTANGOLARI (Ad Maiora, etc.) --- */
+.st-key-ad_maiora_btn, .st-key-back_btn, .st-key-back_map {
+    display: flex !important; justify-content: center !important; width: 100% !important;
+}
+.st-key-ad_maiora_btn button, .st-key-back_btn button, .st-key-submit_quiz button, 
+.st-key-action_btn button, .st-key-action_btn_2 button, .st-key-back_map button {
+    height: auto !important; width: auto !important; padding: 10px 25px !important; 
+    border-radius: 4px !important; font-size: 1.1rem !important; 
+    font-family: 'Cinzel', serif !important; color: #00f0ff !important; 
+    border: 1px solid #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.5) !important; 
+    background: transparent !important; margin: 0 auto !important; display: block !important; transition: all 0.3s ease;
+}
+.st-key-ad_maiora_btn button:hover, .st-key-back_btn button:hover, .st-key-submit_quiz button:hover, .st-key-back_map button:hover {
+    background-color: rgba(0, 240, 255, 0.2) !important; box-shadow: 0 0 20px #00f0ff !important;
 }
 
-.st-key-ad_maiora_btn button, 
-.st-key-back_btn button,
-.st-key-submit_quiz button, 
-.st-key-action_btn button, 
-.st-key-action_btn_2 button, 
-.st-key-back_map button {
-    height: auto !important; 
-    width: auto !important;
-    padding: 10px 25px !important; 
-    border-radius: 4px !important; 
-    font-size: 1.1rem !important; 
-    font-family: 'Cinzel', serif !important;
-    color: #00f0ff !important; 
-    border: 1px solid #00f0ff !important; 
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5) !important; 
-    background: transparent !important;
-    margin: 0 auto !important; 
-    display: block !important;
-    transition: all 0.3s ease;
-}
-
-.st-key-ad_maiora_btn button:hover, 
-.st-key-back_btn button:hover,
-.st-key-submit_quiz button:hover,
-.st-key-back_map button:hover {
-    background-color: rgba(0, 240, 255, 0.2) !important;
-    box-shadow: 0 0 20px #00f0ff !important;
-}
-
-/* --- STILI TEST / QUIZ --- */
+/* --- STILI TEST / QUIZ AD ALTA VISIBILITA' --- */
 .quiz-question {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 1.3rem;
-    margin-top: 30px;
-    font-weight: 500;
-    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+    font-size: 1.4rem; /* Più grande */
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(255,255,255,0.4); /* Effetto luminoso sul testo */
 }
 
-/* Riquadro e testo delle opzioni di risposta */
+/* Riquadro attorno alle opzioni di risposta */
 div[role="radiogroup"] {
-    background-color: rgba(0, 240, 255, 0.05); /* Sfondo delicato cyan */
-    padding: 15px 20px;
-    border-radius: 8px;
-    border-left: 3px solid #00f0ff; /* Linea laterale elegante */
-    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.08); /* Sfondo semitrasparente */
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 240, 255, 0.3); /* Bordino delicato */
+    border-left: 5px solid #00f0ff; /* Linea sinistra spessa per evidenziare */
 }
 
+/* Testo delle opzioni di risposta */
 div[role="radiogroup"] p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem !important;
-    color: #ffffff !important; /* Testo bianco ben visibile */
-    font-weight: 400;
+    font-size: 1.25rem !important;
+    color: #ffffff !important; 
+    font-weight: 500;
+    margin-bottom: 0px;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 # --- 3. LOGICA DELLE PAGINE ---
 
@@ -259,7 +241,6 @@ elif st.session_state.pagina_corrente == 'archi':
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">SELEZIONA L\'ARENA</div>', unsafe_allow_html=True)
 
-    # Le colonne diventeranno righe in automatico sugli schermi piccoli (smartphone)
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -296,7 +277,6 @@ elif st.session_state.pagina_corrente == 'archi':
 elif st.session_state.pagina_corrente == 'test_discipulus':
     st.markdown('<div class="title"><h1>DISCIPVLVS</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">PROVA DI AMMISSIONE AL GLADIATOR</div>', unsafe_allow_html=True)
-    
     st.markdown("> *Rispondi correttamente ad almeno 8 domande su 10 per dimostrare il tuo valore e sbloccare l'arena dei Gladiatori.*")
     st.write("---")
 
@@ -304,56 +284,169 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
         opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
         scelta = st.radio(
-            f"Opzioni per domanda {q['id']}", 
-            opzioni_con_default, 
-            key=f"q_{q['id']}", 
-            label_visibility="collapsed",
-            disabled=st.session_state.quiz_inviato
+            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"d_q_{q['id']}", 
+            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_disc
         )
         if scelta != "Seleziona una risposta...":
-            st.session_state.risposte_utente[q["id"]] = scelta
+            st.session_state.risposte_disc[q["id"]] = scelta
 
     st.write("---")
 
-    if not st.session_state.quiz_inviato:
+    if not st.session_state.quiz_inviato_disc:
         st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
-        if st.button("CONSEGNA IL TEST", key="submit_quiz"):
-            if len(st.session_state.risposte_utente) < 10:
-                st.warning("⚠️ Per favore, rispondi a tutte e 10 le domande prima di consegnare!")
+        if st.button("CONSEGNA IL TEST", key="submit_quiz_disc"):
+            if len(st.session_state.risposte_disc) < 10:
+                st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
             else:
-                st.session_state.quiz_inviato = True
+                st.session_state.quiz_inviato_disc = True
                 st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
     else:
-        punteggio = 0
-        for q in DOMANDE_DISCIPULUS:
-            if st.session_state.risposte_utente.get(q["id"]) == q["corretta"]:
-                punteggio += 1
-        
+        punteggio = sum(1 for q in DOMANDE_DISCIPULUS if st.session_state.risposte_disc.get(q["id"]) == q["corretta"])
         st.subheader(f"Risultato: {punteggio} / 10 risposte corrette")
         
         if punteggio >= 8:
             st.success("🎉 ECCELLENTE! Hai dimostrato di avere la stoffa del guerriero. Il grado GLADIATOR è sbloccato!")
             st.session_state.gladiator_sbloccato = True
         else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Studia ancora le antiche pergamene e riprova!")
+            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Riprova!")
         
         col_res1, col_res2, _ = st.columns([1, 1, 2])
         with col_res1:
-            if st.button("Torna alla Mappa", key="action_btn"):
-                st.session_state.quiz_inviato = False
-                st.session_state.risposte_utente = {}
+            if st.button("Torna alla Mappa", key="action_btn_d1"):
+                st.session_state.quiz_inviato_disc = False
+                st.session_state.risposte_disc = {}
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
         with col_res2:
             if not st.session_state.gladiator_sbloccato:
-                if st.button("Riprova il Test", key="action_btn_2"):
-                    st.session_state.quiz_inviato = False
-                    st.session_state.risposte_utente = {}
+                if st.button("Riprova il Test", key="action_btn_d2"):
+                    st.session_state.quiz_inviato_disc = False
+                    st.session_state.risposte_disc = {}
                     st.rerun()
 
-    if not st.session_state.quiz_inviato:
+    if not st.session_state.quiz_inviato_disc:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Torna indietro", key="back_map"):
+        if st.button("Torna indietro", key="back_map_d"):
+            st.session_state.pagina_corrente = 'archi'
+            st.rerun()
+
+# ================================
+# PAGINA: TEST GLADIATOR
+# ================================
+elif st.session_state.pagina_corrente == 'test_gladiator':
+    st.markdown('<div class="title" style="text-shadow: 0 0 10px #d64dff, 0 0 40px #d64dff;"><h1 style="text-shadow: 0 0 10px #d64dff, 0 0 40px #d64dff;">GLADIATOR</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle" style="color:#d64dff;">L\'ARENA INTERMEDIA</div>', unsafe_allow_html=True)
+    st.markdown("> *Rispondi correttamente ad almeno 17 domande su 20 per sbloccare l'arena IMPERATOR.*")
+    st.write("---")
+
+    for q in DOMANDE_GLADIATOR:
+        st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
+        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
+        scelta = st.radio(
+            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"g_q_{q['id']}", 
+            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_glad
+        )
+        if scelta != "Seleziona una risposta...":
+            st.session_state.risposte_glad[q["id"]] = scelta
+
+    st.write("---")
+
+    if not st.session_state.quiz_inviato_glad:
+        st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
+        if st.button("CONSEGNA IL TEST", key="submit_quiz_glad"):
+            if len(st.session_state.risposte_glad) < 20:
+                st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
+            else:
+                st.session_state.quiz_inviato_glad = True
+                st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
+    else:
+        punteggio = sum(1 for q in DOMANDE_GLADIATOR if st.session_state.risposte_glad.get(q["id"]) == q["corretta"])
+        st.subheader(f"Risultato: {punteggio} / 20 risposte corrette")
+        
+        if punteggio >= 17:
+            st.success("⚔️ GLORIOSO! Il sangue dell'arena è tuo. Il grado IMPERATOR è sbloccato!")
+            st.session_state.imperator_sbloccato = True
+        else:
+            st.error("❌ Non hai raggiunto il punteggio minimo (17/20). Affila la spada e riprova!")
+        
+        col_res1, col_res2, _ = st.columns([1, 1, 2])
+        with col_res1:
+            if st.button("Torna alla Mappa", key="action_btn_g1"):
+                st.session_state.quiz_inviato_glad = False
+                st.session_state.risposte_glad = {}
+                st.session_state.pagina_corrente = 'archi'
+                st.rerun()
+        with col_res2:
+            if not st.session_state.imperator_sbloccato:
+                if st.button("Riprova il Test", key="action_btn_g2"):
+                    st.session_state.quiz_inviato_glad = False
+                    st.session_state.risposte_glad = {}
+                    st.rerun()
+
+    if not st.session_state.quiz_inviato_glad:
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Torna indietro", key="back_map_g"):
+            st.session_state.pagina_corrente = 'archi'
+            st.rerun()
+
+# ================================
+# PAGINA: TEST IMPERATOR
+# ================================
+elif st.session_state.pagina_corrente == 'test_imperator':
+    st.markdown('<div class="title" style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;"><h1 style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;">IMPERATOR</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle" style="color:#ff0077;">LA PROVA FINALE</div>', unsafe_allow_html=True)
+    st.markdown("> *Rispondi correttamente ad almeno 25 domande su 30 per dominare l'Impero.*")
+    st.write("---")
+
+    for q in DOMANDE_IMPERATOR:
+        st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
+        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
+        scelta = st.radio(
+            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"i_q_{q['id']}", 
+            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_imp
+        )
+        if scelta != "Seleziona una risposta...":
+            st.session_state.risposte_imp[q["id"]] = scelta
+
+    st.write("---")
+
+    if not st.session_state.quiz_inviato_imp:
+        st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
+        if st.button("CONSEGNA IL TEST", key="submit_quiz_imp"):
+            if len(st.session_state.risposte_imp) < 30:
+                st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
+            else:
+                st.session_state.quiz_inviato_imp = True
+                st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
+    else:
+        punteggio = sum(1 for q in DOMANDE_IMPERATOR if st.session_state.risposte_imp.get(q["id"]) == q["corretta"])
+        st.subheader(f"Risultato: {punteggio} / 30 risposte corrette")
+        
+        if punteggio >= 25:
+            st.success("🎉 COMPLIMENTI, SOLDATO! NUNC EST BIBENDUM! 🎉")
+            st.balloons() # Extra festeggiamento Streamlit!
+        else:
+            st.error("❌ Non hai raggiunto il punteggio minimo (25/30). L'Impero attende, riprova!")
+        
+        col_res1, col_res2, _ = st.columns([1, 1, 2])
+        with col_res1:
+            if st.button("Torna alla Mappa", key="action_btn_i1"):
+                st.session_state.quiz_inviato_imp = False
+                st.session_state.risposte_imp = {}
+                st.session_state.pagina_corrente = 'archi'
+                st.rerun()
+        with col_res2:
+            if punteggio < 25:
+                if st.button("Riprova il Test", key="action_btn_i2"):
+                    st.session_state.quiz_inviato_imp = False
+                    st.session_state.risposte_imp = {}
+                    st.rerun()
+
+    if not st.session_state.quiz_inviato_imp:
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Torna indietro", key="back_map_i"):
             st.session_state.pagina_corrente = 'archi'
             st.rerun()
