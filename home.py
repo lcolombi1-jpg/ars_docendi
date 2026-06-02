@@ -137,6 +137,17 @@ html{
 </style>
 """, unsafe_allow_html=True)
 
+import streamlit as st
+
+if "page" not in st.session_state:
+    st.session_state.page = "home"
+
+if "gladiator_unlocked" not in st.session_state:
+    st.session_state.gladiator_unlocked = False
+
+if "imperator_unlocked" not in st.session_state:
+    st.session_state.imperator_unlocked = False
+
 st.markdown("""
 <div class="title">
 <h1>LVDVS</h1>
