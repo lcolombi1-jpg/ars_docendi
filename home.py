@@ -52,6 +52,7 @@ header, footer, #MainMenu { visibility:hidden; }
     text-align:center;
     letter-spacing:10px;
     text-shadow: 0 0 10px #ff00ff, 0 0 40px #ff00ff;
+    margin-bottom: 0;
 }
 
 .subtitle{
@@ -59,11 +60,11 @@ header, footer, #MainMenu { visibility:hidden; }
     text-align:center;
     font-family: 'Montserrat', sans-serif;
     letter-spacing:8px;
-    margin-bottom:50px;
+    margin-bottom:40px;
     text-transform: uppercase;
 }
 
-/* Stile per i bottoni ad ARCO */
+/* --- STILE ARCHI PRINCIPALI --- */
 div.stButton > button {
     font-family: 'Cinzel', serif;
     background-color: transparent;
@@ -79,23 +80,46 @@ div.stButton > button {
     white-space: normal;
 }
 
-/* Colori degli Archi */
-.st-key-btn_discipulus button { color: #00f0ff !important; border: 4px solid #00f0ff !important; box-shadow: 0 0 20px #00f0ff; }
-.st-key-btn_discipulus button:hover { box-shadow: 0 0 40px #00f0ff; background-color: rgba(0, 240, 255, 0.1) !important; }
-
-.st-key-btn_gladiator button { color: #d64dff !important; border: 4px solid #d64dff !important; box-shadow: 0 0 20px #d64dff; }
-.st-key-btn_gladiator button:hover { box-shadow: 0 0 40px #d64dff; background-color: rgba(214, 77, 255, 0.1) !important; }
-
-.st-key-btn_imperator button { color: #ff0077 !important; border: 4px solid #ff0077 !important; box-shadow: 0 0 20px #ff0077; }
-.st-key-btn_imperator button:hover { box-shadow: 0 0 40px #ff0077; background-color: rgba(255, 0, 119, 0.1) !important; }
-
-/* Ad Maiora e bottoni normali del quiz */
-.st-key-ad_maiora_btn button, .st-key-submit_quiz button, .st-key-action_btn button {
-    height: auto !important; border-radius: 10px !important; padding: 15px 40px !important; font-size: 1.5rem !important;
-    color: #00f0ff !important; border: 2px solid #00f0ff !important; box-shadow: 0 0 15px #00f0ff; margin: 0 auto !important;
+/* Archi Bloccati (Disabled) - Manteniamo la forma ad arco ma li rendiamo oscurati */
+div.stButton > button:disabled {
+    border: 4px solid #333 !important;
+    color: #666 !important;
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    transform: none !important;
 }
 
-.st-key-back button { height: auto !important; border-radius: 5px !important; width: auto !important; }
+/* Colori Archi Sbloccati */
+.st-key-btn_discipulus button { color: #00f0ff !important; border: 4px solid #00f0ff !important; box-shadow: 0 0 20px #00f0ff; }
+.st-key-btn_discipulus button:hover { box-shadow: 0 0 40px #00f0ff; background-color: rgba(0, 240, 255, 0.1) !important; transform: scale(1.05); }
+
+.st-key-btn_gladiator button { color: #d64dff !important; border: 4px solid #d64dff !important; box-shadow: 0 0 20px #d64dff; }
+.st-key-btn_gladiator button:hover { box-shadow: 0 0 40px #d64dff; background-color: rgba(214, 77, 255, 0.1) !important; transform: scale(1.05); }
+
+.st-key-btn_imperator button { color: #ff0077 !important; border: 4px solid #ff0077 !important; box-shadow: 0 0 20px #ff0077; }
+.st-key-btn_imperator button:hover { box-shadow: 0 0 40px #ff0077; background-color: rgba(255, 0, 119, 0.1) !important; transform: scale(1.05); }
+
+
+/* --- BOTTONI SECONDARI (Ad Maiora, Back, Quiz) --- */
+.st-key-ad_maiora_btn button, .st-key-submit_quiz button, .st-key-action_btn button, .st-key-back button, .st-key-action_btn_2 button, .st-key-back_map button {
+    height: auto !important; 
+    border-radius: 5px !important; 
+    padding: 12px 30px !important; /* Rimpicciolito */
+    font-size: 1.2rem !important; /* Testo più piccolo */
+    color: #00f0ff !important; 
+    border: 2px solid #00f0ff !important; 
+    box-shadow: 0 0 10px #00f0ff; 
+    margin: 0 auto !important;
+    width: auto !important;
+}
+
+.st-key-ad_maiora_btn button:hover, .st-key-submit_quiz button:hover, .st-key-action_btn button:hover, .st-key-back button:hover {
+    background-color: #00f0ff !important;
+    color: #0a0015 !important;
+    box-shadow: 0 0 20px #00f0ff;
+    transform: none;
+}
 
 /* Testo delle domande stile romano neon */
 .quiz-question {
@@ -115,8 +139,9 @@ if st.session_state.pagina_corrente == 'lobby':
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">SCEGLI IL TUO DESTINO</div>', unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns([1, 1.5, 1])
-    with col2:
+    # Colonne per centrare e rimpicciolire il bottone AD MAIORA
+    _, col_center, _ = st.columns([2, 1, 2])
+    with col_center:
         if st.button("AD MAIORA", key="ad_maiora_btn", use_container_width=True):
             st.session_state.pagina_corrente = 'archi'
             st.rerun()
@@ -164,13 +189,9 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
     st.markdown("> *Rispondi correttamente ad almeno 8 domande su 10 per dimostrare il tuo valore e sbloccare l'arena dei Gladiatori.*")
     st.write("---")
 
-    # Mostriamo le domande
     for q in DOMANDE_DISCIPULUS:
         st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
-        
-        # Gestiamo l'indice di default per non pre-selezionare la risposta corretta
         opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        
         scelta = st.radio(
             f"Opzioni per domanda {q['id']}", 
             opzioni_con_default, 
@@ -183,17 +204,16 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
 
     st.write("---")
 
-    # Calcolo dei Risultati
     if not st.session_state.quiz_inviato:
-        if st.button("CONSEGNA IL TEST", key="submit_quiz"):
-            # Controlliamo che l'utente abbia risposto a tutto
-            if len(st.session_state.risposte_utente) < 10:
-                st.warning("⚠️ Per favore, rispondi a tutte e 10 le domande prima di consegnare!")
-            else:
-                st.session_state.quiz_inviato = True
-                st.rerun()
+        _, col_quiz, _ = st.columns([1, 1, 1])
+        with col_quiz:
+            if st.button("CONSEGNA IL TEST", key="submit_quiz", use_container_width=True):
+                if len(st.session_state.risposte_utente) < 10:
+                    st.warning("⚠️ Per favore, rispondi a tutte e 10 le domande prima di consegnare!")
+                else:
+                    st.session_state.quiz_inviato = True
+                    st.rerun()
     else:
-        # Correzione del Quiz
         punteggio = 0
         for q in DOMANDE_DISCIPULUS:
             if st.session_state.risposte_utente.get(q["id"]) == q["corretta"]:
@@ -207,24 +227,24 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         else:
             st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Studia ancora le antiche pergamene e riprova!")
         
-        # Bottoni di uscita dopo aver visto il risultato
         col_res1, col_res2 = st.columns(2)
         with col_res1:
-            if st.button("Torna alla Mappa", key="action_btn"):
-                # Resettiamo lo stato del quiz per poterlo rifare se si ha fallito
+            if st.button("Torna alla Mappa", key="action_btn", use_container_width=True):
                 st.session_state.quiz_inviato = False
                 st.session_state.risposte_utente = {}
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
         with col_res2:
             if not st.session_state.gladiator_sbloccato:
-                if st.button("Riprova il Test", key="action_btn_2"):
+                if st.button("Riprova il Test", key="action_btn_2", use_container_width=True):
                     st.session_state.quiz_inviato = False
                     st.session_state.risposte_utente = {}
                     st.rerun()
 
-    # Bottone per uscire senza consegnare
-    if tyrannical_condition := (not st.session_state.quiz_inviato):
-        if st.button("Abbandona il Test e torna alla mappa", key="back_map"):
-            st.session_state.pagina_corrente = 'archi'
-            st.rerun()
+    if not st.session_state.quiz_inviato:
+        st.markdown("<br>", unsafe_allow_html=True)
+        _, col_abb, _ = st.columns([1, 1, 1])
+        with col_abb:
+            if st.button("Abbandona il Test", key="back_map", use_container_width=True):
+                st.session_state.pagina_corrente = 'archi'
+                st.rerun()
