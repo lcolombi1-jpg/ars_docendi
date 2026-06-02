@@ -1,31 +1,54 @@
 import streamlit as st
 
+# ==================================================
+# CONFIG
+# ==================================================
+
 st.set_page_config(
-    page_title="Ludus",
+    page_title="LVDVS",
     page_icon="🏛️",
     layout="wide"
 )
 
+# ==================================================
+# SESSION STATE
+# ==================================================
+
+if "page" not in st.session_state:
+    st.session_state.page = "intro"
+
+if "gladiator_unlocked" not in st.session_state:
+    st.session_state.gladiator_unlocked = False
+
+if "imperator_unlocked" not in st.session_state:
+    st.session_state.imperator_unlocked = False
+
+# ==================================================
+# CSS
+# ==================================================
+
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap');
 
-header, footer, #MainMenu {
+header, footer, #MainMenu{
     visibility:hidden;
 }
 
 .stApp{
     background:
-    radial-gradient(circle at center,
-    #19002f 0%,
-    #0a0015 50%,
-    #020004 100%);
+    radial-gradient(
+        circle at center,
+        #19002f 0%,
+        #0a0015 50%,
+        #020004 100%
+    );
 }
 
 .block-container{
-    max-width:100%;
-    padding-top:0rem;
+    padding-top:1rem;
+    max-width:1200px;
 }
 
 html{
@@ -34,7 +57,7 @@ html{
 
 .title{
     text-align:center;
-    margin-top:20px;
+    margin-top:40px;
 }
 
 .title h1{
@@ -49,131 +72,199 @@ html{
 }
 
 .subtitle{
-    color:#00f0ff;
     text-align:center;
-    letter-spacing:8px;
-    margin-bottom:50px;
+    color:#00f0ff;
+    letter-spacing:5px;
+    margin-top:-10px;
+    margin-bottom:40px;
+
+    text-shadow:
+        0 0 10px #00f0ff;
 }
 
-.gates{
+.center-button{
     display:flex;
     justify-content:center;
-    gap:80px;
+    margin-top:40px;
 }
 
-.gate{
-    width:min(260px,28vw);
-    height:min(520px,60vh);
-
-    border-radius:
-        130px
-        130px
-        10px
-        10px;
-
-    text-decoration:none;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    background:transparent;
+.locked{
+    opacity:0.35;
 }
 
-.gate-title{
-    font-family:'Cinzel', serif;
-    font-size:clamp(1rem,2vw,1.8rem);
-    letter-spacing:1px;
-    text-align:center;
-}
-
-.gate-sub{
-    margin-top:16px;
-    font-size:clamp(.7rem,1vw,.9rem);
-    letter-spacing:4px;
-    color:rgba(255,255,255,.4);
-}
-
-.cyan{
-    border:4px solid #00f0ff;
-
-    box-shadow:
-        0 0 15px #00f0ff,
-        0 0 50px #00f0ff,
-        0 0 100px rgba(0,240,255,.5);
-}
-
-.cyan .gate-title{
-    color:#00f0ff;
-}
-
-.violet{
-    border:4px solid #d64dff;
-
-    box-shadow:
-        0 0 15px #d64dff,
-        0 0 50px #d64dff,
-        0 0 100px rgba(214,77,255,.5);
-}
-
-.violet .gate-title{
-    color:#d64dff;
-}
-
-.pink{
-    border:4px solid #ff0077;
-
-    box-shadow:
-        0 0 15px #ff0077,
-        0 0 50px #ff0077,
-        0 0 100px rgba(255,0,119,.5);
-}
-
-.pink .gate-title{
-    color:#ff0077;
+.big-space{
+    height:20px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-import streamlit as st
+# ==================================================
+# INTRO
+# ==================================================
 
-if "page" not in st.session_state:
-    st.session_state.page = "home"
+if st.session_state.page == "intro":
 
-if "gladiator_unlocked" not in st.session_state:
-    st.session_state.gladiator_unlocked = False
+    st.markdown("""
+    <div class="title">
+        <h1>LVDVS</h1>
+    </div>
+    """, unsafe_allow_html=True)
 
-if "imperator_unlocked" not in st.session_state:
-    st.session_state.imperator_unlocked = False
+    st.markdown("""
+    <div class="subtitle">
+        AVDACES FORTVNA IVVAT
+    </div>
+    """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="title">
-<h1>LVDVS</h1>
-</div>
+    st.write("")
+    st.write("")
+    st.write("")
 
-<div class="subtitle">
-scegli il tuo destino
-</div>
+    c1, c2, c3 = st.columns([2,1,2])
 
-<div class="gates">
+    with c2:
+        if st.button("AD MAIORA", use_container_width=True):
+            st.session_state.page = "lobby"
+            st.rerun()
 
-<a class="gate cyan" href="./01_discipulus">
-<div class="gate-title">DISCIPVLVS</div>
-<div class="gate-sub">BEGINNER</div>
-</a>
+# ==================================================
+# LOBBY
+# ==================================================
 
+elif st.session_state.page == "lobby":
 
-<a class="gate violet" href="./02_gladiator">
-<div class="gate-title">GLADIATOR</div>
-<div class="gate-sub">INTERMEDIATE</div>
-</a>
+    st.markdown("""
+    <div class="title">
+        <h1>LVDVS</h1>
+    </div>
+    """, unsafe_allow_html=True)
 
-<a class="gate pink" href="./03_imperator">
-<div class="gate-title">IMPERATOR</div>
-<div class="gate-sub">PRO</div>
-</a>
+    st.markdown("""
+    <div class="subtitle">
+        SCEGLI IL TVO DESTINO
+    </div>
+    """, unsafe_allow_html=True)
 
-</div>
-""", unsafe_allow_html=True)
+    st.write("")
+
+    col1, col2, col3 = st.columns(3)
+
+    # =====================================
+    # DISCIPVLVS
+    # =====================================
+
+    with col1:
+
+        st.markdown("""
+        <div style="
+        height:420px;
+        border-radius:220px 220px 10px 10px;
+        border:4px solid #00f0ff;
+        box-shadow:
+        0 0 15px #00f0ff,
+        0 0 50px #00f0ff,
+        0 0 100px rgba(0,240,255,.5);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+        ">
+        <h2 style="
+        color:#00f0ff;
+        font-family:Cinzel;
+        ">
+        DISCIPVLVS
+        </h2>
+        <p style="color:white;">
+        BEGINNER
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        if st.button("ENTRA", key="discipulus"):
+            st.session_state.page = "discipulus"
+            st.rerun()
+
+    # =====================================
+    # GLADIATOR
+    # =====================================
+
+    with col2:
+
+        st.markdown("""
+        <div class="locked" style="
+        height:420px;
+        border-radius:220px 220px 10px 10px;
+        border:4px solid #d64dff;
+        box-shadow:
+        0 0 15px #d64dff,
+        0 0 50px #d64dff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+        ">
+        <h2 style="
+        color:#d64dff;
+        font-family:Cinzel;
+        ">
+        GLADIATOR
+        </h2>
+        <p style="color:white;">
+        🔒 BLOCCATO
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # =====================================
+    # IMPERATOR
+    # =====================================
+
+    with col3:
+
+        st.markdown("""
+        <div class="locked" style="
+        height:420px;
+        border-radius:220px 220px 10px 10px;
+        border:4px solid #ff0077;
+        box-shadow:
+        0 0 15px #ff0077,
+        0 0 50px #ff0077;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+        ">
+        <h2 style="
+        color:#ff0077;
+        font-family:Cinzel;
+        ">
+        IMPERATOR
+        </h2>
+        <p style="color:white;">
+        🔒 BLOCCATO
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ==================================================
+# DISCIPVLVS
+# ==================================================
+
+elif st.session_state.page == "discipulus":
+
+    st.markdown("""
+    <div class="title">
+        <h1>DISCIPVLVS</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.info("Qui inseriremo il quiz DISCIPVLVS.")
+
+    st.write("")
+    st.write("")
+
+    if st.button("← TORNA AL LVDVS"):
+        st.session_state.page = "lobby"
+        st.rerun()
