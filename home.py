@@ -134,20 +134,6 @@ html{
     color:#ff0077;
 }
 
-st.page_link(
-    "pages/01_discipulus.py",
-    label="ENTRA"
-)
-st.page_link(
-    "pages/02_gladiator.py",
-    label="ENTRA"
-)
-
-st.page_link(
-    "pages/03_imperator.py",
-    label="ENTRA"
-)
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -162,21 +148,41 @@ scegli il tuo destino
 
 <div class="gates">
 
-<a class="gate cyan" href="./discipulus">
+<a class="gate cyan" href="./01_discipulus">
 <div class="gate-title">DISCIPVLVS</div>
 <div class="gate-sub">BEGINNER</div>
 </a>
 
 
-<a class="gate violet" href="./gladiator">
+<a class="gate violet" href="./02_gladiator">
 <div class="gate-title">GLADIATOR</div>
 <div class="gate-sub">INTERMEDIATE</div>
 </a>
 
-<a class="gate pink" href="./imperator">
+<a class="gate pink" href="./03_imperator">
 <div class="gate-title">IMPERATOR</div>
 <div class="gate-sub">PRO</div>
 </a>
 
 </div>
 """, unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.page_link(
+        "pages/01_discipulus.py",
+        label="ENTRA IN DISCIPVLVS"
+    )
+
+with col2:
+    st.page_link(
+        "pages/02_gladiator.py",
+        label="ENTRA IN GLADIATOR"
+    )
+
+with col3:
+    st.page_link(
+        "pages/03_imperator.py",
+        label="ENTRA IN IMPERATOR"
+    )
