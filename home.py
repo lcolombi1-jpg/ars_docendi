@@ -45,7 +45,6 @@ DOMANDE_DISCIPULUS = [
     {"id": 10, "domanda": "In quanti colli principali sorgeva l'antica Roma?", "opzioni": ["3", "5", "7", "9"], "corretta": "7"}
 ]
 
-# Quiz fittizi generati per Gladiator (20 domande) e Imperator (30 domande)
 DOMANDE_GLADIATOR = [{"id": i, "domanda": f"Domanda tattica Gladiator numero {i}?", "opzioni": ["Risposta A", "Risposta B", "Risposta C", "Risposta D"], "corretta": "Risposta A"} for i in range(1, 21)]
 DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
 
@@ -67,6 +66,12 @@ header, footer, #MainMenu { visibility:hidden; }
 
 html{
     font-size:clamp(14px,1vw,18px);
+}
+
+/* Animazioni globali */
+@keyframes fadeInBanner {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 /* --- LOBBY --- */
@@ -112,12 +117,28 @@ html{
     color:#00f0ff;
     text-align:center;
     letter-spacing:8px;
-    margin-bottom:50px;
+    margin-bottom:20px;
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
 }
 
-/* --- STILE ARCATE (DIMENSIONI ORIGINALI MANTENUTE) --- */
+/* --- STILE CITAZIONI (Molto più visibili e centrate) --- */
+blockquote {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin: 10px auto 40px auto;
+    width: 80%;
+    color: #ffffff !important;
+    font-size: 1.25rem !important;
+    text-align: center !important;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+/* --- STILE ARCATE --- */
 .st-key-btn_discipulus button, 
 .st-key-btn_gladiator button, 
 .st-key-btn_imperator button {
@@ -131,10 +152,24 @@ html{
     align-items: center !important;
     margin: 0 auto !important;
     font-family: 'Cinzel', serif !important;
-    font-size: clamp(1rem,2vw,1.8rem) !important;
     letter-spacing: 1px !important;
     transition: all 0.4s ease;
     white-space: pre-wrap !important;
+}
+
+/* Formattazione Testo Arcate: Nome grande, Traduzione piccola */
+.st-key-btn_discipulus button p,
+.st-key-btn_gladiator button p,
+.st-key-btn_imperator button p {
+    font-size: 1rem !important; /* Traduzione in piccolo */
+    letter-spacing: 3px;
+    text-align: center;
+}
+.st-key-btn_discipulus button p::first-line,
+.st-key-btn_gladiator button p::first-line,
+.st-key-btn_imperator button p::first-line {
+    font-size: 2.2rem !important; /* Nome latino GRANDE */
+    line-height: 1.8;
 }
 
 /* 1. DISCIPVLVS (CYAN) */
@@ -168,7 +203,7 @@ div.stButton > button:disabled {
     opacity: 0.65 !important;
 }
 
-/* --- BOTTONI RETTANGOLARI (Ad Maiora, etc.) --- */
+/* --- BOTTONI RETTANGOLARI --- */
 .st-key-ad_maiora_btn, .st-key-back_btn, .st-key-back_map {
     display: flex !important; justify-content: center !important; width: 100% !important;
 }
@@ -184,33 +219,43 @@ div.stButton > button:disabled {
     background-color: rgba(0, 240, 255, 0.2) !important; box-shadow: 0 0 20px #00f0ff !important;
 }
 
-/* --- STILI TEST / QUIZ AD ALTA VISIBILITA' --- */
+/* --- STILI TEST / QUIZ CENTRATI --- */
 .quiz-question {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 1.4rem; /* Più grande */
+    font-size: 1.4rem; 
     margin-top: 40px;
     margin-bottom: 15px;
     font-weight: 600;
-    text-shadow: 0 0 8px rgba(255,255,255,0.4); /* Effetto luminoso sul testo */
+    text-align: center; /* Centratura domanda */
+    text-shadow: 0 0 8px rgba(255,255,255,0.4); 
 }
 
-/* Riquadro attorno alle opzioni di risposta */
+/* Riquadro e opzioni centrati */
 div[role="radiogroup"] {
-    background-color: rgba(255, 255, 255, 0.08); /* Sfondo semitrasparente */
+    background-color: rgba(255, 255, 255, 0.05); 
     padding: 20px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 240, 255, 0.3); /* Bordino delicato */
-    border-left: 5px solid #00f0ff; /* Linea sinistra spessa per evidenziare */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centratura orizzontale contenuto */
+    justify-content: center;
 }
 
-/* Testo delle opzioni di risposta */
+/* Allineamento testo delle opzioni al centro */
+label[data-baseweb="radio"] {
+    justify-content: center !important;
+    width: 100%;
+}
+
 div[role="radiogroup"] p {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.25rem !important;
     color: #ffffff !important; 
     font-weight: 500;
     margin-bottom: 0px;
+    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -303,7 +348,7 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         st.markdown("</div>", unsafe_allow_html=True)
     else:
         punteggio = sum(1 for q in DOMANDE_DISCIPULUS if st.session_state.risposte_disc.get(q["id"]) == q["corretta"])
-        st.subheader(f"Risultato: {punteggio} / 10 risposte corrette")
+        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
         if punteggio >= 8:
             st.success("🎉 ECCELLENTE! Hai dimostrato di avere la stoffa del guerriero. Il grado GLADIATOR è sbloccato!")
@@ -330,6 +375,7 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         if st.button("Torna indietro", key="back_map_d"):
             st.session_state.pagina_corrente = 'archi'
             st.rerun()
+
 
 # ================================
 # PAGINA: TEST GLADIATOR
@@ -363,7 +409,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
         st.markdown("</div>", unsafe_allow_html=True)
     else:
         punteggio = sum(1 for q in DOMANDE_GLADIATOR if st.session_state.risposte_glad.get(q["id"]) == q["corretta"])
-        st.subheader(f"Risultato: {punteggio} / 20 risposte corrette")
+        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 20 risposte corrette</h3>", unsafe_allow_html=True)
         
         if punteggio >= 17:
             st.success("⚔️ GLORIOSO! Il sangue dell'arena è tuo. Il grado IMPERATOR è sbloccato!")
@@ -390,6 +436,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
         if st.button("Torna indietro", key="back_map_g"):
             st.session_state.pagina_corrente = 'archi'
             st.rerun()
+
 
 # ================================
 # PAGINA: TEST IMPERATOR
@@ -423,11 +470,17 @@ elif st.session_state.pagina_corrente == 'test_imperator':
         st.markdown("</div>", unsafe_allow_html=True)
     else:
         punteggio = sum(1 for q in DOMANDE_IMPERATOR if st.session_state.risposte_imp.get(q["id"]) == q["corretta"])
-        st.subheader(f"Risultato: {punteggio} / 30 risposte corrette")
+        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 30 risposte corrette</h3>", unsafe_allow_html=True)
         
         if punteggio >= 25:
-            st.success("🎉 COMPLIMENTI, SOLDATO! NUNC EST BIBENDUM! 🎉")
-            st.balloons() # Extra festeggiamento Streamlit!
+            st.balloons()
+            # BANNER EPICO A TUTTO SCHERMO
+            st.markdown("""
+            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999999; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
+                <h1 style="font-family: 'Cinzel', serif; font-size: clamp(4rem, 12vw, 10rem); color: #ff0077; text-shadow: 0 0 20px #ff0077, 0 0 50px #ff0077, 0 0 80px #ff0077; margin:0; text-align:center; line-height: 1;">VENI, VIDI, VICI!</h1>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-size: clamp(1.2rem, 3vw, 2rem); margin-top: 30px; text-transform: uppercase; letter-spacing: 5px; text-align:center;">Complimenti, soldato!<br>Nunc est bibendum!</p>
+            </div>
+            """, unsafe_allow_html=True)
         else:
             st.error("❌ Non hai raggiunto il punteggio minimo (25/30). L'Impero attende, riprova!")
         
