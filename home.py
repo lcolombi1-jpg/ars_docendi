@@ -35,7 +35,7 @@ DOMANDE_DISCIPULUS = [
 # --- 2. STILI CSS ---
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap');
 
 header, footer, #MainMenu { visibility:hidden; }
 
@@ -52,9 +52,9 @@ html{
     font-size:clamp(14px,1vw,18px);
 }
 
-/* --- STILI SPECIFICI PER LA LOBBY (Più grandi e centrati) --- */
+/* --- STILI SPECIFICI PER LA LOBBY --- */
 .lobby-wrapper {
-    margin-top: 15vh; /* Spinge il contenuto verso il centro dello schermo */
+    margin-top: 15vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,7 +63,7 @@ html{
 
 .lobby-title h1 {
     font-family:'Cinzel', serif;
-    font-size:clamp(5rem, 15vw, 10rem); /* Molto più grande */
+    font-size:clamp(5rem, 15vw, 10rem); 
     color:white;
     letter-spacing:15px;
     text-shadow: 0 0 15px #ff00ff, 0 0 60px #ff00ff;
@@ -76,14 +76,14 @@ html{
     color:#00f0ff;
     text-align:center;
     letter-spacing:12px;
-    font-size: clamp(1.2rem, 3vw, 2.5rem); /* Sottotitolo ingrandito */
+    font-size: clamp(1.2rem, 3vw, 2.5rem); 
     margin-top: 10px;
-    margin-bottom: 60px; /* Spazio prima del bottone */
+    margin-bottom: 60px; 
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
 }
 
-/* --- STILI PER LE ALTRE PAGINE (Dimensioni originali) --- */
+/* --- STILI PER LE ALTRE PAGINE --- */
 .title{
     text-align:center;
     margin-top:20px;
@@ -107,12 +107,13 @@ html{
     text-transform: uppercase;
 }
 
-/* --- STILE ARCATE PRINCIPALI --- */
+/* --- STILE ARCATE PRINCIPALI (RESPONSIVE) --- */
 .st-key-btn_discipulus button, 
 .st-key-btn_gladiator button, 
 .st-key-btn_imperator button {
-    width: min(260px,28vw) !important;
-    height: min(520px,60vh) !important;
+    width: 100% !important; /* Fluido per mobile */
+    max-width: 280px !important; /* Limite su desktop */
+    height: clamp(350px, 50vh, 520px) !important; /* Altezza adattabile */
     border-radius: 130px 130px 10px 10px !important;
     background: transparent !important;
     display: flex !important;
@@ -121,7 +122,7 @@ html{
     align-items: center !important;
     margin: 0 auto !important;
     font-family: 'Cinzel', serif !important;
-    font-size: clamp(1rem,2vw,1.8rem) !important;
+    font-size: clamp(1rem, 2vw, 1.8rem) !important;
     letter-spacing: 1px !important;
     transition: all 0.4s ease;
     white-space: pre-wrap !important;
@@ -138,7 +139,7 @@ html{
     background-color: rgba(0, 240, 255, 0.1) !important;
 }
 
-/* 2. GLADIATOR (VIOLET) - SEMPRE NEON */
+/* 2. GLADIATOR (VIOLET) */
 .st-key-btn_gladiator button {
     border: 4px solid #d64dff !important;
     color: #d64dff !important;
@@ -149,7 +150,7 @@ html{
     background-color: rgba(214, 77, 255, 0.1) !important;
 }
 
-/* 3. IMPERATOR (PINK) - SEMPRE NEON */
+/* 3. IMPERATOR (PINK) */
 .st-key-btn_imperator button {
     border: 4px solid #ff0077 !important;
     color: #ff0077 !important;
@@ -160,14 +161,14 @@ html{
     background-color: rgba(255, 0, 119, 0.1) !important;
 }
 
-/* ARCATE BLOCCATE - Cursore disabilitato e leggermente opache ma mantengono il neon! */
+/* ARCATE BLOCCATE */
 div.stButton > button:disabled {
     cursor: not-allowed !important;
     transform: none !important;
     opacity: 0.65 !important;
 }
 
-/* --- CENTRATURA ASSOLUTA BOTTONI RETTANGOLARI --- */
+/* --- BOTTONI RETTANGOLARI --- */
 .st-key-ad_maiora_btn, 
 .st-key-back_btn,
 .st-key-back_map {
@@ -205,13 +206,30 @@ div.stButton > button:disabled {
     box-shadow: 0 0 20px #00f0ff !important;
 }
 
-/* Testo del test stile pulito */
+/* --- STILI TEST / QUIZ --- */
 .quiz-question {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 1.2rem;
-    margin-top: 20px;
+    font-size: 1.3rem;
+    margin-top: 30px;
     font-weight: 500;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+/* Riquadro e testo delle opzioni di risposta */
+div[role="radiogroup"] {
+    background-color: rgba(0, 240, 255, 0.05); /* Sfondo delicato cyan */
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 3px solid #00f0ff; /* Linea laterale elegante */
+    margin-bottom: 10px;
+}
+
+div[role="radiogroup"] p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem !important;
+    color: #ffffff !important; /* Testo bianco ben visibile */
+    font-weight: 400;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -222,7 +240,6 @@ div.stButton > button:disabled {
 # PAGINA: LOBBY
 # ================================
 if st.session_state.pagina_corrente == 'lobby':
-    # Usiamo il wrapper specifico per centrare verticalmente e ingrandire la copertina
     st.markdown('''
     <div class="lobby-wrapper">
         <div class="lobby-title"><h1>LVDVS</h1></div>
@@ -242,6 +259,7 @@ elif st.session_state.pagina_corrente == 'archi':
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">SELEZIONA L\'ARENA</div>', unsafe_allow_html=True)
 
+    # Le colonne diventeranno righe in automatico sugli schermi piccoli (smartphone)
     col1, col2, col3 = st.columns(3)
 
     with col1:
