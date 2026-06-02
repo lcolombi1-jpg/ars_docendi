@@ -116,6 +116,31 @@ div.stButton > button:hover {
     color: #0a0015;
     box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
 }
+/* Questo centra perfettamente il contenitore del bottone in Streamlit */
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: -30px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
+}
+
+div.stButton > button {
+    font-family: 'Cinzel', serif;
+    background-color: transparent;
+    color: #00f0ff;
+    border: 2px solid #00f0ff;
+    padding: 15px 40px;
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+    box-shadow: 0 0 15px #00f0ff;
+    transition: all 0.3s ease;
+}
+
+div.stButton > button:hover {
+    background-color: #00f0ff;
+    color: #0a0015;
+    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+}
 </style>
 """, unsafe_allow_html=True)
 
