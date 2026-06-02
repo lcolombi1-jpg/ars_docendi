@@ -6,18 +6,22 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 1. INIZIALIZZAZIONE DELLA MEMORIA (SESSION STATE) ---
+# --- 1. MEMORIA DEL GIOCO ---
 if 'pagina_corrente' not in st.session_state:
     st.session_state.pagina_corrente = 'lobby'
 if 'gladiator_sbloccato' not in st.session_state:
-    st.session_state.gladiator_sbloccato = False
+    st.session_state.gladiator_sbloccato = False  # Cambia in True per testare la grafica
 if 'imperator_sbloccato' not in st.session_state:
     st.session_state.imperator_sbloccato = False
 
+# Funzioni di navigazione
 def vai_ai_livelli():
     st.session_state.pagina_corrente = 'archi'
 
-# --- 2. CSS CUSTOM ---
+def vai_alla_lobby():
+    st.session_state.pagina_corrente = 'lobby'
+
+# --- 2. CSS COMPLETO (Incluso lo stile LOCKED) ---
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap');
@@ -29,7 +33,6 @@ header, footer, #MainMenu { visibility:hidden; }
 }
 
 .block-container{ max-width:100%; padding-top:0rem; }
-html{ font-size:clamp(14px,1vw,18px); }
 
 .title{ text-align:center; margin-top:20px; }
 .title h1{
@@ -43,164 +46,138 @@ html{ font-size:clamp(14px,1vw,18px); }
 .subtitle{
     color:#00f0ff;
     text-align:center;
+    font-family: 'Montserrat', sans-serif;
     letter-spacing:8px;
     margin-bottom:50px;
+    text-transform: uppercase;
 }
 
-.gates{ display:flex; justify-content:center; gap:80px; }
+.gates{ 
+    display:flex; 
+    justify-content:center; 
+    gap:40px; 
+    flex-wrap: wrap;
+    padding: 20px;
+}
 
 .gate{
-    width:min(260px,28vw);
-    height:min(520px,60vh);
+    width: 260px;
+    height: 480px;
     border-radius: 130px 130px 10px 10px;
-    text-decoration:none;
+    text-decoration:none !important;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:transparent;
-    transition: transform 0.3s ease;
+    transition: all 0.4s ease;
 }
-
-.gate:hover { transform: translateY(-10px); }
 
 .gate-title{
     font-family:'Cinzel', serif;
-    font-size:clamp(1rem,2vw,1.8rem);
+    font-size: 1.5rem;
     letter-spacing:1px;
     text-align:center;
 }
 
 .gate-sub{
     margin-top:16px;
-    font-size:clamp(.7rem,1vw,.9rem);
+    font-size: 0.8rem;
     letter-spacing:4px;
     color:rgba(255,255,255,.4);
 }
 
-/* Stili per i gate sbloccati */
-.cyan{
-    border:4px solid #00f0ff;
-    box-shadow: 0 0 15px #00f0ff, 0 0 50px #00f0ff, 0 0 100px rgba(0,240,255,.5);
-}
-.cyan .gate-title{ color:#00f0ff; }
+/* LIVELLI SBLOCCATI */
+.cyan { border:4px solid #00f0ff; box-shadow: 0 0 20px #00f0ff; color:#00f0ff !important; }
+.violet { border:4px solid #d64dff; box-shadow: 0 0 20px #d64dff; color:#d64dff !important; }
+.pink { border:4px solid #ff0077; box-shadow: 0 0 20px #ff0077; color:#ff0077 !important; }
 
-.violet{
-    border:4px solid #d64dff;
-    box-shadow: 0 0 15px #d64dff, 0 0 50px #d64dff, 0 0 100px rgba(214,77,255,.5);
-}
-.violet .gate-title{ color:#d64dff; }
+.gate:hover:not(.locked) { transform: scale(1.05); filter: brightness(1.2); }
 
-.pink{
-    border:4px solid #ff0077;
-    box-shadow: 0 0 15px #ff0077, 0 0 50px #ff0077, 0 0 100px rgba(255,0,119,.5);
-}
-.pink .gate-title{ color:#ff0077; }
-
-/* Stile per i gate bloccati */
-.locked{
-    border:4px solid #333333;
-    box-shadow: none;
+/* LIVELLO BLOCCATO */
+.locked {
+    border: 4px solid #333 !important;
+    background: rgba(0,0,0,0.4);
     cursor: not-allowed;
-    background: rgba(255,255,255,0.05);
+    opacity: 0.6;
 }
-.locked .gate-title{ color: #666666; }
-.locked:hover { transform: none; }
+.locked .gate-title, .locked .gate-sub { color: #666 !important; }
 
-/* Stile per il bottone AD MAIORA di Streamlit */
+/* BOTTONE AD MAIORA */
 div.stButton > button {
     font-family: 'Cinzel', serif;
     background-color: transparent;
     color: #00f0ff;
     border: 2px solid #00f0ff;
-    border-radius: 10px;
-    padding: 15px 30px;
-    font-size: 1.5rem;
+    padding: 15px 40px;
+    font-size: 1.8rem;
     letter-spacing: 5px;
-    box-shadow: 0 0 10px #00f0ff;
-    transition: all 0.3s ease;
-}
-div.stButton > button:hover {
-    background-color: #00f0ff;
-    color: #0a0015;
-    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+    box-shadow: 0 0 15px #00f0ff;
+    display: block;
+    margin: 0 auto;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# --- 3. LOGICA PAGINE ---
 
-# --- 3. LOGICA DELLE PAGINE ---
-
-# PAGINA 1: LOBBY
 if st.session_state.pagina_corrente == 'lobby':
-    st.markdown("""
-    <div class="title"><h1>LVDVS</h1></div>
-    <div class="subtitle">scegli il tuo destino</div>
-    <br><br>
-    """, unsafe_allow_html=True)
-    
-    # Creiamo 3 colonne per centrare il bottone
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col2:
-        st.button("AD MAIORA", use_container_width=True, on_click=vai_ai_livelli)
+    st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Benvenuto nel tempio</div>', unsafe_allow_html=True)
+    st.write("") # Spazio
+    st.button("AD MAIORA", on_click=vai_ai_livelli)
 
-# PAGINA 2: SCELTA DEGLI ARCHI
-elif st.session_state.pagina_corrente == 'archi':
-    st.markdown("""
-    <div class="title"><h1>LVDVS</h1></div>
-    <div class="subtitle">I TRE ARCHI</div>
-    """, unsafe_allow_html=True)
+else:
+    st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Scegli il tuo destino</div>', unsafe_allow_html=True)
 
-    # Iniziamo a costruire l'HTML dei gate dinamicamente in base a cosa è sbloccato
-    html_gates = '<div class="gates">'
+    # Definiamo le tre arcate come variabili HTML
     
-    # 1. DISCIPVLVS (Sempre aperto)
-    html_gates += """
+    # 1. DISCIPVLVS (Sempre attivo)
+    arc_1 = """
     <a class="gate cyan" href="./01_discipulus" target="_self">
         <div class="gate-title">DISCIPVLVS</div>
         <div class="gate-sub">BEGINNER</div>
-    </a>
-    """
-    
-    # 2. GLADIATOR
+    </a>"""
+
+    # 2. GLADIATOR (Condizionale)
     if st.session_state.gladiator_sbloccato:
-        html_gates += """
+        arc_2 = """
         <a class="gate violet" href="./02_gladiator" target="_self">
             <div class="gate-title">GLADIATOR</div>
             <div class="gate-sub">INTERMEDIATE</div>
-        </a>
-        """
+        </a>"""
     else:
-        html_gates += """
+        arc_2 = """
         <div class="gate locked">
             <div class="gate-title">GLADIATOR 🔒</div>
             <div class="gate-sub">BLOCCATO</div>
-        </div>
-        """
-        
-    # 3. IMPERATOR
+        </div>"""
+
+    # 3. IMPERATOR (Condizionale)
     if st.session_state.imperator_sbloccato:
-        html_gates += """
+        arc_3 = """
         <a class="gate pink" href="./03_imperator" target="_self">
             <div class="gate-title">IMPERATOR</div>
             <div class="gate-sub">PRO</div>
-        </a>
-        """
+        </a>"""
     else:
-        html_gates += """
+        arc_3 = """
         <div class="gate locked">
             <div class="gate-title">IMPERATOR 🔒</div>
             <div class="gate-sub">BLOCCATO</div>
-        </div>
-        """
-        
-    html_gates += '</div>'
-    
-    # Stampiamo gli archi a schermo
-    st.markdown(html_gates, unsafe_allow_html=True)
-    
-    # Tasto opzionale per tornare alla lobby
-    st.markdown("<br><br>", unsafe_allow_html=True)
+        </div>"""
+
+    # Uniamo tutto in un unico blocco Markdown per evitare errori di rendering
+    st.markdown(f"""
+    <div class="gates">
+        {arc_1}
+        {arc_2}
+        {arc_3}
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Tasto per tornare indietro
+    st.write("")
     if st.button("Torna alla Lobby"):
         st.session_state.pagina_corrente = 'lobby'
         st.rerun()
