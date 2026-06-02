@@ -159,6 +159,7 @@ if st.session_state.pagina_corrente == 'lobby':
         </div>
     </div>
     """, unsafe_allow_html=True)
+    st.button("AD MAIORA", on_click=vai_ai_livelli)
 
 else:
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
