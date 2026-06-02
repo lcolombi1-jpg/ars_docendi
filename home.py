@@ -116,6 +116,46 @@ div.stButton > button:hover {
     color: #0a0015;
     box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
 }
+
+"""
+.lobby-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; /* Occupa quasi tutta l'altezza dello schermo */
+    text-align: center;
+}
+
+.title h1 {
+    font-size: clamp(5rem, 15vw, 10rem) !important; /* Ancora più grande */
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: clamp(1.2rem, 3vw, 2.5rem) !important;
+    margin-bottom: 60px;
+}
+"""
+
+# --- MODIFICA ALLA LOGICA DELLA PAGINA LOBBY ---
+if st.session_state.pagina_corrente == 'lobby':
+    # Usiamo un unico div contenitore per centrare tutto
+    st.markdown("""
+    <div class="lobby-container">
+        <div class="title">
+            <h1>LVDVS</h1>
+        </div>
+        <div class="subtitle">
+            SCEGLI IL TUO DESTINO
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Il bottone AD MAIORA fuori dal markdown ma centrato tramite colonne
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.button("AD MAIORA", on_click=vai_ai_livelli, use_container_width=True)
 </style>
 """, unsafe_allow_html=True)
 
