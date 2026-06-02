@@ -147,10 +147,18 @@ div.stButton > button:hover {
 # --- 3. LOGICA DELLE PAGINE ---
 
 if st.session_state.pagina_corrente == 'lobby':
-    st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Benvenuto nel tempio</div>', unsafe_allow_html=True)
-    st.write("") 
-    st.button("AD MAIORA", on_click=vai_ai_livelli)
+    
+    # Il div lobby-container centra tutto il testo in verticale e orizzontale
+    st.markdown("""
+    <div class="lobby-container">
+        <div class="title">
+            <h1>LVDVS</h1>
+        </div>
+        <div class="subtitle">
+            SCEGLI IL TUO DESTINO
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 else:
     st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
