@@ -52,6 +52,38 @@ html{
     font-size:clamp(14px,1vw,18px);
 }
 
+/* --- STILI SPECIFICI PER LA LOBBY (Più grandi e centrati) --- */
+.lobby-wrapper {
+    margin-top: 15vh; /* Spinge il contenuto verso il centro dello schermo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lobby-title h1 {
+    font-family:'Cinzel', serif;
+    font-size:clamp(5rem, 15vw, 10rem); /* Molto più grande */
+    color:white;
+    letter-spacing:15px;
+    text-shadow: 0 0 15px #ff00ff, 0 0 60px #ff00ff;
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 1;
+}
+
+.lobby-subtitle {
+    color:#00f0ff;
+    text-align:center;
+    letter-spacing:12px;
+    font-size: clamp(1.2rem, 3vw, 2.5rem); /* Sottotitolo ingrandito */
+    margin-top: 10px;
+    margin-bottom: 60px; /* Spazio prima del bottone */
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+/* --- STILI PER LE ALTRE PAGINE (Dimensioni originali) --- */
 .title{
     text-align:center;
     margin-top:20px;
@@ -152,9 +184,9 @@ div.stButton > button:disabled {
 .st-key-back_map button {
     height: auto !important; 
     width: auto !important;
-    padding: 8px 20px !important; 
+    padding: 10px 25px !important; 
     border-radius: 4px !important; 
-    font-size: 1rem !important; 
+    font-size: 1.1rem !important; 
     font-family: 'Cinzel', serif !important;
     color: #00f0ff !important; 
     border: 1px solid #00f0ff !important; 
@@ -190,10 +222,14 @@ div.stButton > button:disabled {
 # PAGINA: LOBBY
 # ================================
 if st.session_state.pagina_corrente == 'lobby':
-    st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">SCEGLI IL TUO DESTINO</div>', unsafe_allow_html=True)
+    # Usiamo il wrapper specifico per centrare verticalmente e ingrandire la copertina
+    st.markdown('''
+    <div class="lobby-wrapper">
+        <div class="lobby-title"><h1>LVDVS</h1></div>
+        <div class="lobby-subtitle">SCEGLI IL TUO DESTINO</div>
+    </div>
+    ''', unsafe_allow_html=True)
     
-    # Ad Maiora è ora inserito senza colonne, e il CSS lo centra perfettamente!
     if st.button("AD MAIORA", key="ad_maiora_btn"):
         st.session_state.pagina_corrente = 'archi'
         st.rerun()
@@ -219,7 +255,6 @@ elif st.session_state.pagina_corrente == 'archi':
                 st.session_state.pagina_corrente = 'test_gladiator'
                 st.rerun()
         else:
-            # Bottone bloccato ma che ora ha il neon Viola
             st.button("GLADIATOR 🔒\n\nINTERMEDIATE", disabled=True, key="btn_gladiator")
 
     with col3:
@@ -228,12 +263,10 @@ elif st.session_state.pagina_corrente == 'archi':
                 st.session_state.pagina_corrente = 'test_imperator'
                 st.rerun()
         else:
-            # Bottone bloccato ma che ora ha il neon Rosa
             st.button("IMPERATOR 🔒\n\nPRO", disabled=True, key="btn_imperator")
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
     
-    # Torna alla Lobby inserito senza colonne, centrato perfettamente dal CSS
     if st.button("Torna alla Lobby", key="back_btn"):
         st.session_state.pagina_corrente = 'lobby'
         st.rerun()
@@ -265,7 +298,6 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
     st.write("---")
 
     if not st.session_state.quiz_inviato:
-        # Centriamo il bottone di consegna test usando lo stesso principio
         st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
         if st.button("CONSEGNA IL TEST", key="submit_quiz"):
             if len(st.session_state.risposte_utente) < 10:
