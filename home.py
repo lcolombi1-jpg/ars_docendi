@@ -202,7 +202,7 @@ else:
     html_content = '<div class="gates">'
     
     # Arco 1: DISCIPVLVS (Sempre aperto)
-html_content += '<a class="gate cyan" href="./01_discipulus" target="_self">'
+    html_content += '<a class="gate cyan" href="./01_discipulus" target="_self">'
     html_content += '<div class="gate-title">DISCIPVLVS</div>'
     html_content += '<div class="gate-sub">BEGINNER</div>'
     html_content += '</a>'
