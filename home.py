@@ -1,12 +1,14 @@
 import streamlit as st
 
+# --- 1. CONFIGURAZIONE (Deve essere la prima cosa) ---
 st.set_page_config(
-    page_title="Ludus",
+    page_title="LVDVS",
     page_icon="🏛️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
-# --- 1. MEMORIA DEL GIOCO ---
+# --- 2. INIZIALIZZAZIONE SESSION STATE ---
 if 'pagina_corrente' not in st.session_state:
     st.session_state.pagina_corrente = 'lobby'
 if 'gladiator_sbloccato' not in st.session_state:
@@ -14,230 +16,104 @@ if 'gladiator_sbloccato' not in st.session_state:
 if 'imperator_sbloccato' not in st.session_state:
     st.session_state.imperator_sbloccato = False
 
-def vai_ai_livelli():
-    st.session_state.pagina_corrente = 'archi'
-
-def vai_alla_lobby():
-    st.session_state.pagina_corrente = 'lobby'
-
-# --- 2. STILI CSS ---
+# --- 3. CSS ESSENZIALE (Senza rompere il layout) ---
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400&display=swap');
 
-header, footer, #MainMenu { visibility:hidden; }
-
-.stApp{
+/* Sfondo e font generale */
+.stApp {
     background: radial-gradient(circle at center, #19002f 0%, #0a0015 50%, #020004 100%);
+    color: white;
 }
 
-.block-container{ max-width:100%; padding-top:0rem; }
+/* Nascondi elementi inutili */
+header, footer, .stDeployButton { visibility: hidden; }
 
-.title{ text-align:center; margin-top:20px; }
-.title h1{
-    font-family:'Cinzel', serif;
-    font-size:clamp(3rem,8vw,6rem);
-    color:white;
-    letter-spacing:10px;
-    text-shadow: 0 0 10px #ff00ff, 0 0 40px #ff00ff;
-}
-
-.subtitle{
-    color:#00f0ff;
-    text-align:center;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing:8px;
-    margin-bottom:50px;
-    text-transform: uppercase;
-}
-
-.gates{ 
-    display:flex; 
-    justify-content:center; 
-    gap:40px; 
-    flex-wrap: wrap;
-    padding: 20px;
-}
-
-.gate{
-    width: 260px;
-    height: 480px;
-    border-radius: 130px 130px 10px 10px;
-    text-decoration:none !important;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    transition: all 0.4s ease;
-}
-
-.gate-title{
-    font-family:'Cinzel', serif;
-    font-size: 1.5rem;
-    letter-spacing:1px;
-    text-align:center;
-}
-
-.gate-sub{
-    margin-top:16px;
-    font-size: 0.8rem;
-    letter-spacing:4px;
-    color:rgba(255,255,255,.4);
-}
-
-.cyan { border:4px solid #00f0ff; box-shadow: 0 0 20px #00f0ff; color:#00f0ff !important; }
-.violet { border:4px solid #d64dff; box-shadow: 0 0 20px #d64dff; color:#d64dff !important; }
-.pink { border:4px solid #ff0077; box-shadow: 0 0 20px #ff0077; color:#ff0077 !important; }
-
-.gate:hover:not(.locked) { transform: scale(1.05); filter: brightness(1.2); }
-
-.locked {
-    border: 4px solid #333 !important;
-    background: rgba(0,0,0,0.4);
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-.locked .gate-title, .locked .gate-sub { color: #666 !important; }
-
-div.stButton > button {
+/* Centratura Titoli */
+.main-title {
     font-family: 'Cinzel', serif;
-    background-color: transparent;
+    font-size: 5rem;
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 20px #ff00ff;
+    margin-top: 50px;
+}
+.main-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
     color: #00f0ff;
-    border: 2px solid #00f0ff;
-    padding: 15px 40px;
-    font-size: 1.8rem;
     letter-spacing: 5px;
-    box-shadow: 0 0 15px #00f0ff;
+    margin-bottom: 50px;
+}
+
+/* BOX DELLE ARCATE */
+.arc-box {
+    border-radius: 80px 80px 10px 10px;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+}
+.cyan-arc { border: 3px solid #00f0ff; box-shadow: 0 0 15px #00f0ff; color: #00f0ff; }
+.violet-arc { border: 3px solid #d64dff; box-shadow: 0 0 15px #d64dff; color: #d64dff; }
+.pink-arc { border: 3px solid #ff0077; box-shadow: 0 0 15px #ff0077; color: #ff0077; }
+.locked-arc { border: 3px solid #333; color: #666; opacity: 0.5; }
+
+.arc-title { font-family: 'Cinzel', serif; font-size: 1.5rem; }
+.arc-sub { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 2px; }
+
+/* Centratura bottoni nativi */
+div.stButton > button {
     display: block;
     margin: 0 auto;
-}
-div.stButton > button:hover {
-    background-color: #00f0ff;
-    color: #0a0015;
-    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
-}
-/* Questo centra perfettamente il contenitore del bottone in Streamlit */
-div.stButton {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: -30px; /* Usa questo per avvicinarlo o allontanarlo dal titolo */
-}
-
-div.stButton > button {
-    font-family: 'Cinzel', serif;
-    background-color: transparent;
-    color: #00f0ff;
-    border: 2px solid #00f0ff;
-    padding: 15px 40px;
-    font-size: 1.8rem;
-    letter-spacing: 5px;
-    box-shadow: 0 0 15px #00f0ff;
-    transition: all 0.3s ease;
-}
-
-div.stButton > button:hover {
-    background-color: #00f0ff;
-    color: #0a0015;
-    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
-}
-/* Centra il contenitore esterno del bottone */
-[data-testid="stElementContainer"] {
-    display: flex;
-    justify-content: center;
-    width: 100% !important;
-}
-
-/* Centra il pulsante vero e proprio e definisce lo stile */
-div.stButton > button {
-    font-family: 'Cinzel', serif;
-    background-color: transparent;
-    color: #00f0ff !important;
-    border: 2px solid #00f0ff !important;
-    padding: 15px 50px !important;
-    font-size: 1.8rem !important;
-    letter-spacing: 5px !important;
-    box-shadow: 0 0 15px #00f0ff;
-    transition: all 0.3s ease;
-    display: block;
-    margin: 0 auto !important; /* Forza il centro */
-}
-
-div.stButton > button:hover {
-    background-color: #00f0ff !important;
-    color: #0a0015 !important;
-    box-shadow: 0 0 30px #00f0ff;
-}
-
-/* Container per il titolo e sottotitolo */
-.lobby-container {
-    text-align: center;
-    padding-top: 10vh; /* Sposta un po' giù tutto il blocco dal soffitto */
 }
 </style>
 """, unsafe_allow_html=True)
 
-# --- 3. LOGICA DELLE PAGINE ---
+# --- 4. LOGICA DI NAVIGAZIONE ---
+def vai_archi():
+    st.session_state.pagina_corrente = 'archi'
 
+def vai_lobby():
+    st.session_state.pagina_corrente = 'lobby'
+
+# --- 5. SCHERMATA: LOBBY ---
 if st.session_state.pagina_corrente == 'lobby':
-    st.markdown("""
-    <div class="lobby-container">
-        <div class="title">
-            <h1>LVDVS</h1>
-        </div>
-        <div class="subtitle">
-            SCEGLI IL TUO DESTINO
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<h1 class="main-title">LVDVS</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="main-subtitle">Scegli il tuo destino</p>', unsafe_allow_html=True)
     
-    # Questo bottone ora sarà centrato grazie al CSS che abbiamo messo sopra!
-    st.button("AD MAIORA", on_click=vai_ai_livelli)
+    st.button("AD MAIORA", on_click=vai_archi)
 
+# --- 6. SCHERMATA: ARCHI ---
 else:
-    st.markdown('<div class="title"><h1>LVDVS</h1></div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Scegli il tuo destino</div>', unsafe_allow_html=True)
-
-    # --- COSTRUZIONE HTML SICURA (senza indentazioni problematiche) ---
-    html_content = '<div class="gates">'
+    st.markdown('<h1 class="main-title" style="font-size: 3rem;">ARCHI DI GLORIA</h1>', unsafe_allow_html=True)
     
-    # Arco 1: DISCIPVLVS (Sempre aperto)
-    html_content += '<a class="gate cyan" href="./01_discipulus" target="_self">'
-    html_content += '<div class="gate-title">DISCIPVLVS</div>'
-    html_content += '<div class="gate-sub">BEGINNER</div>'
-    html_content += '</a>'
+    # Tre colonne per le tre arcate
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown('<div class="arc-box cyan-arc"><div class="arc-title">DISCIPVLVS</div><div class="arc-sub">BEGINNER</div></div>', unsafe_allow_html=True)
+        # Importante: st.page_link DEVE puntare correttamente al file nella cartella pages
+        st.page_link("pages/01_discipulus.py", label="INIZIA IL TEST", icon="🛡️")
 
-    # Arco 2: GLADIATOR (Si apre se sbloccato)
-    if st.session_state.gladiator_sbloccato:
-        html_content += '<a class="gate violet" href="./02_gladiator" target="_self">'
-        html_content += '<div class="gate-title">GLADIATOR</div>'
-        html_content += '<div class="gate-sub">INTERMEDIATE</div>'
-        html_content += '</a>'
-    else:
-        html_content += '<div class="gate locked">'
-        html_content += '<div class="gate-title">GLADIATOR 🔒</div>'
-        html_content += '<div class="gate-sub">BLOCCATO</div>'
-        html_content += '</div>'
+    with col2:
+        if st.session_state.get('gladiator_sbloccato', False):
+            st.markdown('<div class="arc-box violet-arc"><div class="arc-title">GLADIATOR</div><div class="arc-sub">INTERMEDIATE</div></div>', unsafe_allow_html=True)
+            st.page_link("pages/02_gladiator.py", label="INIZIA IL TEST", icon="⚔️")
+        else:
+            st.markdown('<div class="arc-box locked-arc"><div class="arc-title">GLADIATOR</div><div class="arc-sub">BLOCCATO 🔒</div></div>', unsafe_allow_html=True)
 
-    # Arco 3: IMPERATOR (Si apre se sbloccato)
-    if st.session_state.imperator_sbloccato:
-        html_content += '<a class="gate pink" href="./03_imperator" target="_self">'
-        html_content += '<div class="gate-title">IMPERATOR</div>'
-        html_content += '<div class="gate-sub">PRO</div>'
-        html_content += '</a>'
-    else:
-        html_content += '<div class="gate locked">'
-        html_content += '<div class="gate-title">IMPERATOR 🔒</div>'
-        html_content += '<div class="gate-sub">BLOCCATO</div>'
-        html_content += '</div>'
+    with col3:
+        if st.session_state.get('imperator_sbloccato', False):
+            st.markdown('<div class="arc-box pink-arc"><div class="arc-title">IMPERATOR</div><div class="arc-sub">PRO</div></div>', unsafe_allow_html=True)
+            st.page_link("pages/03_imperator.py", label="INIZIA IL TEST", icon="👑")
+        else:
+            st.markdown('<div class="arc-box locked-arc"><div class="arc-title">IMPERATOR</div><div class="arc-sub">BLOCCATO 🔒</div></div>', unsafe_allow_html=True)
 
-    html_content += '</div>'
-
-    # Stampiamo tutto a schermo in una volta sola
-    st.markdown(html_content, unsafe_allow_html=True)
-
-    # Pulsante per tornare indietro
-    st.write("")
-    if st.button("Torna alla Lobby"):
-        st.session_state.pagina_corrente = 'lobby'
-        st.rerun()
+    st.write("---")
+    st.button("TORNA ALLA LOBBY", on_click=vai_lobby)
