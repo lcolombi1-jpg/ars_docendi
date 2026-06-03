@@ -62,9 +62,8 @@ DOMANDE_GLADIATOR = [
     {"id": 6, "domanda": "Nella frase 'Caesar suis auxilio venit', auxilio è...", "opzioni": ["dativo di fine", "ablativo di strumento", "dativo di vantaggio", "ablativo di modo"], "corretta": "dativo di fine"},
     {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
     {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"}
-    {"id": 9, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
+    {"id": 9, "domanda": "Individua il termine a cui si riferisce il nesso relativo: 'Intemperantia omnem animi statum inflammat, conturbat, incitat; ex qua et aegritudines et metus et reliquae perturbationes omnes gignuntur'", "opzioni": ["animi", "intemperantia", "omnem", "inflammat"], "corretta": "intemperantia"},
     {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
-
 ]
 DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
 
