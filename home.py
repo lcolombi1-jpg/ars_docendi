@@ -71,12 +71,12 @@ DOMANDE_IMPERATOR = [
     {"id": 2, "domanda": "Nella frase 'te admoneo ne animum tuum mergas in istam sollicitudinem', 'ne' introduce una subordinata:", "opzioni": ["completiva volitiva", "finale", "completiva di fatto", "consecutiva"], "corretta": "completiva volitiva"},
     {"id": 3, "domanda": "Hannibal odium paternum erga Romanos sic conservavit, ut prius vitam quam id ____________.", "opzioni": ["deposuerat", "deposuerit", "deposuisset", "deponat"], "corretta": "deposuerit"},
     {"id": 4, "domanda": "'Comitia indicite, patres, tribunis militum instituendis', instituendis è...", "opzioni": ["gerundio", "participio", "congiuntivo", "gerundivo"], "corretta": "gerundivo"},
-    {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt"},
-    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', il cum si traduce:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "dativo di fine"},
-    {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
-    {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"},
-    {"id": 9, "domanda": "Individua il termine a cui si riferisce il nesso relativo: 'Intemperantia omnem animi statum inflammat, conturbat, incitat; ex qua et aegritudines et metus et reliquae perturbationes omnes gignuntur'", "opzioni": ["animi", "intemperantia", "omnem", "inflammat"], "corretta": "intemperantia"},
-    {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
+    {"id": 5, "domanda": "Nemo quaeret quibus cum mandatis legatos ___________", "opzioni": ["miseramus", "miserimus", "misimus", "misissemus"], "corretta": "miserimus"},
+    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', come si traduce il 'cum'?:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "dativo di fine"},
+    {"id": 7, "domanda": "", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
+    {"id": 8, "domanda": "", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"},
+    {"id": 9, "domanda": "Plura _________, Quirites, si timidis virtutem verba adderent", "opzioni": ["dicerem", "dixi", "dicebam", "dicam"], "corretta": "intemperantia"},
+    {"id": 10, "domanda": "Pompeius mihi __________ in Hispaniam certe iturus esse", "opzioni": ["videt", "videntur", "videbatur", "videor"], "corretta": "victum iri"}
 ]
 
 # --- 2. STILI CSS ---
