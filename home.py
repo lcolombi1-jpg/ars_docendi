@@ -231,22 +231,30 @@ div.stButton > button:disabled {
     text-shadow: 0 0 8px rgba(255,255,255,0.4); 
 }
 
+/* Centra il contenitore principale di Streamlit per i radio button */
+.stRadio {
+    display: flex;
+    justify-content: center;
+}
+
 /* Riquadro e opzioni centrati */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
-    padding: 20px;
+    padding: 25px 50px; /* Aggiunto un po' di margine interno per farlo respirare */
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2); 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centratura orizzontale contenuto */
-    justify-content: center;
+    
+    /* I DUE COMANDI MAGICI PER CENTRARE IL BOX */
+    width: fit-content !important; /* Fa restringere il box alla dimensione del testo */
+    margin: 0 auto; /* Centra fisicamente il box nello schermo */
 }
 
-/* Allineamento testo delle opzioni al centro */
+/* Allineamento delle opzioni (lasciamo i pallini allineati a sinistra per eleganza e leggibilità) */
 label[data-baseweb="radio"] {
-    justify-content: center !important;
     width: 100%;
+    margin-bottom: 8px; /* Un po' di spazio tra una risposta e l'altra */
 }
 
 div[role="radiogroup"] p {
@@ -255,7 +263,6 @@ div[role="radiogroup"] p {
     color: #ffffff !important; 
     font-weight: 500;
     margin-bottom: 0px;
-    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
