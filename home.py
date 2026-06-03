@@ -563,7 +563,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
 elif st.session_state.pagina_corrente == 'test_imperator':
     st.markdown('<div class="title" style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;"><h1 style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;">IMPERATOR</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle" style="color:#ff0077;">LA PROVA FINALE</div>', unsafe_allow_html=True)
-    st.markdown("> *Rispondi correttamente a 10 domande su 10 per dominare l'Impero.*")
+    st.markdown("> *Rispondi correttamente a 9 domande su 10 per dominare l'Impero.*")
     st.write("---")
 
     if not st.session_state.quiz_inviato_imp:
@@ -626,7 +626,7 @@ elif st.session_state.pagina_corrente == 'test_imperator':
         punteggio = sum(1 for q in DOMANDE_IMPERATOR if st.session_state.risposte_imp.get(q["id"]) == q["corretta"])
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
-        if punteggio == 10:
+        if punteggio >= 9:
             st.balloons()
             st.markdown("""
             <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999999; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
@@ -635,7 +635,7 @@ elif st.session_state.pagina_corrente == 'test_imperator':
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (10/10). L'Impero attende, riprova!")
+            st.error("❌ Non hai raggiunto il punteggio minimo (9/10). L'Impero attende, riprova!")
         
         col_res1, col_res2, _ = st.columns([1, 1, 2])
         with col_res1:
@@ -646,7 +646,7 @@ elif st.session_state.pagina_corrente == 'test_imperator':
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
         with col_res2:
-            if punteggio < 10:
+            if punteggio < 9:
                 if st.button("Riprova il Test", key="action_btn_i2"):
                     st.session_state.quiz_inviato_imp = False
                     st.session_state.risposte_imp = {}
