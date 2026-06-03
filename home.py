@@ -77,7 +77,7 @@ html{
 }
 
 /* Animazioni globali */
-@Pro @keyframes fadeInBanner {
+@keyframes fadeInBanner {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
@@ -169,14 +169,14 @@ blockquote {
 .st-key-btn_discipulus button p,
 .st-key-btn_gladiator button p,
 .st-key-btn_imperator button p {
-    font-size: 1rem !important; /* Traduzione in piccolo */
+    font-size: 1rem !important;
     letter-spacing: 3px;
     text-align: center;
 }
 .st-key-btn_discipulus button p::first-line,
 .st-key-btn_gladiator button p::first-line,
 .st-key-btn_imperator button p::first-line {
-    font-size: 2.2rem !important; /* Nome latino GRANDE */
+    font-size: 2.2rem !important;
     line-height: 1.8;
 }
 
@@ -216,26 +216,38 @@ div.stButton > button:disabled {
     display: flex !important; justify-content: center !important; width: 100% !important;
 }
 .st-key-ad_maiora_btn button, .st-key-back_btn button, .st-key-submit_quiz button, 
-.st-key-action_btn button, .st-key-action_btn_2 button, .st-key-back_map button {
+.st-key-action_btn button, .st-key-action_btn_2 button, .st-key-back_map button,
+.st-key-action_btn_d1 button, .st-key-action_btn_d2 button,
+.st-key-action_btn_g1 button, .st-key-action_btn_g2 button,
+.st-key-action_btn_i1 button, .st-key-action_btn_i2 button,
+.st-key-submit_quiz_disc button, .st-key-submit_quiz_glad button, .st-key-submit_quiz_imp button,
+.st-key-prev_disc button, .st-key-next_disc button,
+.st-key-back_map_d button, .st-key-back_map_g button, .st-key-back_map_i button {
     height: auto !important; width: auto !important; padding: 10px 25px !important; 
     border-radius: 4px !important; font-size: 1.1rem !important; 
     font-family: 'Cinzel', serif !important; color: #00f0ff !important; 
     border: 1px solid #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.5) !important; 
     background: transparent !important; margin: 0 auto !important; display: block !important; transition: all 0.3s ease;
 }
-.st-key-ad_maiora_btn button:hover, .st-key-back_btn button:hover, .st-key-submit_quiz button:hover, .st-key-back_map button:hover {
+.st-key-ad_maiora_btn button:hover, .st-key-back_btn button:hover, .st-key-submit_quiz button:hover, .st-key-back_map button:hover,
+.st-key-action_btn_d1 button:hover, .st-key-action_btn_d2 button:hover,
+.st-key-action_btn_g1 button:hover, .st-key-action_btn_g2 button:hover,
+.st-key-action_btn_i1 button:hover, .st-key-action_btn_i2 button:hover,
+.st-key-submit_quiz_disc button:hover, .st-key-submit_quiz_glad button:hover, .st-key-submit_quiz_imp button:hover,
+.st-key-prev_disc button:hover, .st-key-next_disc button:hover,
+.st-key-back_map_d button:hover, .st-key-back_map_g button:hover, .st-key-back_map_i button:hover {
     background-color: rgba(0, 240, 255, 0.2) !important; box-shadow: 0 0 20px #00f0ff !important;
 }
 
-/* --- STILI TEST / QUIZ CENTRATI (VERSIONE RE-STYLING) --- */
+/* --- STILI TEST / QUIZ CENTRATI --- */
 .quiz-counter {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
     font-size: 1.2rem;
     font-weight: 500;
     text-align: center;
-    margin-top: 45px;      /* Spazio generoso sotto la barra di avanzamento */
-    margin-bottom: 20px;   /* Spazio prima della domanda */
+    margin-top: 45px;      
+    margin-bottom: 20px;   
     letter-spacing: 1px;
     opacity: 0.9;
 }
@@ -246,32 +258,22 @@ div.stButton > button:disabled {
     font-size: 1.6rem; 
     font-weight: 600;
     text-align: center;
-    margin-bottom: 50px;   /* Spazio monumentale prima del box risposte */
+    margin-bottom: 30px;   
     text-shadow: 0 0 10px rgba(0,240,255,0.4); 
-}
-
-/* CENTRATURA ASSOLUTA: Forza il widget radio a occupare il 100% della pagina e lo centra al millimetro */
-div[data-testid="stRadio"] {
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-    margin: 0 auto !important;
 }
 
 /* Il box delle risposte vero e proprio */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
-    padding: 35px 55px !important; /* Più spazio interno per eleganza */
+    padding: 35px 55px !important; 
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2); 
     display: flex !important;
     flex-direction: column !important;
-    width: fit-content !important; /* Si stringe sul testo */
-    min-width: 380px;              /* Impedisce al box di farsi troppo stretto */
+    width: 100% !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* Più spazio verticale tra una singola opzione e l'altra */
 label[data-baseweb="radio"] {
     margin-bottom: 14px !important; 
 }
@@ -363,35 +365,34 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         # --- PESCHIAMO LA DOMANDA CORRENTE ---
         q = DOMANDE_DISCIPULUS[st.session_state.indice_disc]
         
-        # Divise in due classi CSS separate per controllare i rispettivi spazi/margini
         st.markdown(f'<p class="quiz-counter">Domanda {st.session_state.indice_disc + 1} di {len(DOMANDE_DISCIPULUS)}</p>', unsafe_allow_html=True)
         st.markdown(f'<p class="quiz-text">{q["domanda"]}</p>', unsafe_allow_html=True)
         
-        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        
-        # Controllo risposta salvata per la navigazione avanti/indietro
-        default_index = 0
-        if q["id"] in st.session_state.risposte_disc:
-            risposta_salvata = st.session_state.risposte_disc[q["id"]]
-            if risposta_salvata in opzioni_con_default:
-                default_index = opzioni_con_default.index(risposta_salvata)
+        # COLONNE PER CENTRARE IL BOX RISPOSTE
+        col_vuota_sx, col_centrale, col_vuota_dx = st.columns([1, 2, 1])
+        with col_centrale:
+            opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
+            
+            default_index = 0
+            if q["id"] in st.session_state.risposte_disc:
+                risposta_salvata = st.session_state.risposte_disc[q["id"]]
+                if risposta_salvata in opzioni_con_default:
+                    default_index = opzioni_con_default.index(risposta_salvata)
 
-        # NIENTE PIÙ COLONNE QUI: Il CSS si occupa di metterlo esattamente al centro della pagina
-        scelta = st.radio(
-            f"Opzioni per domanda {q['id']}", 
-            opzioni_con_default, 
-            index=default_index, 
-            key=f"d_q_{q['id']}", 
-            label_visibility="collapsed"
-        )
-        if scelta != "Seleziona una risposta...":
-            st.session_state.risposte_disc[q["id"]] = scelta
+            scelta = st.radio(
+                f"Opzioni per domanda {q['id']}", 
+                opzioni_con_default, 
+                index=default_index, 
+                key=f"d_q_{q['id']}", 
+                label_visibility="collapsed"
+            )
+            if scelta != "Seleziona una risposta...":
+                st.session_state.risposte_disc[q["id"]] = scelta
 
-        # Spazio generoso prima della barra finale dei bottoni
         st.markdown("<br><br><br>", unsafe_allow_html=True)
         st.write("---")
 
-        # --- BOTTONI DI NAVIGAZIONE (AVANTI / INDIETRO / CONSEGNA) ---
+        # --- BOTTONI DI NAVIGAZIONE ---
         col_nav1, col_nav2, col_nav3 = st.columns([1, 2, 1])
         
         with col_nav1:
@@ -456,16 +457,19 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
     st.write("---")
 
     for q in DOMANDE_GLADIATOR:
-        st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
-        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        scelta = st.radio(
-            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"g_q_{q['id']}", 
-            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_glad
-        )
-        if scelta != "Seleziona una risposta...":
-            st.session_state.risposte_glad[q["id"]] = scelta
-
-    st.write("---")
+        st.markdown(f'<p class="quiz-text">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
+        
+        # CENTRATURA A 3 COLONNE ANCHE QUI
+        col_sx, col_centrale, col_dx = st.columns([1, 2, 1])
+        with col_centrale:
+            opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
+            scelta = st.radio(
+                f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"g_q_{q['id']}", 
+                label_visibility="collapsed", disabled=st.session_state.quiz_inviato_glad
+            )
+            if scelta != "Seleziona una risposta...":
+                st.session_state.risposte_glad[q["id"]] = scelta
+        st.write("---")
 
     if not st.session_state.quiz_inviato_glad:
         st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
@@ -517,16 +521,19 @@ elif st.session_state.pagina_corrente == 'test_imperator':
     st.write("---")
 
     for q in DOMANDE_IMPERATOR:
-        st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
-        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        scelta = st.radio(
-            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"i_q_{q['id']}", 
-            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_imp
-        )
-        if scelta != "Seleziona una risposta...":
-            st.session_state.risposte_imp[q["id"]] = scelta
-
-    st.write("---")
+        st.markdown(f'<p class="quiz-text">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
+        
+        # CENTRATURA A 3 COLONNE ANCHE QUI
+        col_sx, col_centrale, col_dx = st.columns([1, 2, 1])
+        with col_centrale:
+            opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
+            scelta = st.radio(
+                f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"i_q_{q['id']}", 
+                label_visibility="collapsed", disabled=st.session_state.quiz_inviato_imp
+            )
+            if scelta != "Seleziona una risposta...":
+                st.session_state.risposte_imp[q["id"]] = scelta
+        st.write("---")
 
     if not st.session_state.quiz_inviato_imp:
         st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
@@ -571,4 +578,4 @@ elif st.session_state.pagina_corrente == 'test_imperator':
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("Torna indietro", key="back_map_i"):
             st.session_state.pagina_corrente = 'archi'
-            st.rerun() 
+            st.rerun()
