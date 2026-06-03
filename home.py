@@ -55,7 +55,7 @@ DOMANDE_DISCIPULUS = [
 
 DOMANDE_GLADIATOR = [
     {"id": 1, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["lego, legis, lexi, lectum, legere", "fero, fers, tuli, latum, ferre", "moneo, mones, moni, monitum, monere", "ago, agis, agi, actum, agere"], "corretta": "fero, fers, tuli, latum, ferre"},
-    {"id": 2, "domanda": "Nella frase "dum haec in his locis geruntur", la congiunzione "dum" significa:", "opzioni": ["dopo che", "prima che", "mentre", "non appena"], "corretta": "mentre"},
+    {"id": 2, "domanda": "Nella frase 'dum haec in his locis geruntur', la congiunzione 'dum' significa:", "opzioni": ["dopo che", "prima che", "mentre", "non appena"], "corretta": "mentre"},
     {"id": 3, "domanda": "Traduci in latino la seguente frase: Marco ha molti amici", "opzioni": ["Marcus multos amicos habet", "Marco multi amici erant", "Marcus multos amicos habebat", "Marco multi amici sunt"], "corretta": "Marco multi amici sunt"},
     {"id": 4, "domanda": "Roboris è...", "opzioni": ["il dativo/ablativo plurale di vir", "il genitivo singolare di vis", "il dativo/ablativo plurale di virus", "nessuna delle precedenti"], "corretta": "il genitivo singolare di vis"},
     {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt"},
