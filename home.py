@@ -1,5 +1,3 @@
-import streamlit as st
-
 st.set_page_config(
     page_title="Ludus",
     page_icon="🏛️",
@@ -69,7 +67,7 @@ html{
 }
 
 /* Animazioni globali */
-@keyframes fadeInBanner {
+@Pro @keyframes fadeInBanner {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
@@ -227,22 +225,26 @@ div.stButton > button:disabled {
     margin-top: 40px;
     margin-bottom: 15px;
     font-weight: 600;
-    text-align: center;
+    text-align: center; /* Centratura domanda */
     text-shadow: 0 0 8px rgba(255,255,255,0.4); 
 }
 
-/* Riquadro e opzioni compressi */
+/* Riquadro e opzioni centrati */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
-    padding: 25px 45px !important; 
+    padding: 20px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2); 
-    width: fit-content !important;
-    margin: 0 auto; /* Centra il riquadro dentro la colonna */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centratura orizzontale contenuto */
+    justify-content: center;
 }
 
+/* Allineamento testo delle opzioni al centro */
 label[data-baseweb="radio"] {
-    margin-bottom: 10px; 
+    justify-content: center !important;
+    width: 100%;
 }
 
 div[role="radiogroup"] p {
@@ -251,6 +253,7 @@ div[role="radiogroup"] p {
     color: #ffffff !important; 
     font-weight: 500;
     margin-bottom: 0px;
+    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -323,17 +326,12 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
     for q in DOMANDE_DISCIPULUS:
         st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
         opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        
-        # TRUCCO: Creiamo 3 colonne: una vuota a sx, una più grande al centro, una vuota a dx
-        col_left, col_center, col_right = st.columns([1, 2, 1])
-        
-        with col_center: # Inseriamo le risposte solo nella colonna centrale!
-            scelta = st.radio(
-                f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"d_q_{q['id']}", 
-                label_visibility="collapsed", disabled=st.session_state.quiz_inviato_disc
-            )
-            if scelta != "Seleziona una risposta...":
-                st.session_state.risposte_disc[q["id"]] = scelta
+        scelta = st.radio(
+            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"d_q_{q['id']}", 
+            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_disc
+        )
+        if scelta != "Seleziona una risposta...":
+            st.session_state.risposte_disc[q["id"]] = scelta
 
     st.write("---")
 
@@ -502,4 +500,4 @@ elif st.session_state.pagina_corrente == 'test_imperator':
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("Torna indietro", key="back_map_i"):
             st.session_state.pagina_corrente = 'archi'
-            st.rerun()
+            st.rerun() 
