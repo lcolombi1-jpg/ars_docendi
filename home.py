@@ -66,7 +66,18 @@ DOMANDE_GLADIATOR = [
     {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
 ]
 
-DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 11)]
+DOMANDE_IMPERATOR = [
+    {"id": 1, "domanda": "_________ omnia uno tempore erant agenda:", "opzioni": ["Caesar", "Caesaris", "Caesari", "Caesare"], "corretta": "Caesari"},
+    {"id": 2, "domanda": "Nella frase 'te admoneo ne animum tuum mergas in istam sollicitudinem', 'ne' introduce una subordinata:", "opzioni": ["completiva volitiva", "finale", "completiva di fatto", "consecutiva"], "corretta": "completiva volitiva"},
+    {"id": 3, "domanda": "Hannibal odium paternum erga Romanos sic conservavit, ut prius vitam quam id ____________.", "opzioni": ["deposuerat", "deposuerit", "deposuisset", "deponat"], "corretta": "deposuerit"},
+    {"id": 4, "domanda": "'Comitia indicite, patres, tribunis militum instituendis', instituendis è...", "opzioni": ["gerundio", "participio", "congiuntivo", "gerundivo"], "corretta": "gerundivo"},
+    {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt"},
+    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', il cum si traduce:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "dativo di fine"},
+    {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
+    {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"},
+    {"id": 9, "domanda": "Individua il termine a cui si riferisce il nesso relativo: 'Intemperantia omnem animi statum inflammat, conturbat, incitat; ex qua et aegritudines et metus et reliquae perturbationes omnes gignuntur'", "opzioni": ["animi", "intemperantia", "omnem", "inflammat"], "corretta": "intemperantia"},
+    {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
+]
 
 # --- 2. STILI CSS ---
 st.markdown("""
