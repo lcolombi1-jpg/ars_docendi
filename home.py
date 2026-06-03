@@ -63,9 +63,7 @@ DOMANDE_GLADIATOR = [
     {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
     {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"}
     {"id": 9, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
-
-
-
+    {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
 
 ]
 DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
