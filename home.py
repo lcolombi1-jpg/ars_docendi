@@ -227,36 +227,22 @@ div.stButton > button:disabled {
     margin-top: 40px;
     margin-bottom: 15px;
     font-weight: 600;
-    text-align: center; /* Centratura domanda */
+    text-align: center;
     text-shadow: 0 0 8px rgba(255,255,255,0.4); 
 }
 
-/* IL TRUCCO REALE: Centra l'intero blocco del widget nello schermo */
-div[data-testid="stRadio"] {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; /* Centra il box orizzontalmente rispetto alla pagina */
-    justify-content: center !important;
-    width: 100% !important;
-}
-
-/* Riquadro e opzioni compressi e posizionati al centro */
+/* Riquadro e opzioni compressi */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
     padding: 25px 45px !important; 
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2); 
-    display: flex !important;
-    flex-direction: column !important;
-    width: fit-content !important; /* Stringe il box attorno alle risposte */
-    min-width: 280px; /* Evita che si rimpicciolisca troppo con risposte cortissime */
+    width: fit-content !important;
+    margin: 0 auto; /* Centra il riquadro dentro la colonna */
 }
 
-/* Gestione delle singole opzioni all'interno del box */
 label[data-baseweb="radio"] {
-    width: 100% !important;
-    margin-bottom: 10px; /* Spazio verticale tra i pallini delle risposte */
-    justify-content: flex-start !important; /* Mantiene i pallini allineati a sinistra DENTRO il box ordinatamente */
+    margin-bottom: 10px; 
 }
 
 div[role="radiogroup"] p {
@@ -337,12 +323,17 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
     for q in DOMANDE_DISCIPULUS:
         st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
         opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        scelta = st.radio(
-            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"d_q_{q['id']}", 
-            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_disc
-        )
-        if scelta != "Seleziona una risposta...":
-            st.session_state.risposte_disc[q["id"]] = scelta
+        
+        # TRUCCO: Creiamo 3 colonne: una vuota a sx, una più grande al centro, una vuota a dx
+        col_left, col_center, col_right = st.columns([1, 2, 1])
+        
+        with col_center: # Inseriamo le risposte solo nella colonna centrale!
+            scelta = st.radio(
+                f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"d_q_{q['id']}", 
+                label_visibility="collapsed", disabled=st.session_state.quiz_inviato_disc
+            )
+            if scelta != "Seleziona una risposta...":
+                st.session_state.risposte_disc[q["id"]] = scelta
 
     st.write("---")
 
