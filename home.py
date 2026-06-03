@@ -227,34 +227,56 @@ div.stButton > button:disabled {
     background-color: rgba(0, 240, 255, 0.2) !important; box-shadow: 0 0 20px #00f0ff !important;
 }
 
-/* --- STILI TEST / QUIZ CENTRATI --- */
-.quiz-question {
+/* --- STILI TEST / QUIZ CENTRATI (VERSIONE RE-STYLING) --- */
+.quiz-counter {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 1.4rem; 
-    margin-top: 40px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    text-align: center; /* Centratura domanda */
-    text-shadow: 0 0 8px rgba(255,255,255,0.4); 
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 45px;      /* Spazio generoso sotto la barra di avanzamento */
+    margin-bottom: 20px;   /* Spazio prima della domanda */
+    letter-spacing: 1px;
+    opacity: 0.9;
 }
 
-/* Riquadro e opzioni centrati */
+.quiz-text {
+    font-family: 'Montserrat', sans-serif;
+    color: #00f0ff;
+    font-size: 1.6rem; 
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 50px;   /* Spazio monumentale prima del box risposte */
+    text-shadow: 0 0 10px rgba(0,240,255,0.4); 
+}
+
+/* CENTRATURA ASSOLUTA: Forza il widget radio a occupare il 100% della pagina e lo centra al millimetro */
+div[data-testid="stRadio"] {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* Il box delle risposte vero e proprio */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
-    padding: 20px;
+    padding: 35px 55px !important; /* Più spazio interno per eleganza */
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2); 
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centratura orizzontale contenuto */
-    justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    width: fit-content !important; /* Si stringe sul testo */
+    min-width: 380px;              /* Impedisce al box di farsi troppo stretto */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* Allineamento testo delle opzioni al centro */
+/* Più spazio verticale tra una singola opzione e l'altra */
 label[data-baseweb="radio"] {
-    justify-content: center !important;
-    width: 100%;
+    margin-bottom: 14px !important; 
+}
+label[data-baseweb="radio"]:last-child {
+    margin-bottom: 0px !important;
 }
 
 div[role="radiogroup"] p {
@@ -263,7 +285,6 @@ div[role="radiogroup"] p {
     color: #ffffff !important; 
     font-weight: 500;
     margin-bottom: 0px;
-    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -342,29 +363,32 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         # --- PESCHIAMO LA DOMANDA CORRENTE ---
         q = DOMANDE_DISCIPULUS[st.session_state.indice_disc]
         
-        st.markdown(f'<p class="quiz-question">Domanda {st.session_state.indice_disc + 1} di {len(DOMANDE_DISCIPULUS)}<br><span style="color:#00f0ff;">{q["domanda"]}</span></p>', unsafe_allow_html=True)
+        # Divise in due classi CSS separate per controllare i rispettivi spazi/margini
+        st.markdown(f'<p class="quiz-counter">Domanda {st.session_state.indice_disc + 1} di {len(DOMANDE_DISCIPULUS)}</p>', unsafe_allow_html=True)
+        st.markdown(f'<p class="quiz-text">{q["domanda"]}</p>', unsafe_allow_html=True)
+        
         opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
         
-        # Capiamo se l'utente aveva già risposto a questa domanda (per pre-selezionare il pallino)
+        # Controllo risposta salvata per la navigazione avanti/indietro
         default_index = 0
         if q["id"] in st.session_state.risposte_disc:
             risposta_salvata = st.session_state.risposte_disc[q["id"]]
             if risposta_salvata in opzioni_con_default:
                 default_index = opzioni_con_default.index(risposta_salvata)
 
-        # Usiamo le 3 colonne per centrare il box come abbiamo visto prima
-        col_left, col_center, col_right = st.columns([1, 2, 1])
-        with col_center:
-            scelta = st.radio(
-                f"Opzioni per domanda {q['id']}", 
-                opzioni_con_default, 
-                index=default_index, 
-                key=f"d_q_{q['id']}", 
-                label_visibility="collapsed"
-            )
-            if scelta != "Seleziona una risposta...":
-                st.session_state.risposte_disc[q["id"]] = scelta
+        # NIENTE PIÙ COLONNE QUI: Il CSS si occupa di metterlo esattamente al centro della pagina
+        scelta = st.radio(
+            f"Opzioni per domanda {q['id']}", 
+            opzioni_con_default, 
+            index=default_index, 
+            key=f"d_q_{q['id']}", 
+            label_visibility="collapsed"
+        )
+        if scelta != "Seleziona una risposta...":
+            st.session_state.risposte_disc[q["id"]] = scelta
 
+        # Spazio generoso prima della barra finale dei bottoni
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
         st.write("---")
 
         # --- BOTTONI DI NAVIGAZIONE (AVANTI / INDIETRO / CONSEGNA) ---
@@ -377,12 +401,10 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
                     st.rerun()
                     
         with col_nav3:
-            # Se NON siamo all'ultima domanda, mostra AVANTI
             if st.session_state.indice_disc < len(DOMANDE_DISCIPULUS) - 1:
                 if st.button("Avanti ➡️", key="next_disc"):
                     st.session_state.indice_disc += 1
                     st.rerun()
-            # Se SIAMO all'ultima domanda, mostra CONSEGNA
             else:
                 if st.button("CONSEGNA IL TEST", key="submit_quiz_disc"):
                     if len(st.session_state.risposte_disc) < len(DOMANDE_DISCIPULUS):
@@ -391,14 +413,13 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
                         st.session_state.quiz_inviato_disc = True
                         st.rerun()
 
-        # Bottone per tornare alla mappa durante il quiz
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("Torna indietro", key="back_map_d"):
             st.session_state.pagina_corrente = 'archi'
             st.rerun()
 
     else:
-        # --- GESTIONE RISULTATI (appare solo dopo la consegna) ---
+        # --- GESTIONE RISULTATI ---
         punteggio = sum(1 for q in DOMANDE_DISCIPULUS if st.session_state.risposte_disc.get(q["id"]) == q["corretta"])
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
@@ -413,7 +434,7 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
             if st.button("Torna alla Mappa", key="action_btn_d1"):
                 st.session_state.quiz_inviato_disc = False
                 st.session_state.risposte_disc = {}
-                st.session_state.indice_disc = 0 # AZZERA L'INDICE!
+                st.session_state.indice_disc = 0
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
         with col_res2:
@@ -421,7 +442,7 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
                 if st.button("Riprova il Test", key="action_btn_d2"):
                     st.session_state.quiz_inviato_disc = False
                     st.session_state.risposte_disc = {}
-                    st.session_state.indice_disc = 0 # AZZERA L'INDICE!
+                    st.session_state.indice_disc = 0
                     st.rerun()
 
 
