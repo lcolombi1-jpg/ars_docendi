@@ -38,7 +38,7 @@ DOMANDE_DISCIPULUS = [
     {"id": 3, "domanda": "_________ Syracusas cum liberis meis veniam", "opzioni": ["proximus annus", "proximi anni", "proximorum annorum", "proximo anno"], "corretta": "proximo anno"},
     {"id": 4, "domanda": "Romanorum oppida ______________ a Germani oppugnabantur", "opzioni": ["magnā cum ferociā", "magnam ferociam", "ex magnis ferocis", "magnae ferociae"], "corretta": "magnā cum ferociā"},
     {"id": 5, "domanda": "Persarum __________ longae hastae et acutae sagittae erant", "opzioni": ["copias", "copiarum", "copiis", "copiae"], "corretta": "copiis"},
-    {"id": 6, "domanda": "___________ antiquis temporibus gladiis pugnabant", "opzioni": ["militis", "militem", "miles", "milites"], "corretta": "milites"},
+    {"id": 6, "domanda": "Milites antiquis temporibus __________ pugnabant", "opzioni": ["cum gladiis", "per gladium", "gladium", "gladiis"], "corretta": "gladiis"},
     {"id": 8, "domanda": "___________ tenebrae solis luce pelluntur", "opzioni": ["nocti", "nox", "noctium", "noctem"], "corretta": "noctium"},
     {"id": 7, "domanda": "Petronius a Romanis elegantiae ___________ appellabitur", "opzioni": ["arbitri", "arbiter", "arbitrum", "arbitro"], "corretta": "arbiter"},
     {"id": 9, "domanda": "_______________ auxiliorum dux equites nostros in hibernis detinebat", "opzioni": ["propter moram", "morā", "prae moram", "morarum"], "corretta": "propter moram"},
