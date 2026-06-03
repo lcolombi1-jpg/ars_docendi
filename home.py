@@ -53,7 +53,15 @@ DOMANDE_DISCIPULUS = [
     {"id": 10, "domanda": "Macedonum legati Athenas _______________ venient", "opzioni": ["paci causā", "pace", "pacis causā", "ob pacem"], "corretta": "pacis causā"}
 ]
 
-DOMANDE_GLADIATOR = [{"id": i, "domanda": f"Domanda tattica Gladiator numero {i}?", "opzioni": ["Risposta A", "Risposta B", "Risposta C", "Risposta D"], "corretta": "Risposta A"} for i in range(1, 21)]
+DOMANDE_GLADIATOR = [
+    {"id": 1, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["lego, legis, lexi, lectum, legere", "fero, fers, tuli, latum, ferre", "moneo, mones, moni, monitum, monere", "ago, agis, agi, actum, agere"], "corretta": "fero, fers, tuli, latum, ferre"},
+    {"id": 2, "domanda": "Nella frase "dum haec in his locis geruntur", la congiunzione "dum" significa:", "opzioni": ["dopo che", "prima che", "mentre", "non appena"], "corretta": "mentre"},
+    {"id": 3, "domanda": "Traduci in latino la seguente frase: Marco ha molti amici", "opzioni": ["Marcus multos amicos habet", "Marco multi amici erant", "Marcus multos amicos habebat", "Marco multi amici sunt"], "corretta": "Marco multi amici sunt"},
+    {"id": 4, "domanda": "Roboris è...", "opzioni": ["il dativo/ablativo plurale di vir", "il genitivo singolare di vis", "il dativo/ablativo plurale di virus", "nessuna delle precedenti"], "corretta": "il genitivo singolare di vis"},
+    {"id": 5, "domanda": "Nella frase "dum haec in his locis geruntur", la congiunzione "dum" significa:", "opzioni": ["dopo che", "prima che", "mentre", "non appena"], "corretta": "mentre"},
+    {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"},
+
+for i in range(1, 21)]
 DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
 
 # --- 2. STILI CSS ---
