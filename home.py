@@ -231,30 +231,32 @@ div.stButton > button:disabled {
     text-shadow: 0 0 8px rgba(255,255,255,0.4); 
 }
 
-/* Centra il contenitore principale di Streamlit per i radio button */
-.stRadio {
-    display: flex;
-    justify-content: center;
+/* IL TRUCCO REALE: Centra l'intero blocco del widget nello schermo */
+div[data-testid="stRadio"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Centra il box orizzontalmente rispetto alla pagina */
+    justify-content: center !important;
+    width: 100% !important;
 }
 
-/* Riquadro e opzioni centrati */
+/* Riquadro e opzioni compressi e posizionati al centro */
 div[role="radiogroup"] {
     background-color: rgba(255, 255, 255, 0.05); 
-    padding: 25px 50px; /* Aggiunto un po' di margine interno per farlo respirare */
+    padding: 25px 45px !important; 
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2); 
-    display: flex;
-    flex-direction: column;
-    
-    /* I DUE COMANDI MAGICI PER CENTRARE IL BOX */
-    width: fit-content !important; /* Fa restringere il box alla dimensione del testo */
-    margin: 0 auto; /* Centra fisicamente il box nello schermo */
+    display: flex !important;
+    flex-direction: column !important;
+    width: fit-content !important; /* Stringe il box attorno alle risposte */
+    min-width: 280px; /* Evita che si rimpicciolisca troppo con risposte cortissime */
 }
 
-/* Allineamento delle opzioni (lasciamo i pallini allineati a sinistra per eleganza e leggibilità) */
+/* Gestione delle singole opzioni all'interno del box */
 label[data-baseweb="radio"] {
-    width: 100%;
-    margin-bottom: 8px; /* Un po' di spazio tra una risposta e l'altra */
+    width: 100% !important;
+    margin-bottom: 10px; /* Spazio verticale tra i pallini delle risposte */
+    justify-content: flex-start !important; /* Mantiene i pallini allineati a sinistra DENTRO il box ordinatamente */
 }
 
 div[role="radiogroup"] p {
