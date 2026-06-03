@@ -59,7 +59,14 @@ DOMANDE_GLADIATOR = [
     {"id": 3, "domanda": "Traduci in latino la seguente frase: Marco ha molti amici", "opzioni": ["Marcus multos amicos habet", "Marco multi amici erant", "Marcus multos amicos habebat", "Marco multi amici sunt"], "corretta": "Marco multi amici sunt"},
     {"id": 4, "domanda": "Roboris è...", "opzioni": ["il dativo/ablativo plurale di vir", "il genitivo singolare di vis", "il dativo/ablativo plurale di virus", "nessuna delle precedenti"], "corretta": "il genitivo singolare di vis"},
     {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt"},
+    {"id": 6, "domanda": "Nella frase 'Caesar suis auxilio venit', auxilio è...", "opzioni": ["dativo di fine", "ablativo di strumento", "dativo di vantaggio", "ablativo di modo"], "corretta": "dativo di fine"},
+    {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
     {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"}
+    {"id": 9, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
+
+
+
+
 ]
 DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
 
