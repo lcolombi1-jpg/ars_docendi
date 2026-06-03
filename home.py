@@ -31,6 +31,14 @@ if 'quiz_inviato_imp' not in st.session_state:
 if 'risposte_imp' not in st.session_state:
     st.session_state.risposte_imp = {}
 
+# Aggiungi queste righe sotto alle altre variabili di stato
+if 'indice_disc' not in st.session_state:
+    st.session_state.indice_disc = 0
+if 'indice_glad' not in st.session_state:
+    st.session_state.indice_glad = 0
+if 'indice_imp' not in st.session_state:
+    st.session_state.indice_imp = 0
+
 # --- DOMANDE DEI TEST ---
 DOMANDE_DISCIPULUS = [
     {"id": 1, "domanda": "Barbari _______________ veniunt", "opzioni": ["Romae", "ad Romam", "Romam", "Romā"], "corretta": "Romam"},
@@ -325,28 +333,72 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
     st.markdown("> *Rispondi correttamente ad almeno 8 domande su 10 per dimostrare il tuo valore e sbloccare l'arena dei Gladiatori.*")
     st.write("---")
 
-    for q in DOMANDE_DISCIPULUS:
-        st.markdown(f'<p class="quiz-question">Domanda {q["id"]}: {q["domanda"]}</p>', unsafe_allow_html=True)
-        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
-        scelta = st.radio(
-            f"Opzioni per domanda {q['id']}", opzioni_con_default, key=f"d_q_{q['id']}", 
-            label_visibility="collapsed", disabled=st.session_state.quiz_inviato_disc
-        )
-        if scelta != "Seleziona una risposta...":
-            st.session_state.risposte_disc[q["id"]] = scelta
-
-    st.write("---")
-
     if not st.session_state.quiz_inviato_disc:
-        st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
-        if st.button("CONSEGNA IL TEST", key="submit_quiz_disc"):
-            if len(st.session_state.risposte_disc) < 10:
-                st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
+        
+        # --- BARRA DI PROGRESSO ESTETICA ---
+        progresso = st.session_state.indice_disc / (len(DOMANDE_DISCIPULUS) - 1)
+        st.progress(progresso)
+        
+        # --- PESCHIAMO LA DOMANDA CORRENTE ---
+        q = DOMANDE_DISCIPULUS[st.session_state.indice_disc]
+        
+        st.markdown(f'<p class="quiz-question">Domanda {st.session_state.indice_disc + 1} di {len(DOMANDE_DISCIPULUS)}<br><span style="color:#00f0ff;">{q["domanda"]}</span></p>', unsafe_allow_html=True)
+        opzioni_con_default = ["Seleziona una risposta..."] + q["opzioni"]
+        
+        # Capiamo se l'utente aveva già risposto a questa domanda (per pre-selezionare il pallino)
+        default_index = 0
+        if q["id"] in st.session_state.risposte_disc:
+            risposta_salvata = st.session_state.risposte_disc[q["id"]]
+            if risposta_salvata in opzioni_con_default:
+                default_index = opzioni_con_default.index(risposta_salvata)
+
+        # Usiamo le 3 colonne per centrare il box come abbiamo visto prima
+        col_left, col_center, col_right = st.columns([1, 2, 1])
+        with col_center:
+            scelta = st.radio(
+                f"Opzioni per domanda {q['id']}", 
+                opzioni_con_default, 
+                index=default_index, 
+                key=f"d_q_{q['id']}", 
+                label_visibility="collapsed"
+            )
+            if scelta != "Seleziona una risposta...":
+                st.session_state.risposte_disc[q["id"]] = scelta
+
+        st.write("---")
+
+        # --- BOTTONI DI NAVIGAZIONE (AVANTI / INDIETRO / CONSEGNA) ---
+        col_nav1, col_nav2, col_nav3 = st.columns([1, 2, 1])
+        
+        with col_nav1:
+            if st.session_state.indice_disc > 0:
+                if st.button("⬅️ Indietro", key="prev_disc"):
+                    st.session_state.indice_disc -= 1
+                    st.rerun()
+                    
+        with col_nav3:
+            # Se NON siamo all'ultima domanda, mostra AVANTI
+            if st.session_state.indice_disc < len(DOMANDE_DISCIPULUS) - 1:
+                if st.button("Avanti ➡️", key="next_disc"):
+                    st.session_state.indice_disc += 1
+                    st.rerun()
+            # Se SIAMO all'ultima domanda, mostra CONSEGNA
             else:
-                st.session_state.quiz_inviato_disc = True
-                st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
+                if st.button("CONSEGNA IL TEST", key="submit_quiz_disc"):
+                    if len(st.session_state.risposte_disc) < len(DOMANDE_DISCIPULUS):
+                        st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
+                    else:
+                        st.session_state.quiz_inviato_disc = True
+                        st.rerun()
+
+        # Bottone per tornare alla mappa durante il quiz
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Torna indietro", key="back_map_d"):
+            st.session_state.pagina_corrente = 'archi'
+            st.rerun()
+
     else:
+        # --- GESTIONE RISULTATI (appare solo dopo la consegna) ---
         punteggio = sum(1 for q in DOMANDE_DISCIPULUS if st.session_state.risposte_disc.get(q["id"]) == q["corretta"])
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
@@ -361,6 +413,7 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
             if st.button("Torna alla Mappa", key="action_btn_d1"):
                 st.session_state.quiz_inviato_disc = False
                 st.session_state.risposte_disc = {}
+                st.session_state.indice_disc = 0 # AZZERA L'INDICE!
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
         with col_res2:
@@ -368,13 +421,8 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
                 if st.button("Riprova il Test", key="action_btn_d2"):
                     st.session_state.quiz_inviato_disc = False
                     st.session_state.risposte_disc = {}
+                    st.session_state.indice_disc = 0 # AZZERA L'INDICE!
                     st.rerun()
-
-    if not st.session_state.quiz_inviato_disc:
-        st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Torna indietro", key="back_map_d"):
-            st.session_state.pagina_corrente = 'archi'
-            st.rerun()
 
 
 # ================================
