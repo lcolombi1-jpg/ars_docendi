@@ -61,11 +61,13 @@ DOMANDE_GLADIATOR = [
     {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt"},
     {"id": 6, "domanda": "Nella frase 'Caesar suis auxilio venit', auxilio è...", "opzioni": ["dativo di fine", "ablativo di strumento", "dativo di vantaggio", "ablativo di modo"], "corretta": "dativo di fine"},
     {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
-    {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"}
+    {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"},
     {"id": 9, "domanda": "Individua il termine a cui si riferisce il nesso relativo: 'Intemperantia omnem animi statum inflammat, conturbat, incitat; ex qua et aegritudines et metus et reliquae perturbationes omnes gignuntur'", "opzioni": ["animi", "intemperantia", "omnem", "inflammat"], "corretta": "intemperantia"},
     {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
 ]
-DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 31)]
+
+# Modificato per generare solo 10 domande per l'Imperator
+DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 11)]
 
 # --- 2. STILI CSS ---
 st.markdown("""
@@ -464,7 +466,7 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
 elif st.session_state.pagina_corrente == 'test_gladiator':
     st.markdown('<div class="title" style="text-shadow: 0 0 10px #d64dff, 0 0 40px #d64dff;"><h1 style="text-shadow: 0 0 10px #d64dff, 0 0 40px #d64dff;">GLADIATOR</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle" style="color:#d64dff;">L\'ARENA INTERMEDIA</div>', unsafe_allow_html=True)
-    st.markdown("> *Rispondi correttamente ad almeno 17 domande su 20 per sbloccare l'arena IMPERATOR.*")
+    st.markdown("> *Rispondi correttamente ad almeno 8 domande su 10 per sbloccare l'arena IMPERATOR.*")
     st.write("---")
 
     for q in DOMANDE_GLADIATOR:
@@ -485,7 +487,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
     if not st.session_state.quiz_inviato_glad:
         st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
         if st.button("CONSEGNA IL TEST", key="submit_quiz_glad"):
-            if len(st.session_state.risposte_glad) < 20:
+            if len(st.session_state.risposte_glad) < 10:
                 st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
             else:
                 st.session_state.quiz_inviato_glad = True
@@ -493,13 +495,13 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
         st.markdown("</div>", unsafe_allow_html=True)
     else:
         punteggio = sum(1 for q in DOMANDE_GLADIATOR if st.session_state.risposte_glad.get(q["id"]) == q["corretta"])
-        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 20 risposte corrette</h3>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
-        if punteggio >= 17:
+        if punteggio >= 8:
             st.success("⚔️ GLORIOSO! Il sangue dell'arena è tuo. Il grado IMPERATOR è sbloccato!")
             st.session_state.imperator_sbloccato = True
         else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (17/20). Affila la spada e riprova!")
+            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Affila la spada e riprova!")
         
         col_res1, col_res2, _ = st.columns([1, 1, 2])
         with col_res1:
@@ -528,7 +530,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
 elif st.session_state.pagina_corrente == 'test_imperator':
     st.markdown('<div class="title" style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;"><h1 style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;">IMPERATOR</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle" style="color:#ff0077;">LA PROVA FINALE</div>', unsafe_allow_html=True)
-    st.markdown("> *Rispondi correttamente ad almeno 25 domande su 30 per dominare l'Impero.*")
+    st.markdown("> *Rispondi correttamente a 10 domande su 10 per dominare l'Impero.*")
     st.write("---")
 
     for q in DOMANDE_IMPERATOR:
@@ -549,7 +551,7 @@ elif st.session_state.pagina_corrente == 'test_imperator':
     if not st.session_state.quiz_inviato_imp:
         st.markdown("<div style='display: flex; justify-content: center; width: 100%;'>", unsafe_allow_html=True)
         if st.button("CONSEGNA IL TEST", key="submit_quiz_imp"):
-            if len(st.session_state.risposte_imp) < 30:
+            if len(st.session_state.risposte_imp) < 10:
                 st.warning("⚠️ Per favore, rispondi a tutte le domande prima di consegnare!")
             else:
                 st.session_state.quiz_inviato_imp = True
@@ -557,9 +559,9 @@ elif st.session_state.pagina_corrente == 'test_imperator':
         st.markdown("</div>", unsafe_allow_html=True)
     else:
         punteggio = sum(1 for q in DOMANDE_IMPERATOR if st.session_state.risposte_imp.get(q["id"]) == q["corretta"])
-        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 30 risposte corrette</h3>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
-        if punteggio >= 25:
+        if punteggio == 10:
             st.balloons()
             # BANNER EPICO A TUTTO SCHERMO
             st.markdown("""
@@ -569,7 +571,7 @@ elif st.session_state.pagina_corrente == 'test_imperator':
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (25/30). L'Impero attende, riprova!")
+            st.error("❌ Non hai raggiunto il punteggio massimo (10/10). L'Impero attende, riprova!")
         
         col_res1, col_res2, _ = st.columns([1, 1, 2])
         with col_res1:
@@ -579,7 +581,7 @@ elif st.session_state.pagina_corrente == 'test_imperator':
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
         with col_res2:
-            if punteggio < 25:
+            if punteggio < 10:
                 if st.button("Riprova il Test", key="action_btn_i2"):
                     st.session_state.quiz_inviato_imp = False
                     st.session_state.risposte_imp = {}
