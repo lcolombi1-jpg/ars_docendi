@@ -255,7 +255,7 @@ div.stButton > button:disabled {
 .quiz-text {
     font-family: 'Montserrat', sans-serif;
     color: #00f0ff;
-    font-size: 2.8rem !important;  /* <--- Aggiunto !important */
+    font-size: 2.2rem !important;  /* <--- Aggiunto !important */
     font-weight: 600;
     text-align: center;
     margin-bottom: 30px;
