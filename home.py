@@ -33,16 +33,16 @@ if 'risposte_imp' not in st.session_state:
 
 # --- DOMANDE DEI TEST ---
 DOMANDE_DISCIPULUS = [
-    {"id": 1, "domanda": "Chi fu il primo imperatore romano?", "opzioni": ["Giulio Cesare", "Augusto", "Nerone", "Romolo"], "corretta": "Augusto"},
-    {"id": 2, "domanda": "In quale anno fu fondata Roma secondo la tradizione?", "opzioni": ["753 a.C.", "509 a.C.", "476 d.C.", "27 a.C."], "corretta": "753 a.C."},
-    {"id": 3, "domanda": "Quale fiume attraversa la città di Roma?", "opzioni": ["Po", "Arno", "Tevere", "Rubicone"], "corretta": "Tevere"},
-    {"id": 4, "domanda": "Come si chiamava l'anfiteatro più famoso di Roma?", "opzioni": ["Circo Massimo", "Pantheon", "Colosseo", "Foro Romano"], "corretta": "Colosseo"},
-    {"id": 5, "domanda": "Quale divinità romana corrisponde alla greca Atena?", "opzioni": ["Venere", "Minerva", "Giunone", "Diana"], "corretta": "Minerva"},
-    {"id": 6, "domanda": "Chi vinse le guerre puniche?", "opzioni": ["Cartagine", "I Galli", "Roma", "I Greci"], "corretta": "Roma"},
-    {"id": 7, "domanda": "Cosa significava la sigla S.P.Q.R.?", "opzioni": ["Senatus Populusque Romanus", "Salus Populi Romani", "Soli Populo Que Romano", "Spazio Pubblico Quotidiano Romano"], "corretta": "Senatus Populusque Romanus"},
-    {"id": 8, "domanda": "Quale famoso generale pronunciò la frase 'Alea iacta est'?", "opzioni": ["Marco Antonio", "Giulio Cesare", "Scipione l'Africano", "Silla"], "corretta": "Giulio Cesare"},
-    {"id": 9, "domanda": "Chi erano i soldati scelti che proteggevano l'imperatore?", "opzioni": ["Gladiatori", "Pretoriani", "Centurioni", "Legionari"], "corretta": "Pretoriani"},
-    {"id": 10, "domanda": "In quanti colli principali sorgeva l'antica Roma?", "opzioni": ["3", "5", "7", "9"], "corretta": "7"}
+    {"id": 1, "domanda": "Barbari _______________ veniunt", "opzioni": ["Romae", "ad Romam", "Romam", "Romā"], "corretta": "Romam"},
+    {"id": 2, "domanda": "Nautae _______________ non terrentur", "opzioni": ["saevis procellis", "saevas procellas", "saeva procella", "saevae procellae"], "corretta": "saevis procellis"},
+    {"id": 3, "domanda": "_________ Syracusas cum liberis meis veniam", "opzioni": ["proximus annus", "proximi anni", "proximorum annorum", "proximo anno"], "corretta": "proximo anno"},
+    {"id": 4, "domanda": "Romanorum oppida ______________ a Germani oppugnabantur", "opzioni": ["magnā cum ferociā", "magnam ferociam", "ex magnis ferocis", "magnae ferociae"], "corretta": "magnā cum ferociā"},
+    {"id": 5, "domanda": "Persarum __________ longae hastae et acutae sagittae erant", "opzioni": ["copias", "copiarum", "copiis", "copiae"], "corretta": "copiis"},
+    {"id": 6, "domanda": "___________ antiquis temporibus gladiis pugnabant", "opzioni": ["militis", "militem", "miles", "milites"], "corretta": "milites"},
+    {"id": 8, "domanda": "___________ tenebrae solis luce pelluntur", "opzioni": ["nocti", "nox", "noctium", "noctem"], "corretta": "noctium"},
+    {"id": 7, "domanda": "Petronius a Romanis elegantiae ___________ appellabitur", "opzioni": ["arbitri", "arbiter", "arbitrum", "arbitro"], "corretta": "arbiter"},
+    {"id": 9, "domanda": "_______________ auxiliorum dux equites nostros in hibernis detinebat", "opzioni": ["propter moram", "morā", "prae moram", "morarum"], "corretta": "propter moram"},
+    {"id": 10, "domanda": "Macedonum legati Athenas _______________ venient", "opzioni": ["paci causā", "pace", "pacis causā", "ob pacem"], "corretta": "pacis causā"}
 ]
 
 DOMANDE_GLADIATOR = [{"id": i, "domanda": f"Domanda tattica Gladiator numero {i}?", "opzioni": ["Risposta A", "Risposta B", "Risposta C", "Risposta D"], "corretta": "Risposta A"} for i in range(1, 21)]
