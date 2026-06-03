@@ -72,11 +72,11 @@ DOMANDE_IMPERATOR = [
     {"id": 3, "domanda": "Hannibal odium paternum erga Romanos sic conservavit, ut prius vitam quam id ____________.", "opzioni": ["deposuerat", "deposuerit", "deposuisset", "deponat"], "corretta": "deposuerit"},
     {"id": 4, "domanda": "'Comitia indicite, patres, tribunis militum instituendis', instituendis è...", "opzioni": ["gerundio", "participio", "congiuntivo", "gerundivo"], "corretta": "gerundivo"},
     {"id": 5, "domanda": "Nemo quaeret quibus cum mandatis legatos ___________", "opzioni": ["miseramus", "miserimus", "misimus", "misissemus"], "corretta": "miserimus"},
-    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', come si traduce il 'cum'?:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "dativo di fine"},
-    {"id": 7, "domanda": "Nos, qui haec _____________, tamen ignari videbamur.", "opzioni": ["novimus", "novissemus", "noveramus", "noverimus"], "corretta": "peditatus"},
+    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', come si traduce il 'cum'?:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "poiché"},
+    {"id": 7, "domanda": "Nos, qui haec _____________, tamen ignari videbamur.", "opzioni": ["novimus", "novissemus", "noveramus", "noverimus"], "corretta": "novissemus"},
     {"id": 8, "domanda": "Nella frase 'Germani cum pugnaturi sunt animos pugnantium clamoribus et cantibus excitant', c'è...", "opzioni": ["il cum narrativo", "il participio futuro", "l'ablativo assoluto", "la perifrastica attiva"], "corretta": "la perifrastica attiva"},
-    {"id": 9, "domanda": "Plura _________, Quirites, si timidis virtutem verba adderent", "opzioni": ["dicerem", "dixi", "dicebam", "dicam"], "corretta": "intemperantia"},
-    {"id": 10, "domanda": "Pompeius mihi __________ in Hispaniam certe iturus esse", "opzioni": ["videt", "videntur", "videbatur", "videor"], "corretta": "victum iri"}
+    {"id": 9, "domanda": "Plura _________, Quirites, si timidis virtutem verba adderent", "opzioni": ["dicerem", "dixi", "dicebam", "dicam"], "corretta": "dicerem"},
+    {"id": 10, "domanda": "Pompeius mihi __________ in Hispaniam certe iturus esse", "opzioni": ["videt", "videntur", "videbatur", "videor"], "corretta": "videbatur"}
 ]
 
 # --- 2. STILI CSS ---
