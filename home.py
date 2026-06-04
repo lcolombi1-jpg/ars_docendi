@@ -66,18 +66,7 @@ DOMANDE_GLADIATOR = [
     {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
 ]
 
-DOMANDE_IMPERATOR = [
-    {"id": 1, "domanda": "_________ omnia uno tempore erant agenda:", "opzioni": ["Caesar", "Caesaris", "Caesari", "Caesare"], "corretta": "Caesari"},
-    {"id": 2, "domanda": "Nella frase 'te admoneo ne animum tuum mergas in istam sollicitudinem', 'ne' introduce una subordinata:", "opzioni": ["completiva volitiva", "finale", "completiva di fatto", "consecutiva"], "corretta": "completiva volitiva"},
-    {"id": 3, "domanda": "Hannibal odium paternum erga Romanos sic conservavit, ut prius vitam quam id ____________.", "opzioni": ["deposuerat", "deposuerit", "deposuisset", "deponat"], "corretta": "deposuerit"},
-    {"id": 4, "domanda": "'Comitia indicite, patres, tribunis militum instituendis', instituendis è...", "opzioni": ["gerundio", "participio", "congiuntivo", "gerundivo"], "corretta": "gerundivo"},
-    {"id": 5, "domanda": "Nemo quaeret quibus cum mandatis legatos ___________", "opzioni": ["miseramus", "miserimus", "misimus", "misissemus"], "corretta": "miserimus"},
-    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', come si traduce il 'cum'?:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "poiché"},
-    {"id": 7, "domanda": "Nos, qui haec _____________, tamen ignari videbamur.", "opzioni": ["novimus", "novissemus", "noveramus", "noverimus"], "corretta": "novissemus"},
-    {"id": 8, "domanda": "Nella frase 'Germani cum pugnaturi sunt animos pugnantium clamoribus et cantibus excitant', c'è...", "opzioni": ["il cum narrativo", "il participio futuro", "l'ablativo assoluto", "la perifrastica attiva"], "corretta": "la perifrastica attiva"},
-    {"id": 9, "domanda": "Plura _________, Quirites, si timidis virtutem verba adderent", "opzioni": ["dicerem", "dixi", "dicebam", "dicam"], "corretta": "dicerem"},
-    {"id": 10, "domanda": "Pompeius mihi __________ in Hispaniam certe iturus esse", "opzioni": ["videt", "videntur", "videbatur", "videor"], "corretta": "videbatur"}
-]
+DOMANDE_IMPERATOR = [{"id": i, "domanda": f"Quesito strategico Imperator numero {i}?", "opzioni": ["Opzione Alfa", "Opzione Beta", "Opzione Gamma", "Opzione Delta"], "corretta": "Opzione Alfa"} for i in range(1, 11)]
 
 # --- 2. STILI CSS ---
 st.markdown("""
@@ -202,42 +191,20 @@ blockquote {
     line-height: 1.8;
 }
 
-/* 1. DISCIPVLVS (CYAN) */
-.st-key-btn_discipulus button {
-    border: 4px solid #00f0ff !important;
-    color: #00f0ff !important;
-    box-shadow: 0 0 15px #00f0ff, 0 0 50px #00f0ff, 0 0 100px rgba(0,240,255,.5) !important;
-}
+.st-key-btn_discipulus button { border: 4px solid #00f0ff !important; color: #00f0ff !important; box-shadow: 0 0 15px #00f0ff, 0 0 50px #00f0ff, 0 0 100px rgba(0,240,255,.5) !important; }
 .st-key-btn_discipulus button:hover { transform: scale(1.05); background-color: rgba(0, 240, 255, 0.1) !important; }
 
-/* 2. GLADIATOR (VIOLET) */
-.st-key-btn_gladiator button {
-    border: 4px solid #d64dff !important;
-    color: #d64dff !important;
-    box-shadow: 0 0 15px #d64dff, 0 0 50px #d64dff, 0 0 100px rgba(214,77,255,.5) !important;
-}
+.st-key-btn_gladiator button { border: 4px solid #d64dff !important; color: #d64dff !important; box-shadow: 0 0 15px #d64dff, 0 0 50px #d64dff, 0 0 100px rgba(214,77,255,.5) !important; }
 .st-key-btn_gladiator button:hover:not(:disabled) { transform: scale(1.05); background-color: rgba(214, 77, 255, 0.1) !important; }
 
-/* 3. IMPERATOR (PINK) */
-.st-key-btn_imperator button {
-    border: 4px solid #ff0077 !important;
-    color: #ff0077 !important;
-    box-shadow: 0 0 15px #ff0077, 0 0 50px #ff0077, 0 0 100px rgba(255,0,119,.5) !important;
-}
+.st-key-btn_imperator button { border: 4px solid #ff0077 !important; color: #ff0077 !important; box-shadow: 0 0 15px #ff0077, 0 0 50px #ff0077, 0 0 100px rgba(255,0,119,.5) !important; }
 .st-key-btn_imperator button:hover:not(:disabled) { transform: scale(1.05); background-color: rgba(255, 0, 119, 0.1) !important; }
 
-div.stButton > button:disabled {
-    cursor: not-allowed !important;
-    transform: none !important;
-    opacity: 0.65 !important;
-}
+div.stButton > button:disabled { cursor: not-allowed !important; transform: none !important; opacity: 0.65 !important; }
 
-/* --- BOTTONI RETTANGOLARI --- */
-.st-key-ad_maiora_btn, .st-key-back_btn, .st-key-back_map {
-    display: flex !important; justify-content: center !important; width: 100% !important;
-}
+/* --- BOTTONI RETTANGOLARI NORMALI --- */
+.st-key-ad_maiora_btn, .st-key-back_btn, .st-key-back_map { display: flex !important; justify-content: center !important; width: 100% !important; }
 .st-key-ad_maiora_btn button, .st-key-back_btn button, .st-key-submit_quiz button, 
-.st-key-action_btn button, .st-key-action_btn_2 button, .st-key-back_map button,
 .st-key-action_btn_d1 button, .st-key-action_btn_d2 button,
 .st-key-action_btn_g1 button, .st-key-action_btn_g2 button,
 .st-key-action_btn_i1 button, .st-key-action_btn_i2 button,
@@ -252,7 +219,7 @@ div.stButton > button:disabled {
     border: 1px solid #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.5) !important; 
     background: transparent !important; margin: 0 auto !important; display: block !important; transition: all 0.3s ease;
 }
-.st-key-ad_maiora_btn button:hover, .st-key-back_btn button:hover, .st-key-submit_quiz button:hover, .st-key-back_map button:hover,
+.st-key-ad_maiora_btn button:hover, .st-key-back_btn button:hover, .st-key-submit_quiz button:hover,
 .st-key-action_btn_d1 button:hover, .st-key-action_btn_d2 button:hover,
 .st-key-action_btn_g1 button:hover, .st-key-action_btn_g2 button:hover,
 .st-key-action_btn_i1 button:hover, .st-key-action_btn_i2 button:hover,
@@ -264,54 +231,47 @@ div.stButton > button:disabled {
     background-color: rgba(0, 240, 255, 0.2) !important; box-shadow: 0 0 20px #00f0ff !important;
 }
 
-/* --- STILI TEST / QUIZ CENTRATI --- */
-.quiz-counter {
-    font-family: 'Montserrat', sans-serif;
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-align: center;
-    margin-top: 45px;      
-    margin-bottom: 20px;   
-    letter-spacing: 1px;
-    opacity: 0.9;
-}
-
-.quiz-text {
-    font-family: 'Montserrat', sans-serif;
-    color: #00f0ff;
-    font-size: 2.2rem !important;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 30px;
-    text-shadow: 0 0 10px rgba(0,240,255,0.4); 
-}
-
-div[role="radiogroup"] {
-    background-color: rgba(255, 255, 255, 0.05); 
-    padding: 35px 55px !important; 
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2); 
+/* --- BOTTONI SUCCESSO (SOPRA I BANNER A TUTTO SCHERMO) --- */
+.st-key-btn_success_d, .st-key-btn_success_g, .st-key-btn_success_i {
+    position: fixed !important;
+    bottom: 12vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 999999 !important;
     display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    justify-content: center !important;
+    width: auto !important;
+    animation: fadeInBanner 2s ease-in-out;
 }
 
-label[data-baseweb="radio"] {
-    margin-bottom: 14px !important; 
-}
-label[data-baseweb="radio"]:last-child {
-    margin-bottom: 0px !important;
+.st-key-btn_success_d button, .st-key-btn_success_g button, .st-key-btn_success_i button {
+    font-size: 1.2rem !important;
+    padding: 15px 40px !important;
+    letter-spacing: 2px !important;
+    border-width: 2px !important;
+    border-radius: 8px !important;
+    backdrop-filter: blur(5px);
+    font-family: 'Cinzel', serif !important;
+    transition: all 0.3s ease;
 }
 
-div[role="radiogroup"] p {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.25rem !important;
-    color: #ffffff !important; 
-    font-weight: 500;
-    margin-bottom: 0px;
-}
+.st-key-btn_success_d button { border-color: #00f0ff !important; color: #00f0ff !important; background: rgba(0, 240, 255, 0.1) !important; box-shadow: 0 0 20px rgba(0,240,255,0.6) !important; }
+.st-key-btn_success_d button:hover { background: rgba(0, 240, 255, 0.3) !important; transform: scale(1.05); }
+
+.st-key-btn_success_g button { border-color: #d64dff !important; color: #d64dff !important; background: rgba(214, 77, 255, 0.1) !important; box-shadow: 0 0 20px rgba(214,77,255,0.6) !important; }
+.st-key-btn_success_g button:hover { background: rgba(214, 77, 255, 0.3) !important; transform: scale(1.05); }
+
+.st-key-btn_success_i button { border-color: #ff0077 !important; color: #ff0077 !important; background: rgba(255, 0, 119, 0.1) !important; box-shadow: 0 0 20px rgba(255,0,119,0.6) !important; }
+.st-key-btn_success_i button:hover { background: rgba(255, 0, 119, 0.3) !important; transform: scale(1.05); }
+
+/* --- STILI TEST / QUIZ --- */
+.quiz-counter { font-family: 'Montserrat', sans-serif; color: #ffffff; font-size: 1.2rem; font-weight: 500; text-align: center; margin-top: 45px; margin-bottom: 20px; letter-spacing: 1px; opacity: 0.9; }
+.quiz-text { font-family: 'Montserrat', sans-serif; color: #00f0ff; font-size: 2.2rem !important; font-weight: 600; text-align: center; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0,240,255,0.4); }
+
+div[role="radiogroup"] { background-color: rgba(255, 255, 255, 0.05); padding: 35px 55px !important; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex !important; flex-direction: column !important; width: 100% !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+label[data-baseweb="radio"] { margin-bottom: 14px !important; }
+label[data-baseweb="radio"]:last-child { margin-bottom: 0px !important; }
+div[role="radiogroup"] p { font-family: 'Montserrat', sans-serif; font-size: 1.25rem !important; color: #ffffff !important; font-weight: 500; margin-bottom: 0px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -442,21 +402,34 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
         if punteggio >= 8:
-            st.success("🎉 ECCELLENTE! Hai dimostrato di avere la stoffa del guerriero. Il grado GLADIATOR è sbloccato!")
             st.session_state.gladiator_sbloccato = True
-        else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Riprova!")
-        
-        col_res1, col_res2, _ = st.columns([1, 1, 2])
-        with col_res1:
-            if st.button("Torna alla Mappa", key="action_btn_d1"):
+            st.balloons()
+            st.markdown("""
+            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999998; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
+                <h1 style="font-family: 'Cinzel', serif; font-size: clamp(4rem, 12vw, 10rem); color: #00f0ff; text-shadow: 0 0 20px #00f0ff, 0 0 50px #00f0ff, 0 0 80px #00f0ff; margin:0; text-align:center; line-height: 1;">OPTIME!</h1>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-size: clamp(1.2rem, 3vw, 2rem); margin-top: 30px; text-transform: uppercase; letter-spacing: 5px; text-align:center;">GLADIATOR SBLOCCATO!</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Bottone che compare "sopra" l'oscurità del banner
+            if st.button("TORNA ALLA MAPPA", key="btn_success_d"):
                 st.session_state.quiz_inviato_disc = False
                 st.session_state.risposte_disc = {}
                 st.session_state.indice_disc = 0
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
-        with col_res2:
-            if not st.session_state.gladiator_sbloccato:
+                
+        else:
+            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Riprova!")
+            col_res1, col_res2, _ = st.columns([1, 1, 2])
+            with col_res1:
+                if st.button("Torna alla Mappa", key="action_btn_d1"):
+                    st.session_state.quiz_inviato_disc = False
+                    st.session_state.risposte_disc = {}
+                    st.session_state.indice_disc = 0
+                    st.session_state.pagina_corrente = 'archi'
+                    st.rerun()
+            with col_res2:
                 if st.button("Riprova il Test", key="action_btn_d2"):
                     st.session_state.quiz_inviato_disc = False
                     st.session_state.risposte_disc = {}
@@ -535,21 +508,33 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
         if punteggio >= 8:
-            st.success("⚔️ GLORIOSO! Il sangue dell'arena è tuo. Il grado IMPERATOR è sbloccato!")
             st.session_state.imperator_sbloccato = True
-        else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Affila la spada e riprova!")
-        
-        col_res1, col_res2, _ = st.columns([1, 1, 2])
-        with col_res1:
-            if st.button("Torna alla Mappa", key="action_btn_g1"):
+            st.balloons()
+            st.markdown("""
+            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999998; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
+                <h1 style="font-family: 'Cinzel', serif; font-size: clamp(4rem, 12vw, 10rem); color: #d64dff; text-shadow: 0 0 20px #d64dff, 0 0 50px #d64dff, 0 0 80px #d64dff; margin:0; text-align:center; line-height: 1;">OPTIME!</h1>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-size: clamp(1.2rem, 3vw, 2rem); margin-top: 30px; text-transform: uppercase; letter-spacing: 5px; text-align:center;">IMPERATOR SBLOCCATO!</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("TORNA ALLA MAPPA", key="btn_success_g"):
                 st.session_state.quiz_inviato_glad = False
                 st.session_state.risposte_glad = {}
                 st.session_state.indice_glad = 0
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
-        with col_res2:
-            if not st.session_state.imperator_sbloccato:
+                
+        else:
+            st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Affila la spada e riprova!")
+            col_res1, col_res2, _ = st.columns([1, 1, 2])
+            with col_res1:
+                if st.button("Torna alla Mappa", key="action_btn_g1"):
+                    st.session_state.quiz_inviato_glad = False
+                    st.session_state.risposte_glad = {}
+                    st.session_state.indice_glad = 0
+                    st.session_state.pagina_corrente = 'archi'
+                    st.rerun()
+            with col_res2:
                 if st.button("Riprova il Test", key="action_btn_g2"):
                     st.session_state.quiz_inviato_glad = False
                     st.session_state.risposte_glad = {}
@@ -563,7 +548,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
 elif st.session_state.pagina_corrente == 'test_imperator':
     st.markdown('<div class="title" style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;"><h1 style="text-shadow: 0 0 10px #ff0077, 0 0 40px #ff0077;">IMPERATOR</h1></div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle" style="color:#ff0077;">LA PROVA FINALE</div>', unsafe_allow_html=True)
-    st.markdown("> *Rispondi correttamente a 9 domande su 10 per dominare l'Impero.*")
+    st.markdown("> *Rispondi correttamente a 10 domande su 10 per dominare l'Impero.*")
     st.write("---")
 
     if not st.session_state.quiz_inviato_imp:
@@ -622,31 +607,38 @@ elif st.session_state.pagina_corrente == 'test_imperator':
         if st.button("Torna indietro", key="back_map_i"):
             st.session_state.pagina_corrente = 'archi'
             st.rerun()
+            
     else:
         punteggio = sum(1 for q in DOMANDE_IMPERATOR if st.session_state.risposte_imp.get(q["id"]) == q["corretta"])
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
-        if punteggio >= 9:
+        if punteggio == 10:
             st.balloons()
             st.markdown("""
-            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999999; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
+            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999998; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
                 <h1 style="font-family: 'Cinzel', serif; font-size: clamp(4rem, 12vw, 10rem); color: #ff0077; text-shadow: 0 0 20px #ff0077, 0 0 50px #ff0077, 0 0 80px #ff0077; margin:0; text-align:center; line-height: 1;">VENI, VIDI, VICI!</h1>
                 <p style="font-family: 'Montserrat', sans-serif; color: white; font-size: clamp(1.2rem, 3vw, 2rem); margin-top: 30px; text-transform: uppercase; letter-spacing: 5px; text-align:center;">Complimenti, soldato!<br>Nunc est bibendum!</p>
             </div>
             """, unsafe_allow_html=True)
-        else:
-            st.error("❌ Non hai raggiunto il punteggio minimo (9/10). L'Impero attende, riprova!")
-        
-        col_res1, col_res2, _ = st.columns([1, 1, 2])
-        with col_res1:
-            if st.button("Torna alla Mappa", key="action_btn_i1"):
+            
+            if st.button("TORNA ALLA MAPPA", key="btn_success_i"):
                 st.session_state.quiz_inviato_imp = False
                 st.session_state.risposte_imp = {}
                 st.session_state.indice_imp = 0
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
-        with col_res2:
-            if punteggio < 9:
+                
+        else:
+            st.error("❌ Non hai raggiunto il punteggio minimo (10/10). L'Impero attende, riprova!")
+            col_res1, col_res2, _ = st.columns([1, 1, 2])
+            with col_res1:
+                if st.button("Torna alla Mappa", key="action_btn_i1"):
+                    st.session_state.quiz_inviato_imp = False
+                    st.session_state.risposte_imp = {}
+                    st.session_state.indice_imp = 0
+                    st.session_state.pagina_corrente = 'archi'
+                    st.rerun()
+            with col_res2:
                 if st.button("Riprova il Test", key="action_btn_i2"):
                     st.session_state.quiz_inviato_imp = False
                     st.session_state.risposte_imp = {}
