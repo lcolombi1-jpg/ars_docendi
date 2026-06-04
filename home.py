@@ -568,6 +568,14 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
                 
         else:
             st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Affila la spada e riprova!")
+            st.markdown("<h3 style='color: white; margin-top: 30px;'>📚 Analisi degli Errori</h3>", unsafe_allow_html=True)
+for q in DOMANDE_GLADIATOR:
+    risposta_data = st.session_state.risposte_glad.get(q["id"])
+    if risposta_data != q["corretta"]:
+        with st.expander(f"Domanda {q['id']}: {q['domanda']}"):
+            st.markdown(f"**❌ La tua risposta:** {risposta_data}")
+            st.markdown(f"**✅ Risposta corretta:** {q['corretta']}")
+            st.info(f"**📖 Regola:** {q.get('spiegazione', 'Nessuna spiegazione disponibile.')}")
             col_res1, col_res2, _ = st.columns([1, 1, 2])
             with col_res1:
                 if st.button("Torna alla Mappa", key="action_btn_g1"):
@@ -672,6 +680,14 @@ elif st.session_state.pagina_corrente == 'test_imperator':
                 
         else:
             st.error("❌ Non hai raggiunto il punteggio minimo (9/10). L'Impero attende, riprova!")
+            st.markdown("<h3 style='color: white; margin-top: 30px;'>📚 Analisi degli Errori</h3>", unsafe_allow_html=True)
+for q in DOMANDE_IMPERATOR:
+    risposta_data = st.session_state.risposte_imp.get(q["id"])
+    if risposta_data != q["corretta"]:
+        with st.expander(f"Domanda {q['id']}: {q['domanda']}"):
+            st.markdown(f"**❌ La tua risposta:** {risposta_data}")
+            st.markdown(f"**✅ Risposta corretta:** {q['corretta']}")
+            st.info(f"**📖 Regola:** {q.get('spiegazione', 'Nessuna spiegazione disponibile.')}")
             col_res1, col_res2, _ = st.columns([1, 1, 2])
             with col_res1:
                 if st.button("Torna alla Mappa", key="action_btn_i1"):
