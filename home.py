@@ -282,6 +282,24 @@ div[role="radiogroup"] { background-color: rgba(255, 255, 255, 0.05); padding: 3
 label[data-baseweb="radio"] { margin-bottom: 14px !important; }
 label[data-baseweb="radio"]:last-child { margin-bottom: 0px !important; }
 div[role="radiogroup"] p { font-family: 'Montserrat', sans-serif; font-size: 1.25rem !important; color: #ffffff !important; font-weight: 500; margin-bottom: 0px; }
+
+/* --- STILE PERSONALIZZATO PER GLI EXPANDER DI ERRORE --- */
+.stExpander {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+/* Colore del testo dentro l'expander */
+.stExpander p, .stExpander div {
+    color: #ffffff !important;
+}
+st.markdown(f"""
+    <div style="background-color: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; border-left: 4px solid #ff0077;">
+        <p style="color: #ffffff; margin: 0;"><strong>📖 Regola:</strong> {q.get('spiegazione', 'Nessuna spiegazione disponibile.')}</p>
+    </div>
+""", unsafe_allow_html=True)
+
 </style>
 """, unsafe_allow_html=True)
 
