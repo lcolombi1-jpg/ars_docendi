@@ -566,7 +566,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
                 
-else:
+        else:
         punteggio = sum(1 for q in DOMANDE_GLADIATOR if st.session_state.risposte_glad.get(q["id"]) == q["corretta"])
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
