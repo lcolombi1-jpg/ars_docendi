@@ -47,10 +47,10 @@ DOMANDE_DISCIPULUS = [
     {"id": 4, "domanda": "Romanorum oppida ______________ a Germani oppugnabantur", "opzioni": ["magnā cum ferociā", "magnam ferociam", "ex magnis ferocis", "magnae ferociae"], "corretta": "magnā cum ferociā", "spiegazione": "Il complemento di modo si esprime con cum + ablativo; se il sostantivo è accompagnato da un aggettivo, il cum può essere interposto (o omesso)".},
     {"id": 5, "domanda": "Persarum __________ longae hastae et acutae sagittae erant", "opzioni": ["copias", "copiarum", "copiis", "copiae"], "corretta": "copiis", "spiegazione": "Dativo di possesso".},
     {"id": 6, "domanda": "Milites antiquis temporibus __________ pugnabant", "opzioni": ["cum gladiis", "per gladium", "gladium", "gladiis"], "corretta": "gladiis", "spiegazione": "Il complemento di strumento si esprime con l'ablativo semplice (il mezzo, invece, con per + accusativo)"},
-    {"id": 7, "domanda": "Petronius a Romanis elegantiae ___________ appellabitur", "opzioni": ["arbitri", "arbiter", "arbitrum", "arbitro"], "corretta": "arbiter", "spiegazione": "".},
-    {"id": 8, "domanda": "___________ tenebrae solis luce pelluntur", "opzioni": ["nocti", "nox", "noctium", "noctem"], "corretta": "noctium", "spiegazione": "".},
-    {"id": 9, "domanda": "_______________ auxiliorum dux equites nostros in hibernis detinebat", "opzioni": ["propter moram", "morā", "prae moram", "morarum"], "corretta": "propter moram", "spiegazione": "".},
-    {"id": 10, "domanda": "Macedonum legati Athenas _______________ venient", "opzioni": ["paci causā", "pace", "pacis causā", "ob pacem"], "corretta": "pacis causā", "spiegazione": "".}
+    {"id": 7, "domanda": "Petronius a Romanis elegantiae ___________ appellabitur", "opzioni": ["arbitri", "arbiter", "arbitrum", "arbitro"], "corretta": "arbiter", "spiegazione": "Il complemento predicativo del soggetto si esprime in caso nominativo".},
+    {"id": 8, "domanda": "___________ tenebrae solis luce pelluntur", "opzioni": ["nocti", "nox", "noctium", "noctem"], "corretta": "noctium", "spiegazione": "il genitivo plurale di nox, noctis".},
+    {"id": 9, "domanda": "_______________ auxiliorum dux equites nostros in hibernis detinebat", "opzioni": ["propter moram", "morā", "prae moram", "morarum"], "corretta": "propter moram", "spiegazione": "Il complemento di causa esterna si esprime con ob/propter + accusativo".},
+    {"id": 10, "domanda": "Macedonum legati Athenas _______________ venient", "opzioni": ["paci causā", "pace", "pacis causā", "ob pacem"], "corretta": "pacis causā", "spiegazione": "Si tratta del complemento di fine, genitivo + causā (o gratiā)".}
 ]
 
 DOMANDE_GLADIATOR = [
