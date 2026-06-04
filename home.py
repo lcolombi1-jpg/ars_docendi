@@ -312,7 +312,7 @@ if st.session_state.pagina_corrente == 'lobby':
     st.markdown('''
     <div class="lobby-wrapper">
         <div class="lobby-title"><h1>LVDVS</h1></div>
-        <div class="lobby-subtitle">SCEGLI IL TUO DESTINO</div>
+        <div class="lobby-subtitle">IL DESTINO TI ATTENDE</div>
     </div>
     ''', unsafe_allow_html=True)
     
