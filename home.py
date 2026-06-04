@@ -294,11 +294,10 @@ div[role="radiogroup"] p { font-family: 'Montserrat', sans-serif; font-size: 1.2
 .stExpander p, .stExpander div {
     color: #ffffff !important;
 }
-st.markdown(f"""
-    <div style="background-color: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; border-left: 4px solid #ff0077;">
-        <p style="color: #ffffff; margin: 0;"><strong>📖 Regola:</strong> {q.get('spiegazione', 'Nessuna spiegazione disponibile.')}</p>
-    </div>
-""", unsafe_allow_html=True)
+.stInfo {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid #4a4a4a !important;
+    color: #ffffff !important;
 
 </style>
 """, unsafe_allow_html=True)
