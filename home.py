@@ -546,6 +546,7 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
             st.rerun()
             
     else:
+        # RISULTATI GLADIATOR
         punteggio = sum(1 for q in DOMANDE_GLADIATOR if st.session_state.risposte_glad.get(q["id"]) == q["corretta"])
         st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
         
@@ -565,37 +566,11 @@ elif st.session_state.pagina_corrente == 'test_gladiator':
                 st.session_state.indice_glad = 0
                 st.session_state.pagina_corrente = 'archi'
                 st.rerun()
-                
-    else:
-        punteggio = sum(1 for q in DOMANDE_GLADIATOR if st.session_state.risposte_glad.get(q["id"]) == q["corretta"])
-        st.markdown(f"<h3 style='text-align: center; color: white;'>Risultato: {punteggio} / 10 risposte corrette</h3>", unsafe_allow_html=True)
-        
-        if punteggio >= 8:
-            st.session_state.imperator_sbloccato = True
-            st.balloons()
-            st.markdown("""
-            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); z-index: 999998; display: flex; justify-content: center; align-items: center; flex-direction: column; animation: fadeInBanner 1.2s ease-in-out;">
-                <h1 style="font-family: 'Cinzel', serif; font-size: clamp(4rem, 12vw, 10rem); color: #d64dff; text-shadow: 0 0 20px #d64dff, 0 0 50px #d64dff, 0 0 80px #d64dff; margin:0; text-align:center; line-height: 1;">OPTIME!</h1>
-                <p style="font-family: 'Montserrat', sans-serif; color: white; font-size: clamp(1.2rem, 3vw, 2rem); margin-top: 30px; text-transform: uppercase; letter-spacing: 5px; text-align:center;">IMPERATOR SBLOCCATO!</p>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            if st.button("TORNA ALLA MAPPA", key="btn_success_g"):
-                st.session_state.quiz_inviato_glad = False
-                st.session_state.risposte_glad = {}
-                st.session_state.indice_glad = 0
-                st.session_state.pagina_corrente = 'archi'
-                st.rerun()
-                
         else:
             st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Riprova!")
-            
-            # --- QUI COMPAIONO LE SPIEGAZIONI SE AGGIUNTE NEL DIZIONARIO ---
             st.markdown("<h3 style='color: white; margin-top: 30px;'>📚 Analisi degli Errori</h3>", unsafe_allow_html=True)
-            
             for q in DOMANDE_GLADIATOR:
                 risposta_data = st.session_state.risposte_glad.get(q["id"])
-                
                 if risposta_data != q["corretta"]:
                     with st.expander(f"Domanda {q['id']}: {q['domanda']}"):
                         st.markdown(f"**❌ La tua risposta:** {risposta_data}")
