@@ -67,16 +67,16 @@ DOMANDE_GLADIATOR = [
 ]
 
 DOMANDE_IMPERATOR = [
-    {"id": 1, "domanda": "_________ omnia uno tempore erant agenda:", "opzioni": ["Caesar", "Caesaris", "Caesari", "Caesare"], "corretta": "Caesari"},
-    {"id": 2, "domanda": "Nella frase 'te admoneo ne animum tuum mergas in istam sollicitudinem', 'ne' introduce una subordinata:", "opzioni": ["completiva volitiva", "finale", "completiva di fatto", "consecutiva"], "corretta": "completiva volitiva"},
-    {"id": 3, "domanda": "Hannibal odium paternum erga Romanos sic conservavit, ut prius vitam quam id ____________.", "opzioni": ["deposuerat", "deposuerit", "deposuisset", "deponat"], "corretta": "deposuerit"},
-    {"id": 4, "domanda": "'Comitia indicite, patres, tribunis militum instituendis', instituendis è...", "opzioni": ["gerundio", "participio", "congiuntivo", "gerundivo"], "corretta": "gerundivo"},
-    {"id": 5, "domanda": "Nemo quaeret quibus cum mandatis legatos ___________", "opzioni": ["miseramus", "miserimus", "misimus", "misissemus"], "corretta": "miserimus"},
-    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', come si traduce il 'cum'?:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "poiché"},
-    {"id": 7, "domanda": "Nos, qui haec _____________, tamen ignari videbamur.", "opzioni": ["novimus", "novissemus", "noveramus", "noverimus"], "corretta": "novissemus"},
-    {"id": 8, "domanda": "Nella frase 'Germani cum pugnaturi sunt animos pugnantium clamoribus et cantibus excitant', c'è...", "opzioni": ["il cum narrativo", "il participio futuro", "l'ablativo assoluto", "la perifrastica attiva"], "corretta": "la perifrastica attiva"},
-    {"id": 9, "domanda": "Plura _________, Quirites, si timidis virtutem verba adderent", "opzioni": ["dicerem", "dixi", "dicebam", "dicam"], "corretta": "dicerem"},
-    {"id": 10, "domanda": "Pompeius mihi __________ in Hispaniam certe iturus esse", "opzioni": ["videt", "videntur", "videbatur", "videor"], "corretta": "videbatur"}
+    {"id": 1, "domanda": "_________ omnia uno tempore erant agenda:", "opzioni": ["Caesar", "Caesaris", "Caesari", "Caesare"], "corretta": "Caesari", "spiegazione": "Perifrastica passiva, 'Caesari' è il dativo d'agente."},
+    {"id": 2, "domanda": "Nella frase 'te admoneo ne animum tuum mergas in istam sollicitudinem', 'ne' introduce una subordinata:", "opzioni": ["completiva volitiva", "finale", "completiva di fatto", "consecutiva"], "corretta": "completiva volitiva", "spiegazione": "'admoneo' regge una completiva con 'ut'."},
+    {"id": 3, "domanda": "Hannibal odium paternum erga Romanos sic conservavit, ut prius vitam quam id ____________.", "opzioni": ["deposuerat", "deposuerit", "deposuisset", "deponat"], "corretta": "deposuerit", "spiegazione": "Si tratta di una proposizione consecutiva con 'ut' e congiuntivo."},
+    {"id": 4, "domanda": "'Comitia indicite, patres, tribunis militum instituendis', instituendis è...", "opzioni": ["gerundio", "participio", "congiuntivo", "gerundivo"], "corretta": "gerundivo", "spiegazione": "Il gerundivo è un aggettivo verbale, perciò concorda in caso, genere e numero con un sostantivo, senza il quale non ne è possibile l’uso"},
+    {"id": 5, "domanda": "Nemo quaeret quibus cum mandatis legatos ___________", "opzioni": ["miseramus", "miserimus", "misimus", "misissemus"], "corretta": "miserimus", "spiegazione": "Si tratta di un'interrogativa indiretta dipendente da un tempo principale (quaeret è futuro semplice di quaero), perciò l'anteriorità si esprime con il congiuntivo perfetto."},
+    {"id": 6, "domanda": "Nella frase 'Cum Caesar iam Ariminum contendisset, Urbem celeriter multi senatores reliquerunt', come si traduce il 'cum'?:", "opzioni": ["poiché", "con", "mentre", "nessuna delle precedenti"], "corretta": "poiché", "spiegazione": "Si tratta di un cum narrativo con congiuntivo piuccheperfetto (anteriorità)."},
+    {"id": 7, "domanda": "Nos, qui haec _____________, tamen ignari videbamur.", "opzioni": ["novimus", "novissemus", "noveramus", "noverimus"], "corretta": "novissemus", "spiegazione": "Relativa impropria con congiuntivo piuccheperfetto."},
+    {"id": 8, "domanda": "Nella frase 'Germani cum pugnaturi sunt animos pugnantium clamoribus et cantibus excitant', c'è...", "opzioni": ["il cum narrativo", "il participio futuro", "l'ablativo assoluto", "la perifrastica attiva"], "corretta": "la perifrastica attiva", "spiegazione": "Perifrastica attiva = participio futuro al nominativo concordato con il soggetto della frase + verbo essere."},
+    {"id": 9, "domanda": "Plura _________, Quirites, si timidis virtutem verba adderent", "opzioni": ["dicerem", "dixi", "dicebam", "dicam"], "corretta": "dicerem", "spiegazione": "Periodo ipotetico dell'irrealtà."},
+    {"id": 10, "domanda": "Pompeius mihi __________ in Hispaniam certe iturus esse", "opzioni": ["videt", "videntur", "videbatur", "videor"], "corretta": "videbatur", "spiegazione": "Videor costruito personalmente."}
 ]
 # --- 2. STILI CSS ---
 st.markdown("""
