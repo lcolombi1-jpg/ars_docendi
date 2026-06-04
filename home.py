@@ -41,7 +41,7 @@ if 'indice_imp' not in st.session_state:
 
 # --- DOMANDE DEI TEST ---
 DOMANDE_DISCIPULUS = [
-    {"id": 1, "domanda": "Barbari _______________ veniunt", "opzioni": ["Romae", "ad Romam", "Romam", "Romā"], "corretta": "Romam"},
+    {"id": 1, "domanda": "Barbari _______________ veniunt", "opzioni": ["Romae", "ad Romam", "Romam", "Romā"], "corretta": "Romam", "spiegazione": "Con i nomi di città e piccola isola (come Roma), il complemento di moto a luogo si esprime con l'accusativo semplice (senza preposizioni)."},
     {"id": 2, "domanda": "Nautae _______________ non terrentur", "opzioni": ["saevis procellis", "saevas procellas", "saeva procella", "saevae procellae"], "corretta": "saevis procellis"},
     {"id": 3, "domanda": "_________ Syracusas cum liberis meis veniam", "opzioni": ["proximus annus", "proximi anni", "proximorum annorum", "proximo anno"], "corretta": "proximo anno"},
     {"id": 4, "domanda": "Romanorum oppida ______________ a Germani oppugnabantur", "opzioni": ["magnā cum ferociā", "magnam ferociam", "ex magnis ferocis", "magnae ferociae"], "corretta": "magnā cum ferociā"},
@@ -431,6 +431,21 @@ elif st.session_state.pagina_corrente == 'test_discipulus':
                 
         else:
             st.error("❌ Non hai raggiunto il punteggio minimo (8/10). Riprova!")
+            # --- NUOVA SEZIONE: MOSTRA GLI ERRORI E LE SPIEGAZIONI ---
+            st.markdown("<h3 style='color: white; margin-top: 30px;'>📚 Analisi degli Errori</h3>", unsafe_allow_html=True)
+            
+            for q in DOMANDE_DISCIPULUS:
+                risposta_data = st.session_state.risposte_disc.get(q["id"])
+                
+                # Mostriamo la spiegazione SOLO se la risposta è sbagliata
+                if risposta_data != q["corretta"]:
+                    with st.expander(f"Domanda {q['id']}: {q['domanda']}"):
+                        st.markdown(f"**❌ La tua risposta:** {risposta_data}")
+                        st.markdown(f"**✅ Risposta corretta:** {q['corretta']}")
+                        st.info(f"**📖 Regola:** {q.get('spiegazione', 'Nessuna spiegazione disponibile.')}")
+            
+            st.markdown("<br>", unsafe_allow_html=True)
+            # --- FINE NUOVA SEZIONE ---
             col_res1, col_res2, _ = st.columns([1, 1, 2])
             with col_res1:
                 if st.button("Torna alla Mappa", key="action_btn_d1"):
