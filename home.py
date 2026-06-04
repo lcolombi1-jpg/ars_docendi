@@ -55,15 +55,15 @@ DOMANDE_DISCIPULUS = [
 
 DOMANDE_GLADIATOR = [
     {"id": 1, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["lego, legis, lexi, lectum, legere", "fero, fers, tuli, latum, ferre", "moneo, mones, moni, monitum, monere", "ago, agis, agi, actum, agere"], "corretta": "fero, fers, tuli, latum, ferre"},
-    {"id": 2, "domanda": "Nella frase 'dum haec in his locis geruntur', la congiunzione 'dum' significa:", "opzioni": ["dopo che", "prima che", "mentre", "non appena"], "corretta": "mentre"},
-    {"id": 3, "domanda": "Traduci in latino la seguente frase: Marco ha molti amici", "opzioni": ["Marcus multos amicos habet", "Marco multi amici erant", "Marcus multos amicos habebat", "Marco multi amici sunt"], "corretta": "Marco multi amici sunt"},
-    {"id": 4, "domanda": "Roboris è...", "opzioni": ["il dativo/ablativo plurale di vir", "il genitivo singolare di vis", "il dativo/ablativo plurale di virus", "nessuna delle precedenti"], "corretta": "il genitivo singolare di vis"},
-    {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt"},
-    {"id": 6, "domanda": "Nella frase 'Caesar suis auxilio venit', auxilio è...", "opzioni": ["dativo di fine", "ablativo di strumento", "dativo di vantaggio", "ablativo di modo"], "corretta": "dativo di fine"},
-    {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus"},
+    {"id": 2, "domanda": "Nella frase 'dum haec in his locis geruntur...', la congiunzione 'dum' significa:", "opzioni": ["dopo che", "prima che", "mentre", "non appena"], "corretta": "mentre", "spiegazione": "dum + presente = mentre."},
+    {"id": 3, "domanda": "Traduci in latino la seguente frase: Marco ha molti amici", "opzioni": ["Marcus multos amicos habet", "Marco multi amici erant", "Marcus multos amicos habebat", "Marco multi amici sunt"], "corretta": "Marco multi amici sunt", "spiegazione": "Dativo di possesso = verbo essere, nominativo e dativo della persona."},
+    {"id": 4, "domanda": "Roboris è...", "opzioni": ["il dativo/ablativo plurale di vir", "il genitivo singolare di vis", "il dativo/ablativo plurale di virus", "nessuna delle precedenti"], "corretta": "il genitivo singolare di vis."},
+    {"id": 5, "domanda": "Tela saxaque de summo monte in hostes __________", "opzioni": ["coniecti sunt", "coniecerunt", "coniciunt", "coniecta sunt"], "corretta": "coniecta sunt", "spiegazione": "Concordanza tra soggetto (tela saxaque) e verbo nel numero."},
+    {"id": 6, "domanda": "Nella frase 'Caesar suis auxilio venit', auxilio è...", "opzioni": ["dativo di fine", "ablativo di strumento", "dativo di vantaggio", "ablativo di modo"], "corretta": "dativo di fine", "spiegazione": "Si tratta di un doppio dativo, 'suis' è il dativo di vantaggio, mentre 'auxilio' quello di fine."},
+    {"id": 7, "domanda": "__________ adventus victoriae causa nostro exercitui fuit", "opzioni": ["peditatui", "peditatuis", "peditatus", "peditatum"], "corretta": "peditatus", "spiegazione": "Si tratta di un termine di IV declinazione (genitivo in -us)."},
     {"id": 8, "domanda": "Seleziona il paradigma corretto:", "opzioni": ["tango, tangis, tetigi, tactum, tangere", "volo, volis, volui, velle", "trado, tradis, tradi, traditum, tradere", "vinco, vincis, vinxi, vinctum, vincere"], "corretta": "tango, tangis, tetigi, tactum, tangere"},
-    {"id": 9, "domanda": "Individua il termine a cui si riferisce il nesso relativo: 'Intemperantia omnem animi statum inflammat, conturbat, incitat; ex qua et aegritudines et metus et reliquae perturbationes omnes gignuntur'", "opzioni": ["animi", "intemperantia", "omnem", "inflammat"], "corretta": "intemperantia"},
-    {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri"}
+    {"id": 9, "domanda": "Individua il termine a cui si riferisce il nesso relativo: 'Intemperantia omnem animi statum inflammat, conturbat, incitat; ex qua et aegritudines et metus et reliquae perturbationes omnes gignuntur'", "opzioni": ["animi", "intemperantia", "omnem", "inflammat"], "corretta": "intemperantia", "spiegazione": "Il termine con cui concorda in genere e numero è intemperantia."},
+    {"id": 10, "domanda": "Caesar sciebat Gallos a Romanis ___________", "opzioni": ["victum iri", "victuros esse", "victurus esse", "vinctum iri"], "corretta": "victum iri", "spiegazione": "Posteriorità passiva (cfr. complemento d'agente 'a Romanis')."}
 ]
 
 DOMANDE_IMPERATOR = [
